@@ -1,0 +1,13 @@
+
+# Created by https://www.gitignore.io/api/laravel
+
+### Laravel ###
+/vendor
+node_modules/
+npm-debug.log
+
+# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
+.rocketeer/
+
+
+# End of https://www.gitignore.io/api/laravel

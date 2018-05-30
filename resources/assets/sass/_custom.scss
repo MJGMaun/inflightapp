@@ -1,0 +1,512 @@
+// @font-face {
+//     font-family: 'Montserrat-Regular';
+//     src: url('Montserrat-Thin.ttf') format('truetype'), url('Montserrat-Bold.ttf') format('truetype'), url('Montserrat-Regular.ttf') format('truetype');
+// }
+
+// @use postcss-cssnext;
+/* config.css */
+
+:root {
+    --baseColor: #fff;
+}
+
+/* helpers/align.css */
+
+.align {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* helpers/grid.css */
+
+:root {
+    --gridMaxWidth: 20rem;
+    --gridWidth: 90%;
+}
+
+.grid {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--gridMaxWidth);
+    width: var(--gridWidth);
+}
+
+/* helpers/hidden.css */
+
+.hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/* helpers/icon.css */
+
+:root {
+    --iconFill: var(--baseColor);
+}
+
+.icons {
+    display: none;
+}
+
+.icon {
+    display: inline-block;
+    fill: var(--iconFill);
+    font-size: 1rem;
+    height: 1em;
+    vertical-align: middle;
+    width: 1em;
+}
+
+/* layout/base.css */
+
+:root {
+    --htmlFontSize: 100%;
+    --bodyBackgroundColor2: #fff;
+    --bodyBackgroundColor: #181818;
+    --bodyColor: var(--baseColor);
+    --bodyFontFamily: 'Century Gothic';
+    --bodyFontFamilyFallback: sans-serif;
+    --bodyFontSize: 0.875rem;
+    --bodyFontWeight: 400;
+    --bodyLineHeight: 1.5;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: var(--htmlFontSize);
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: var(--bodyBackgroundColor);
+    color: var(--bodyColor);
+    font-family: var(--bodyFontFamily), var(--bodyFontFamilyFallback) !important;
+    font-size: var(--bodyFontSize);
+    font-weight: var(--bodyFontWeight);
+    height: 100%;
+    line-height: var(--bodyLineHeight);
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* modules/anchor.css */
+
+:root {
+    --anchorColor: #eee;
+}
+
+a {
+    color: var(--anchorColor);
+    outline: 0;
+    text-decoration: none;
+}
+
+a:focus,
+a:hover {
+    text-decoration: none;
+}
+
+/* modules/form.css */
+
+:root {
+    --formFieldMargin: 0.875rem;
+}
+
+input {
+    background-image: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    transition: background-color 0.3s;
+}
+
+input[type='submits'] {
+    cursor: pointer;
+}
+
+.form {
+    margin: calc(var(--formFieldMargin) * -1);
+}
+
+.form input[type='password'],
+.form input[type='text'],
+.form input[type='submits'] {
+    width: 100%;
+}
+
+.form__field {
+    display: flex;
+    margin: var(--formFieldMargin);
+}
+
+.form__field2 {
+    display: flex;
+    margin: var(--formFieldMargin);
+    margin-left: 220px;
+}
+
+.form__field3 {
+    display: flex;
+    margin: var(--formFieldMargin);
+    text-align: center;
+}
+
+.form__input {
+    flex: 1;
+}
+
+/* modules/login.css */
+
+:root {
+    --loginBorderRadus: 0.25rem;
+    --loginColor: #eee;
+    --loginInputBackgroundColor: #3b4148;
+    --loginInputHoverBackgroundColor: #434a52;
+    --loginLabelBackgroundColor: #363b41;
+    --loginSubmitBackgroundColor: #1F175A;
+    --loginSubmitColor: #eee;
+    --loginSubmitHoverBackgroundColor: #9A9A9A;
+}
+
+.login {
+    color: var(--loginColor);
+}
+
+.login label,
+.login input[type='text'],
+.login input[type='password'],
+.login input[type='submits'] {
+    border-radius: var(--loginBorderRadus);
+    padding: 1rem;
+}
+
+.login label {
+    background-color: var(--loginLabelBackgroundColor);
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+.login input[type='password'],
+.login input[type='text'] {
+    background-color: var(--loginInputBackgroundColor);
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.login input[type='password']:focus,
+.login input[type='password']:hover,
+.login input[type='text']:focus,
+.login input[type='text']:hover {
+    background-color: var(--loginInputHoverBackgroundColor);
+}
+
+.login input[type='submits'] {
+    background-color: var(--loginSubmitBackgroundColor);
+    color: var(--loginSubmitColor);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.login input[type='submits']:focus,
+.login input[type='submits']:hover {
+    background-color: var(--loginSubmitHoverBackgroundColor);
+}
+
+/* modules/text.css */
+
+:root {
+    --paragraphMarginBottom: 1.5rem;
+    --paragraphMarginTop: 1.5rem;
+}
+
+p {
+    margin-bottom: var(--paragraphMarginBottom);
+    margin-top: var(--paragraphMarginTop);
+}
+
+.text--center {
+    text-align: center;
+}
+
+.header {
+    color: #fff;
+    background-color: #232323;
+    opacity: 0.9;
+    filter: alpha(opacity=60);
+    /* For IE8 and earlier */
+}
+
+.footer {
+    padding-top: -40px !important;
+    margin-bottom: -12px !important;
+    color: #fff;
+    background-color: #1C1C1C;
+    opacity: 0.9;
+    filter: alpha(opacity=60);
+    /* For IE8 and earlier */
+}
+
+.navbar-light {
+    border-width: 0px;
+    -webkit-box-shadow: 0px 0px;
+    box-shadow: 0px 0px;
+    background-color: rgba(0, 0, 0, 0.0);
+    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0%, rgba(0, 0, 0, 0.00)), color-stop( 100%, rgba(0, 0, 0, 0.00)));
+    background-image: -webkit-linear-gradient(270deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.00) 100%);
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.00) 100%);
+}
+
+.music {
+    background: url('/images/music.jpg') no-repeat;
+    -webkit-background-size: 100% auto;
+    -moz-background-size: 100% auto;
+    -o-background-size: 100% auto;
+    background-size: 100% auto;
+    height: 600px;
+    opacity: 0.7;
+    text-align: center;
+    transition: opacity 1s;
+}
+
+.music:hover {
+    opacity: 1;
+}
+
+.movies {
+    background: url('/images/movies.jpg') no-repeat;
+    -webkit-background-size: 100% auto;
+    -moz-background-size: 100% auto;
+    -o-background-size: 100% auto;
+    background-size: 100% auto;
+    height: 600px;
+    opacity: 0.7;
+    text-align: center;
+    transition: opacity 1s;
+}
+
+.movies:hover {
+    opacity: 1;
+}
+
+.padding-0 {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.icon-box {
+    width: 170px;
+    height: 170px;
+    margin-top: 27%;
+    background-color: #000;
+    opacity: 0.9;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 3s;
+}
+
+.icon-box:hover {
+    background-color: #151515;
+}
+
+.my-box {
+    display: inline-block;
+    color: #fff;
+    margin-top: 25px;
+}
+
+.main-container {
+    margin: 0 auto 60px auto;
+    width: 80%;
+}
+
+.row2 {
+    margin: 20px auto 0px auto;
+}
+
+.column {
+    margin: 20px auto 0px auto;
+}
+
+.movie-image {
+    margin: 0px auto 0px auto;
+    cursor: pointer;
+    height: 225px;
+    width: 160px;
+}
+
+.movie-images {
+    cursor: pointer;
+    height: 225px;
+    width: 160px;
+}
+
+.mubi {
+    height: 225px;
+    width: 160px;
+    border: 2px solid #fff;
+}
+
+span.name {
+    color: white;
+}
+
+div.another-nav {
+    margin-top: 20px;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    padding: 15px;
+}
+
+.another-link {
+    color: #fff;
+    margin: 10px auto 10px 20px;
+}
+
+/*MY HOVER */
+
+.hovereffect {
+    width: 100%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default;
+}
+
+.hovereffect .overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out
+}
+
+.hovereffect img {
+    display: block;
+    position: relative;
+    -webkit-transition: all .4s linear;
+    transition: all .4s linear;
+}
+
+.hovereffect h2 {
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.6);
+    -webkit-transform: translatey(-100px);
+    -ms-transform: translatey(-100px);
+    transform: translatey(-100px);
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    padding: 10px;
+}
+
+.hovereffect a.info {
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    color: #fff;
+    border: 1px solid #fff;
+    background-color: transparent;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    margin: 50px 0 0;
+    padding: 7px 14px;
+}
+
+.hovereffect a.info:hover {
+    box-shadow: 0 0 5px #fff;
+}
+
+.hovereffect:hover img {
+    -ms-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+.hovereffect:hover .overlay {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.hovereffect:hover h2,
+.hovereffect:hover a.info {
+    opacity: 1;
+    filter: alpha(opacity=100);
+    -ms-transform: translatey(0);
+    -webkit-transform: translatey(0);
+    transform: translatey(0);
+}
+
+.hovereffect:hover a.info {
+    -webkit-transition-delay: .2s;
+    transition-delay: .2s;
+}
+
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0.1;
+}
+
+.container {
+    padding: 70px;
+}
+
+.align {}
+
+.pull-right {
+    float: right !important;
+}
+
+.title {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.fa-angle-left {
+    margin-top: 5px;
+}
+
+a.my-link {
+    transition: color 1s !important;
+}
+
+a.my-link:hover {
+    color: #CA3D3D !important;
+}
