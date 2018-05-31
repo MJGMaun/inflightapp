@@ -59,7 +59,8 @@ class MoviesController extends Controller
             'release_date' => 'required',
             // 'casts' => 'required',
             // 'genres' => 'required',
-            'cover_image' => 'image|nullable|max:1999',
+            'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg',
+            'movie_video' => 'required|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
             'movie_description' => 'required',
         ]);
 
@@ -87,7 +88,7 @@ class MoviesController extends Controller
             //Get just ext
             $extension = $request->file('movie_video')->getClientOriginalExtension();
             //Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStoreVid = $filename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('movie_video')->storeAs('public/movie_videos', $fileNameToStoreVid);
         } else {

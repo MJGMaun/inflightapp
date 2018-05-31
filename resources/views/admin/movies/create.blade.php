@@ -52,7 +52,7 @@
         </div><br>
         <div class="form-group">
             {{Form::label('movie_description', 'Movie Description')}}
-            {{Form::textarea('movie_description', '', ['class' => 'form-control', 'placeholder' => 'Body Text'])}}
+            {{Form::textarea('movie_description', '', ['class' => 'form-control', 'placeholder' => 'Enter movie description here'])}}
         </div>
         <div class="form-group">
             {{Form::submit('Save', ['class' => 'btn btn-primary '])}}
