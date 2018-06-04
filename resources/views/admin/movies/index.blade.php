@@ -21,6 +21,8 @@
                     <th>Title</th>
                     {{--
                     <th>Movie Description</th> --}}
+                    <th>Genres</th>
+                    <th>Casts</th>
                     <th>Language</th>
                     <th>Running Time</th>
                     <th>Release Date</th>
@@ -31,6 +33,7 @@
                 </tr>
             </thead>
             <tbody>
+                @if(count($movies))
                 @foreach($movies as $movie)
                 <tr>
                     <td>
@@ -38,15 +41,25 @@
                     <td>{{$movie->title}}</td>
                     {{--
                     <td>{{$movie->movie_description}}</td> --}}
+                    <td>@foreach($movie->genres as $genre)
+                        <li>{{ $genre->name }} </li>
+                    @endforeach</td>
+                    <td>{{$movie->cast}}</td>
                     <td>{{$movie->language}}</td>
                     <td>{{$movie->running_time}}</td>
                     <td>{{$movie->release_date}}</td>
                     <td>{{$movie->movie_video}}</td>
                     <td>{{$movie->created_at}}</td>
                     <td>{{$movie->updated_at}}</td>
-                    <th></th>
+                    <td><div class="row">
+                        <a href="/admin/movies/{{$movie->id}}/edit" class="btn btn-sm btn-primary edit-movie"><span data-feather="edit"></span></a>&nbsp;
+                        {!!Form::open(['action' => ['Admin\MoviesController@destroy', $movie->id], 'method' => 'POST', 'class' => 'float-right'])!!}
+                        {{Form::hidden('_method', 'DELETE')}}
+                        {{Form::button('<span data-feather="trash-2"></span>',['class' => 'btn btn-sm btn-danger delete-movie'])}}
+                        {!!Form::close()!!}</div></td>
                 </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
     </div>
@@ -71,24 +84,35 @@
                             data.substr(0, 10) + '…' :
                             data;
                     }
-                }
-                ,
+                },
                 {
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": "<button class='btn btn-primary edit-movie'>Edit</button>&nbsp;<button class='btn btn-danger delete-movie'>Delete</button>"
+                    "targets": 7,
+                    render: function (data, type, row) {
+                        return data.length > 10 ?
+                            data.substr(0, 10) + '…' :
+                            data;
+                    }
                 }
             ]
         });
-        var table = $('#movies-table').DataTable();
-        $('#movies-table tbody').on('click', '.btn.btn-primary.edit-movie', function () {
-            var data = table.row($(this).parents('tr')).data();
-            alert(data[2] + "'s salary is: " + data[3]);
-        });
-        $('#movies-table tbody').on('click', '.btn.btn-danger.delete-movie', function () {
-            var data = table.row($(this).parents('tr')).data();
-            alert(data[2] + "'s salary is: " + data[3]);
-        });
+        // var table = $('#movies-table').DataTable();
+        // $('#movies-table tbody').on('click', '.btn.btn-primary.edit-movie', function () {
+        //     var data = table.row($(this).parents('tr')).data();
+        // });
+        // $('#movies-table tbody').on('click', '.btn.btn-danger.delete-movie', function () {
+        //     var data = table.row($(this).parents('tr')).data();
+        // });
+
+        $(window).keypress(function(e) {
+                  var video = document.getElementById("player");
+                  if (e.which == 32) {
+                    if (video.paused == true)
+                      video.play();
+                    else
+                      video.pause();
+                  }
+                });
+
     });
 </script>
 @endsection

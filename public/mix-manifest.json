@@ -2,5 +2,8 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/admin.css": "/css/admin.css",
-    "/js/feather.min.js": "/js/feather.min.js"
+    "/js/admin.js": "/js/admin.js",
+    "/js/feather.min.js": "/js/feather.min.js",
+    "/js/tagmanager.js": "/js/tagmanager.js",
+    "/js/typeahead.js": "/js/typeahead.js"
 }

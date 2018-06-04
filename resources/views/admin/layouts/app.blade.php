@@ -17,7 +17,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet"> @yield('css')
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css">
 
 </head>
 
@@ -36,9 +35,9 @@
             </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    @yield('script')
+    <script src="{{ asset('js/admin.js') }}"></script>
     <script src="{{ asset('js/feather.min.js') }}"></script>
+    @yield('script')
     <script>
         feather.replace()
     </script>

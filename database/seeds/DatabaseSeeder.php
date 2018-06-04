@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleTableSeeder::class);
         // User seeder will use the roles above created.
         $this->call(UserTableSeeder::class);
+        // Genre seeder will use the genres above created.
+        $this->call(GenreTableSeeder::class);
     }
 }
