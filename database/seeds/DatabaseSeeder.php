@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         // Genre seeder will use the genres above created.
         $this->call(GenreTableSeeder::class);
+        // Movie factory.
+        factory(App\Model\Movie::class,10)->create();
     }
 }

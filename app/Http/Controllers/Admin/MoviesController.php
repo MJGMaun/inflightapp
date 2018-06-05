@@ -57,12 +57,13 @@ class MoviesController extends Controller
         $this->validate($request, [ 
             'title' => 'required',
             'language' => 'required',
+            'category' => 'required',
             'running_time' => 'required',
             'release_date' => 'required',
             'cast' => 'required',
             'genres' => 'required',
             'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg',
-            'movie_video' => 'required|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
+            'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
             'movie_description' => 'required',
         ]);
 
@@ -79,7 +80,7 @@ class MoviesController extends Controller
             //Upload image
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         } else {
-            $fileNameToStore = 'noimage.jpeg';
+            $fileNameToStore = 'noimage.jpg';
         }
         //Handle File Movie
         if($request->hasFile('movie_video')){
@@ -94,7 +95,7 @@ class MoviesController extends Controller
             //Upload image
             $path = $request->file('movie_video')->storeAs('public/movie_videos', $fileNameToStoreVid);
         } else {
-            $fileNameToStoreVid = 'novideo.jpeg';
+            $fileNameToStoreVid = 'novideo.png';
         }
 
 
@@ -103,6 +104,7 @@ class MoviesController extends Controller
         $movie->title = $request->input('title');
         $movie->movie_description = $request->input('movie_description');
         $movie->cast = $request->input('cast');
+        $movie->category = $request->input('category');
         $movie->language = $request->input('language');
         $movie->running_time = $request->input('running_time');
         $movie->release_date = $request->input('release_date');
@@ -268,11 +270,11 @@ class MoviesController extends Controller
         $movie->genres()->detach();
 
         $request->user()->authorizeRoles(['admin']);
-        if($movie->cover_image != 'noimage.jpeg'){
+        if($movie->cover_image != 'noimage.jpg'){
             // Delete Image
             Storage::delete('public/cover_images/'.$movie->cover_image);
         }
-        if($movie->movie_videos != 'novideo.jpeg'){
+        if($movie->movie_videos != 'novideo.png'){
             // Delete Image
             Storage::delete('public/movie_videos/'.$movie->movie_video);
         }

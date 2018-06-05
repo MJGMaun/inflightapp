@@ -37,7 +37,7 @@
                 @foreach($movies as $movie)
                 <tr>
                     <td>
-                        <img height="50px" width="50px" src="/storage/cover_images/{{$movie->cover_image}}" /><span class="d-none">{{$movie->cover_image}}</span></td>
+                        <img height="50px" width="60px" src="/storage/cover_images/{{$movie->cover_image}}" /><span class="d-none">{{$movie->cover_image}}</span></td>
                     <td>{{$movie->title}}</td>
                     {{--
                     <td>{{$movie->movie_description}}</td> --}}
