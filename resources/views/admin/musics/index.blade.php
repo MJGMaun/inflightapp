@@ -1,21 +1,19 @@
-@extends('admin.layouts.app')
-@section('content')
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group mr-2">
-                    <button class="btn btn-sm btn-outline-secondary">Share</button>
-                    <button class="btn btn-sm btn-outline-secondary">Export</button>
-                </div>
-                <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                    <span data-feather="calendar"></span>
-                    This week
-                </button>
-            </div>
-        </div>
+@extends('admin.layouts.app') @section('css') @endsection @section('content')
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Music</h1>
+</div>
 
-        <h5>Section title</h5>
-        <div class="table-responsive">
+<a class="btn btn-sm btn-primary" href="/admin/musics/create">
+    <span data-feather="plus"></span>
+    Add Song
+</a>
+<br>
+<br>
+
+
+<div style="width: 100%; padding-left: -10px; border: 1px;" class="card card-body bg-light">
+    <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>
@@ -141,5 +139,57 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+    </div>
+</div>
+
+@endsection @section('script') {!!Html::script('js/datatable/dataTables.buttons.min.js')!!} {!!Html::script('js/datatable/buttons.flash.min.js')!!}
+{!!Html::script('js/datatable/jszip.min.js')!!} {!!Html::script('js/datatable/pdfmake.min.js')!!} {!!Html::script('js/datatable/vfs_fonts.js')!!}
+{!!Html::script('js/datatable/buttons.html5.min.js')!!} {!!Html::script('js/datatable/buttons.print.min.js')!!}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#movies-table').DataTable({
+            dom: 'Bfrtip',
+            responsive: true,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            "columnDefs": [
+                {
+                    "targets": 5,
+                    render: function (data, type, row) {
+                        return data.length > 10 ?
+                            data.substr(0, 10) + '…' :
+                            data;
+                    }
+                },
+                {
+                    "targets": 7,
+                    render: function (data, type, row) {
+                        return data.length > 10 ?
+                            data.substr(0, 10) + '…' :
+                            data;
+                    }
+                }
+            ]
+        });
+        // var table = $('#movies-table').DataTable();
+        // $('#movies-table tbody').on('click', '.btn.btn-primary.edit-movie', function () {
+        //     var data = table.row($(this).parents('tr')).data();
+        // });
+        // $('#movies-table tbody').on('click', '.btn.btn-danger.delete-movie', function () {
+        //     var data = table.row($(this).parents('tr')).data();
+        // });
+
+        $(window).keypress(function(e) {
+                  var video = document.getElementById("player");
+                  if (e.which == 32) {
+                    if (video.paused == true)
+                      video.play();
+                    else
+                      video.pause();
+                  }
+                });
+
+    });
+</script>
 @endsection

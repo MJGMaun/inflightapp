@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Movie;
-use App\Genre;
+use App\Music;
 use App\Http\Controllers\Controller;
 
-class MoviesController extends Controller
+class MusicsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,9 +26,9 @@ class MoviesController extends Controller
     {   
         $request->user()->authorizeRoles(['admin']);
 
-        $movies = Movie::orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.movies.index', compact('movies'));
-        // return view('movies.index')->with('movies', $movies);
+        // $musics = Music::orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.musics.index'); //, compact('name')
+        // return view('musics.index')->with('musics', $musics);
     }
 
     /**
@@ -42,8 +40,32 @@ class MoviesController extends Controller
     {
         $request->user()->authorizeRoles(['admin']);
 
-        $genres = Genre::orderBy('name', 'asc')->get();
-        return view('admin.movies.create', compact('genres'));
+        // $genres = Genre::orderBy('name', 'asc')->get();
+        return view('admin.musics.create');
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createByAlbum(Request $request)
+    {
+        $request->user()->authorizeRoles(['admin']);
+
+        // $genres = Genre::orderBy('name', 'asc')->get();
+        return view('admin.musics.createByAlbum');
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createArtist(Request $request)
+    {
+        $request->user()->authorizeRoles(['admin']);
+
+        // $genres = Genre::orderBy('name', 'asc')->get();
+        return view('admin.musics.createArtist');
     }
 
     /**
@@ -120,7 +142,7 @@ class MoviesController extends Controller
             ->attach(Genre::where('name', $genre)->first());
         }
 
-        return redirect('/admin/movies')->with('success', 'Movie Uploaded');
+        return redirect('/admin/musics')->with('success', 'Movie Uploaded');
     }
 
     /**
@@ -132,7 +154,7 @@ class MoviesController extends Controller
     public function show($id, Request $request)
     {
         $request->user()->authorizeRoles(['admin']);
-        return view('movies.show');
+        return view('musics.show');
     }
 
     /**
@@ -152,7 +174,7 @@ class MoviesController extends Controller
 
         // Check if it is the current user if not, redirect to posts
         $request->user()->authorizeRoles(['admin']);
-        return view('admin.movies.edit', compact('movie', 'genres', 'movie_genres'));
+        return view('admin.musics.edit', compact('movie', 'genres', 'movie_genres'));
     }
 
     /**
@@ -255,7 +277,7 @@ class MoviesController extends Controller
         //         ->attach(Genre::where('name', $genre)->first());
         //     }
         // }
-        return redirect('/admin/movies')->with('success', 'Movie Updated');
+        return redirect('/admin/musics')->with('success', 'Movie Updated');
     }
 
     /**
@@ -280,6 +302,6 @@ class MoviesController extends Controller
         }
 
         $movie->delete();
-        return redirect('/admin/movies')->with('success', 'Movie Removed');
+        return redirect('/admin/musics')->with('success', 'Movie Removed');
     }
 }

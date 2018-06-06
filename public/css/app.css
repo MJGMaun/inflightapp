@@ -13469,7 +13469,7 @@ a.text-dark:focus {
 /* config.css */
 
 :root {
-  --baseColor: #fff;
+  --baseColor: #f8f9fa !important;
 }
 
 /* helpers/align.css */
