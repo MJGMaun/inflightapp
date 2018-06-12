@@ -17,8 +17,10 @@ Route::get('/', function () {
 
 Route::resource('movies', 'MoviesController');
 Route::resource('admin/movies', 'Admin\MoviesController');
-Route::get('admin/musics/createByAlbum', 'Admin\MusicsController@createByAlbum')->name('musics.createByAlbum');
 Route::get('admin/musics/createArtist', 'Admin\MusicsController@createArtist')->name('musics.createArtist');
+Route::post('admin/musics/storeArtist', 'Admin\MusicsController@storeArtist')->name('musics.storeArtist');
+Route::get('admin/musics/createByAlbum', 'Admin\MusicsController@createByAlbum')->name('musics.createByAlbum');
+Route::get('/json_albums','Admin\MusicsController@json_albums');
 Route::resource('admin/musics', 'Admin\MusicsController');
 
 Auth::routes();

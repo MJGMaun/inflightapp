@@ -11,44 +11,63 @@
     <h1 class="h2">New Song</h1>
 </div>
 
-{!! Form::open(['action' => 'Admin\MoviesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => 'Admin\MusicsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="row">
     <div class="col-md-6 col-sm-6">
         {{Form::label('title', 'Title')}} {{Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title'])}}
     </div>
     <div class="col-md-3 col-sm-3">
-        {{Form::label('artist', 'Artist')}} {{Form::select('artist', ['English' => 'English', 'Chinese' => 'Chinese'], null, ['class'
-        => 'form-control', 'placeholder' => 'Select a language...'])}}
+        {{Form::label('artist', 'Artist')}} 
+        <select class="form-control artists" name="artists" id="artists">
+              <option disabled selected="true">Select Artist..</option>
+                @foreach ($artists as $artist)
+                  <option value="{{$artist->id}}">{{ $artist->artist_name }}</option>
+                @endforeach
+        </select>
     </div>
-    <div class="col-md-3 col-sm-3">
-        {{Form::label('album', 'Album')}} {{Form::select('album', ['1' => 'Popular Movie','2' => 'Trending Movie', '3' => 'New Release',
-        '0' => 'None'], null, ['class' => 'form-control', 'placeholder' => 'Select a category...'])}}
+    <div class="col-md-3 col-sm-3 add-albums">
+        {{Form::label('albums', 'Album')}}
+        <select class="form-control" name="albums" id="albums">
+              <option disabled selected="true">Select Albums..</option>
+        </select>
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-md-6 col-sm-6">
+            {{Form::label('genres', 'Genre')}}
         <div class="card card-body bg-light">
-            {{Form::label('genre', 'Genre')}}
             <div class="row">
-                {{-- @foreach($genres as $genre)
                 <div class="col-md-3 col-sm-3">
-                    {{Form::checkbox('genres[]', $genre->name)}}&nbsp;{{$genre->name}}
+                    {{Form::radio('genres', 'OPM')}} OPM
                 </div>
-                @endforeach --}}
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'Pop')}} Pop 
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'R&B')}} R&amp;B
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'Hip-Hop')}} Hip-Hop
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'Rock')}} Rock
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'Jazz')}} Jazz
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-3 col-sm-3">
-        {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', \Carbon\Carbon::now(), ['class' => 'form-control'])}}
+        {{Form::label('cover_image', 'Cover Image')}}
+        <br> {{Form::file('cover_image')}}
     </div>
     <div class="col-md-3 col-sm-3">
-        {{Form::label('cover_image', 'Cover Image')}}
-        <br> {{Form::file('cover_image')}}<br><br>
         {{Form::label('music_song', 'Song')}}
         <br> {{Form::file('music_song')}}
     </div>
-</div>
+</div><br>
 <div class="form-group">
     {{Form::submit('Save', ['class' => 'btn btn-primary '])}} {!! Form::close() !!}
     <a class="btn btn-light ">
@@ -56,28 +75,61 @@
     </a>
 </div>
 
-@endsection @section('script') {{--
-<script src="{{ asset('js/tagmanager.js') }}"></script>
-<script src="{{ asset('js/typeahead.js') }}"></script> --}} {{--
+@endsection @section('script') 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+{{-- <script src="{{ asset('js/tagmanager.js') }}"></script>
+<script src="{{ asset('js/typeahead.js') }}"></script> --}}
 <script type="text/javascript">
-    $(document).ready(function () {
-        var tagApi = $(".tm-input").tagsManager();
+    $(document).on('change','.artists',function(){
+            console.log("hmm its change");
 
+            var artist_id=$(this).val();
+            console.log(artist_id);
 
-        $(".typeahead").typeahead({
-            name: 'tags',
-            displayKey: 'name',
-            source: function (query, process) {
-                return $.get('ajaxpro.php', {
-                    query: query
-                }, function (data) {
-                    data = $.parseJSON(data);
-                    return process(data);
-                });
-            },
-            afterSelect: function (item) {
-                tagApi.tagsManager("pushTag", item);
-            }
+            var op=" ";
+
+            $.ajax({
+                type:'get',
+                url:'{!!URL::to('json_albums')!!}',
+                data:{'id':artist_id},
+                dataType: 'json',
+                success:function(data){
+                    console.log('success');
+                    console.log(data);
+
+                    dataLength = Object.keys(data).length;
+
+                    console.log("Length"+dataLength);
+                    op+='<option selected disabled>Choose Album</option>';
+                    op+='<option name="albums" value="1">Single (No Album)</option>';// FOR NEW ALBUM OPTION APPEND ALBUM NAME
+                    for(var i=0;i<dataLength;i++){
+                    op+='<option value="'+data[i].id+'">'+data[i].album_name+'</option>';
+                   }
+                    // op+='<option name="new_album" value="New Album..">New Album..</option>';// FOR NEW ALBUM OPTION APPEND ALBUM NAME
+                   $(document).find('#albums').html(" ");
+                   $(document).find('#albums').append(op);
+                },
+                error:function(){
+                    console.log('error');
+                }
+            });
         });
-    });
-</script> --}} @endsection
+    // FOR NEW ALBUM OPTION APPEND ALBUM NAME
+    //     $('select[name="albums"]').change(function(){
+            
+    //         if ($(this).val() == "New Album.."){
+    //             $(".add-albums").append("<div><br><input name='albums' class='field form-control' type='text' placeholder='" + $(this).val() + "'/><label class='remove float-right'>Remove</label></div>");
+    //             $('select[name="albums"]').attr("disabled","disabled");
+    //             $('option[name="new_album"]').remove();
+    //         }     
+    //     });
+
+    //     $(".add-albums").on("click", ".remove", function () {
+    //     //  var val = $(this).parent().find("input").val();         
+    //      $('select[name="albums"]').append("<option name='new_album' value='New Album..'>New Album..</option>");
+    //      $('select[name="albums"]').removeAttr('disabled');
+    //      $(this).parent().remove();
+    //  });
+</script>
+@endsection

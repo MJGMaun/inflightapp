@@ -37,6 +37,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/admin.js') }}"></script>
     <script src="{{ asset('js/feather.min.js') }}"></script>
+    
     @yield('script')
     <script>
         feather.replace()

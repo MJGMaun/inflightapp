@@ -12,7 +12,8 @@ class Music extends Model
     public $primaryKey = 'id';
     // Timestamps
     public $timestamps = true;
-    // public function genres(){
-    //    return $this->belongsToMany(Genre::class);
-    // }
+    public function albums(){
+        // return $this->belongsTo('App\Artist', 'artist_id');
+        return $this->belongsTo('App\Album');
+    }
 }

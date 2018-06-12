@@ -11,17 +11,20 @@
     <h1 class="h2">New Artist</h1>
 </div>
 
-{!! Form::open(['action' => 'Admin\MoviesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => 'Admin\MusicsController@storeArtist', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="row">
     <div class="col-md-6 col-sm-6">
-        {{Form::label('name', 'Artist Name')}} {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Artist Name'])}}
+        {{Form::label('artist_name', 'Artist Name')}} {{Form::text('artist_name', '', ['class' => 'form-control', 'placeholder' => 'Artist Name'])}}
     </div>
     <div id="album" class="col-md-4 col-sm-4">
-        {{Form::label('albumname', 'Album Name')}} {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Artist Name'])}}
+        {{Form::label('album_name', 'Album Name')}}
     </div>
     <div class="col-md-2 col-sm-2"><br>
-        <a class="btn btn-light add_album">
-            Add Album
+        <a class="btn btn-primary add_album" title="Add Album">
+            <span data-feather="plus"></span>
+        </a>
+        <a class="btn btn-danger remove_album" title="Remove Album">
+            <span data-feather="minus"></span>
         </a>
     </div>
 </div>
@@ -48,14 +51,36 @@
     $(document).ready(function () {
         $('a.add_album').click(function(e) {
             e.preventDefault();
-            $('#album').append(' {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Artist Name'])}}');
+            if ($('#album input').length < 1) {
+                $('#album').append('<br>{{Form::text('album_name', '', ['class' => 'form-control', 'placeholder' => 'Album Name'])}}');
+            }
         });
-        $('a.add_album').click(function (e) {
+        $('a.remove_album').click(function (e) {
             e.preventDefault();
-            if ($('#album input').length > 1) {
+            if ($('#album input').length >= 1) {
                 $('#album').children().last().remove();
             }
         });
     });
     </script>
 @endsection
+
+
+
+
+{{-- @endsection @section('script')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('a.add_album').click(function(e) {
+            e.preventDefault();
+            $('#album').append('<div class="new_album"><br>{{Form::text('album_names[]', '', ['class' => 'form-control', 'placeholder' => 'Album Name'])}}{{Form::label('cover_image[]', 'Cover Image')}}<br>{{Form::file('cover_image[]')}}<br><br></div>');
+            });
+        $('a.remove_album').click(function (e) {
+            e.preventDefault();
+            if ($('#album .new_album').length >= 1) {
+                $('#album').children().last().remove();
+            }
+        });
+    });
+    </script>
+@endsection --}}
