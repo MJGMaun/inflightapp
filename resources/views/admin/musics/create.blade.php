@@ -106,7 +106,8 @@
                     for(var i=0;i<dataLength;i++){
                     op+='<option value="'+data[i].id+'">'+data[i].album_name+'</option>';
                    }
-                    // op+='<option name="new_album" value="New Album..">New Album..</option>';// FOR NEW ALBUM OPTION APPEND ALBUM NAME
+                    op+='<option name="new_album" value="New Album..">New Album..</option>';
+                    // FOR NEW ALBUM OPTION APPEND ALBUM NAME
                    $(document).find('#albums').html(" ");
                    $(document).find('#albums').append(op);
                 },
@@ -116,20 +117,20 @@
             });
         });
     // FOR NEW ALBUM OPTION APPEND ALBUM NAME
-    //     $('select[name="albums"]').change(function(){
+        $('select[name="albums"]').change(function(){
             
-    //         if ($(this).val() == "New Album.."){
-    //             $(".add-albums").append("<div><br><input name='albums' class='field form-control' type='text' placeholder='" + $(this).val() + "'/><label class='remove float-right'>Remove</label></div>");
-    //             $('select[name="albums"]').attr("disabled","disabled");
-    //             $('option[name="new_album"]').remove();
-    //         }     
-    //     });
+            if ($(this).val() == "New Album.."){
+                $(".add-albums").append("<div><br><input name='albums' class='field form-control' type='text' placeholder='" + $(this).val() + "'/><label class='remove float-right'>Remove</label></div>");
+                $('select[name="albums"]').attr("disabled","disabled");
+                $('option[name="new_album"]').remove();
+            }     
+        });
 
-    //     $(".add-albums").on("click", ".remove", function () {
-    //     //  var val = $(this).parent().find("input").val();         
-    //      $('select[name="albums"]').append("<option name='new_album' value='New Album..'>New Album..</option>");
-    //      $('select[name="albums"]').removeAttr('disabled');
-    //      $(this).parent().remove();
-    //  });
+        $(".add-albums").on("click", ".remove", function () {
+        //  var val = $(this).parent().find("input").val();         
+         $('select[name="albums"]').append("<option name='new_album' value='New Album..'>New Album..</option>");
+         $('select[name="albums"]').removeAttr('disabled');
+         $(this).parent().remove();
+     });
 </script>
 @endsection

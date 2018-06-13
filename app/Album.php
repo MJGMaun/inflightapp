@@ -13,13 +13,17 @@ class Album extends Model
     // Timestamps
     public $timestamps = true;
 
+    protected $fillable = [
+        'album_name', 'cover_image',
+    ];
+
     public function artists(){
         // return $this->belongsTo('App\Artist', 'artist_id');
         return $this->belongsTo('App\Artist');
     }
     public function songs()
     {
-        return $this->belongsToMany(Music::class);
+        return $this->hasMany('App\Music');
         // return $this->belongsToMany('App\Album', 'artist_id');
     }
 }

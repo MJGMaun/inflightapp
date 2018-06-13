@@ -12,6 +12,11 @@ class Music extends Model
     public $primaryKey = 'id';
     // Timestamps
     public $timestamps = true;
+
+    protected $fillable = [
+        'title', 'album_id', 'genre', 'cover_image', 'music_song',
+    ];
+
     public function albums(){
         // return $this->belongsTo('App\Artist', 'artist_id');
         return $this->belongsTo('App\Album');

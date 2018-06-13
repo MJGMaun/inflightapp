@@ -16,7 +16,7 @@ class CreateMusicsTable extends Migration
         Schema::create('musics', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->integer('artist_id')->unsigned();
+            // $table->integer('artist_id')->unsigned();
             $table->integer('album_id')->unsigned();
             // $table->date('release_date');
             $table->string('genre');
