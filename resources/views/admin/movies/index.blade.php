@@ -103,15 +103,6 @@
         //     var data = table.row($(this).parents('tr')).data();
         // });
 
-        $(window).keypress(function(e) {
-                  var video = document.getElementById("player");
-                  if (e.which == 32) {
-                    if (video.paused == true)
-                      video.play();
-                    else
-                      video.pause();
-                  }
-                });
 
     });
 </script>

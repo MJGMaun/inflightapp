@@ -1,7 +1,7 @@
 @extends('admin.layouts.app') @section('css') @endsection @section('content')
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">Music</h1>
+<div class="row flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <a href="/admin/musics/">Artists</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$album->album_name}}
 </div>
 
 <a class="btn btn-sm btn-primary" href="/admin/musics/create">
@@ -14,37 +14,44 @@
 
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
-            <table id="artists-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
+            <table id="musics-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
             <thead>
                 <tr>
-                    <th>Artist Name</th>
-                    <th>Albums</th>
+                    <th>Cover Image</th>
+                    <th>Song Name</th>
+                    <th>Genre</th>
+                    <th>Music Location</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                    @if(count($artists))
-                    @foreach($artists as $artist)
+                    {{-- @if(count($musics)) --}}
+                    @foreach($album->songs as $song)
                     <tr>
-                        {{-- <td>
-                            <img height="50px" width="60px" src="/storage/cover_images/{{$music->cover_image}}" /><span class="d-none">{{$music->cover_image}}</span></td> --}}
-                        <td>{{$artist->artist_name}}</td>
-                        <td>@foreach($artist->albums as $album)
+                        <td>
+                            <img height="50px" width="60px" src="/storage/cover_images/{{$song->cover_image}}" /><span class="d-none">{{$song->cover_image}}</span></td>
+                        <td>{{$song->title}}</td>
+                        <td>{{$song->genre}}</td>
+                        <td>{{$song->music_song}}</td>
+                        {{-- <td>@foreach($music->albums as $album)
                         <li><a href="/admin/musics/{{$album->id}}">{{ $album->album_name }} </a></li>
-                            @endforeach</td>
-                        <td>{{$artist->created_at}}</td>
-                        <td>{{$artist->updated_at}}</td>
+                            @endforeach</td> --}}
+                        <td>{{$song->created_at}}</td>
+                        <td>{{$song->updated_at}}</td>
                         <td><div class="row">
-                            <a href="/admin/musics/{{$artist->id}}/edit" class="btn btn-sm btn-primary edit-music"><span data-feather="edit"></span></a>&nbsp;
-                            {!!Form::open(['action' => ['Admin\MusicsController@destroy', $artist->id], 'method' => 'POST', 'class' => 'float-right'])!!}
+                            <a href="/admin/musics/{{$song->id}}/edit" class="btn btn-sm btn-primary edit-music"><span data-feather="edit"></span></a>&nbsp;
+                            {!!Form::open(['action' => ['Admin\MusicsController@destroy', $song->id], 'method' => 'POST', 'class' => 'float-right'])!!}
                             {{Form::hidden('_method', 'DELETE')}}
                             {{Form::button('<span data-feather="trash-2"></span>',['class' => 'btn btn-sm btn-danger delete-music'])}}
                             {!!Form::close()!!}</div></td>
                     </tr>
                     @endforeach
-                    @endif
+                    {{-- @else
+                    <p>No Songs</p>
+                    @endif --}}
+
             </tbody>
         </table>
     </div>

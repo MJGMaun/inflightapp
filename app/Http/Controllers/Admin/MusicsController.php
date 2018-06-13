@@ -30,8 +30,10 @@ class MusicsController extends Controller
     {       
         $request->user()->authorizeRoles(['admin']);
 
-        // $musics = Music::orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.musics.index'); //, compact('name')
+        $artists = Artist::orderBy('created_at', 'desc')->get();
+        $albums = Album::orderBy('created_at', 'desc')->get();
+        // dd($);
+        return view('admin.musics.index', compact('artists', 'albums'));
         // return view('musics.index')->with('musics', $musics);
     }
 
@@ -217,7 +219,11 @@ class MusicsController extends Controller
     public function show($id, Request $request)
     {
         $request->user()->authorizeRoles(['admin']);
-        return view('musics.show');
+        $album = Album::find($id);
+        $musics = Music::find($id);
+        // $musics = Music::where('album_id', '=', $id)->toJson();
+        // dd($musics);
+        return view('/admin/musics/show', compact('album', 'musics'));
     }
 
     /**

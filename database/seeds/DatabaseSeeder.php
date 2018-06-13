@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         factory(App\Artist::class,5)->create();
         // Album factory.
         factory(App\Album::class,15)->create();
+        // Music factory.
+        factory(App\Music::class,100)->create();
     }
 }
