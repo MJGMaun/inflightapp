@@ -69,7 +69,7 @@ class MusicsController extends Controller
         $this->validate($request, [ 
             'title' => 'required',
             'artists' => 'required',
-            'albums' => 'required',
+            'albums' => 'required|unique:albums,album_name',
             'genres' => 'required',
             'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg',
             'music_song' => 'mimetypes:audio/mp4, audio/mpeg, audio/x-wav|nullable',
@@ -114,44 +114,39 @@ class MusicsController extends Controller
         
 
         $album = $request->input('albums');
+        $artist = $request->input('artists');
         
-        if(Album::where('album_name', '=', Input::get('albums'))->whereNotExists()){ //add new album
-        //    dd($album);
+        if(Album::where('id', '=', Input::get('albums'))->count() <= 0){ //add new album
+           
+            $albums->album_name = $album;
+            $albums->artist_id = $artist;
+            $albums->cover_image = "noimage.jpg";
+            $albums->save();
+
+
+            $lastInsertedId = $albums->id;
+
             $musics->title = $request->input('title');
-            $musics->artist_id = $request->input('artists');
-            $musics->albums = $request->input('albums');
+            $musics->album_id = $lastInsertedId;
             $musics->genre = $request->input('genres');
             $musics->cover_image = $fileNameToStore;
             $musics->music_song = $fileNameToStoreSong;
             $musics->save();
 
-            $albums->album_name = $album_name;
-            $albums->cover_image = "noimage.jpg";
-            $albums->save();
-                
-            $music
-            ->albums()
-            ->attach(Album::where('album_name', $album)->first());
+            return redirect('/admin/musics')->with('success', 'Song & Album Uploaded');
         } 
         else { //no new album
-            dd('2');
+
             $musics->title = $request->input('title');
-            $musics->artist_id = $request->input('artists');
             $musics->album_id = $request->input('albums');
             $musics->genre = $request->input('genres');
             $musics->cover_image = $fileNameToStore;
             $musics->music_song = $fileNameToStoreSong;
-            // $music->save();
-            // dd($music->title);
+            $music->save();
+            
+            return redirect('/admin/musics')->with('success', 'Song Uploaded');
         }
-        // dd($genres);        
-        // foreach($genres as $genre){
-        //     $movie
-        //     ->genres()
-        //     ->attach(Genre::where('name', $genre)->first());
-        // }
 
-        return redirect('/admin/musics')->with('success', 'Movie Uploaded');
     }
     /**
      * Show the form for creating a new resource.
@@ -174,16 +169,13 @@ class MusicsController extends Controller
     public function storeArtist(Request $request)
     {
         $this->validate($request, [ 
-            'artists' => 'required',
+            'artists' => 'required|unique:artists,artist_name',
             'album_name' => 'nullable',
         ]);
         $artist = $request->input('artists');
         $album_names = $request->input('albums');
         
-        if(Artist::where('artist_name', '=', Input::get('artists'))->exists()){ //CHECK IF ARTIST IS ALREADY IN ARTIST TABLE
-            return redirect('/admin/musics/createArtist')->with('error', 'Artist Already Exists!');     
-        }
-        else if (isset($album_names)){
+        if (isset($album_names)){
             
             foreach($album_names as $album){
                 $albums = new Album;

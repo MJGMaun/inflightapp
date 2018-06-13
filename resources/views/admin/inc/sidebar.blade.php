@@ -24,11 +24,9 @@
                     <span data-feather="headphones"></span> Music
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/admin/musics"><span data-feather="music"></span> &nbsp;&nbsp;Songs</a>
-                    <a class="dropdown-item" href="/admin/musics/createArtist"><span data-feather="user-plus"></span> &nbsp;&nbsp;Artists</a>
+                    <a class="dropdown-item" href="/admin/musics"><span data-feather="music"></span> &nbsp;&nbsp;Browse Songs</a>
+                    <a class="dropdown-item" href="/admin/musics/createArtist"><span data-feather="user-plus"></span> &nbsp;&nbsp;Artists &amp; Albums</a>
                     <a class="dropdown-item" href="/admin/musics/create"><span data-feather="headphones"></span> &nbsp;&nbsp;Upload Song</a>
-                    <a class="dropdown-item" href="/admin/musics/createByAlbum"><span data-feather="disc"></span> &nbsp;&nbsp;Upload by Album</a>
-                    <a class="dropdown-item" href="/admin/musics/createByArtist"><span data-feather="user"></span> &nbsp;&nbsp;Upload by Artist</a>
                   </div>
                 </div>
               </li>

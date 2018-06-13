@@ -12,133 +12,56 @@
 <br>
 
 
-<div style="width: 100%; padding-left: -10px; border: 1px;" class="card card-body bg-light">
+<div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
-            <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    <tr>
-                        <td>1,002</td>
-                        <td>amet</td>
-                        <td>consectetur</td>
-                        <td>adipiscing</td>
-                        <td>elit</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>Integer</td>
-                        <td>nec</td>
-                        <td>odio</td>
-                        <td>Praesent</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>libero</td>
-                        <td>Sed</td>
-                        <td>cursus</td>
-                        <td>ante</td>
-                    </tr>
-                    <tr>
-                        <td>1,004</td>
-                        <td>dapibus</td>
-                        <td>diam</td>
-                        <td>Sed</td>
-                        <td>nisi</td>
-                    </tr>
-                    <tr>
-                        <td>1,005</td>
-                        <td>Nulla</td>
-                        <td>quis</td>
-                        <td>sem</td>
-                        <td>at</td>
-                    </tr>
-                    <tr>
-                        <td>1,006</td>
-                        <td>nibh</td>
-                        <td>elementum</td>
-                        <td>imperdiet</td>
-                        <td>Duis</td>
-                    </tr>
-                    <tr>
-                        <td>1,007</td>
-                        <td>sagittis</td>
-                        <td>ipsum</td>
-                        <td>Praesent</td>
-                        <td>mauris</td>
-                    </tr>
-                    <tr>
-                        <td>1,008</td>
-                        <td>Fusce</td>
-                        <td>nec</td>
-                        <td>tellus</td>
-                        <td>sed</td>
-                    </tr>
-                    <tr>
-                        <td>1,009</td>
-                        <td>augue</td>
-                        <td>semper</td>
-                        <td>porta</td>
-                        <td>Mauris</td>
-                    </tr>
-                    <tr>
-                        <td>1,010</td>
-                        <td>massa</td>
-                        <td>Vestibulum</td>
-                        <td>lacinia</td>
-                        <td>arcu</td>
-                    </tr>
-                    <tr>
-                        <td>1,011</td>
-                        <td>eget</td>
-                        <td>nulla</td>
-                        <td>Class</td>
-                        <td>aptent</td>
-                    </tr>
-                    <tr>
-                        <td>1,012</td>
-                        <td>taciti</td>
-                        <td>sociosqu</td>
-                        <td>ad</td>
-                        <td>litora</td>
-                    </tr>
-                    <tr>
-                        <td>1,013</td>
-                        <td>torquent</td>
-                        <td>per</td>
-                        <td>conubia</td>
-                        <td>nostra</td>
-                    </tr>
-                    <tr>
-                        <td>1,014</td>
-                        <td>per</td>
-                        <td>inceptos</td>
-                        <td>himenaeos</td>
-                        <td>Curabitur</td>
-                    </tr>
-                    <tr>
-                        <td>1,015</td>
-                        <td>sodales</td>
-                        <td>ligula</td>
-                        <td>in</td>
-                        <td>libero</td>
-                    </tr>
-                </tbody>
-            </table>
+            <table id="musics-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Cover Image</th>
+                    <th>Title</th>
+                    {{--
+                    <th>Movie Description</th> --}}
+                    <th>Genres</th>
+                    <th>Casts</th>
+                    <th>Language</th>
+                    <th>Running Time</th>
+                    <th>Release Date</th>
+                    <th>Movie Location</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(count($movies))
+                @foreach($movies as $movie)
+                <tr>
+                    <td>
+                        <img height="50px" width="60px" src="/storage/cover_images/{{$movie->cover_image}}" /><span class="d-none">{{$movie->cover_image}}</span></td>
+                    <td>{{$movie->title}}</td>
+                    {{--
+                    <td>{{$movie->movie_description}}</td> --}}
+                    <td>@foreach($movie->genres as $genre)
+                        <li>{{ $genre->name }} </li>
+                    @endforeach</td>
+                    <td>{{$movie->cast}}</td>
+                    <td>{{$movie->language}}</td>
+                    <td>{{$movie->running_time}}</td>
+                    <td>{{$movie->release_date}}</td>
+                    <td>{{$movie->movie_video}}</td>
+                    <td>{{$movie->created_at}}</td>
+                    <td>{{$movie->updated_at}}</td>
+                    <td><div class="row">
+                        <a href="/admin/movies/{{$movie->id}}/edit" class="btn btn-sm btn-primary edit-movie"><span data-feather="edit"></span></a>&nbsp;
+                        {!!Form::open(['action' => ['Admin\MoviesController@destroy', $movie->id], 'method' => 'POST', 'class' => 'float-right'])!!}
+                        {{Form::hidden('_method', 'DELETE')}}
+                        {{Form::button('<span data-feather="trash-2"></span>',['class' => 'btn btn-sm btn-danger delete-movie'])}}
+                        {!!Form::close()!!}</div></td>
+                </tr>
+                @endforeach
+                @endif
+            </tbody>
+        </table>
     </div>
 </div>
 
