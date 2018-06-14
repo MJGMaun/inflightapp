@@ -28,8 +28,7 @@
                     @if(count($artists))
                     @foreach($artists as $artist)
                     <tr>
-                        {{-- <td>
-                            <img height="50px" width="60px" src="/storage/cover_images/{{$music->cover_image}}" /><span class="d-none">{{$music->cover_image}}</span></td> --}}
+                        {{-- <td><img height="50px" width="60px" src="/storage/cover_images/{{$music->cover_image}}" /><span class="d-none">{{$music->cover_image}}</span></td> --}}
                         <td>{{$artist->artist_name}}</td>
                         <td>@foreach($artist->albums as $album)
                         <li><a href="/admin/musics/{{$album->id}}">{{ $album->album_name }} </a></li>
@@ -37,7 +36,7 @@
                         <td>{{$artist->created_at}}</td>
                         <td>{{$artist->updated_at}}</td>
                         <td><div class="row">
-                            <a href="/admin/musics/{{$artist->id}}/edit" class="btn btn-sm btn-primary edit-music"><span data-feather="edit"></span></a>&nbsp;
+                            <a href="/admin/musics/{{$artist->id}}/editArtist" class="btn btn-sm btn-primary edit-music"><span data-feather="edit"></span></a>&nbsp;
                             {!!Form::open(['action' => ['Admin\MusicsController@destroy', $artist->id], 'method' => 'POST', 'class' => 'float-right'])!!}
                             {{Form::hidden('_method', 'DELETE')}}
                             {{Form::button('<span data-feather="trash-2"></span>',['class' => 'btn btn-sm btn-danger delete-music'])}}

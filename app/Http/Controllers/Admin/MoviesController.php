@@ -54,7 +54,6 @@ class MoviesController extends Controller
      */
     public function store(Request $request)
     {
-        Input::merge(array_map('trim', Input::all()));
         $this->validate($request, [ 
             'title' => 'required',
             'language' => 'required',
