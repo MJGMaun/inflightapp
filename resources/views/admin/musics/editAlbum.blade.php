@@ -1,20 +1,41 @@
-@extends('admin.layouts.app') @section('css') @endsection @section('content')
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+@extends('admin.layouts.app')
+@section('css') 
+<link rel="stylesheet" href="{{ asset('css/jquery.dataTables.css') }}">
+@endsection
+@section('content')
+
+{{-- <a href="/admin/musics" class="btn btn-sm btn-primary">
+    <span data-feather="arrow-left"></span>
+    Back
+</a> --}}
 <div class="row flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <a href="/admin/musics/">Artists</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$album->album_name}}
+   <a href="/admin/musics/">Artists</a> &nbsp; <span data-feather="chevron-right"></span><a href="/admin/musics/{{$artist->id}}/editArtist">{{$artist->artist_name}}</a> &nbsp; <span data-feather="chevron-right"></span>
+    &nbsp;
+   {{$album->album_name}}
 </div>
 
-<a class="btn btn-sm btn-primary" href="/admin/musics/create">
-    <span data-feather="plus"></span>
-    Add Song
-</a>
-<br>
-<br>
-
+{!! Form::open(['action' => ['Admin\MusicsController@updateAlbum', $album->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])
+!!}
+<div class="row">
+    <div class="col-md-6 col-sm-6 add-artists">
+        {{Form::label('album', 'Album Name')}}
+        {{Form::text('album', $album->album_name, ['class'
+        => 'form-control', 'placeholder' => 'Artist Name'])}}
+    </div>
+    <div class="col-md-6 col-sm-6">
+        {{Form::label('cover_image', 'Cover Image')}}
+        <br> {{Form::file('cover_image')}}
+    </div>
+</div><br> 
+<div class="row">
+    <div class="col-md-6 col-sm-6 add-artists">
+            {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-primary'])}} {!! Form::close() !!}
+    </div>
+<br><br><br><br> 
 
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
-            <table id="musics-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
+        <table id="musics-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
             <thead>
                 <tr>
                     <th>Cover Image</th>
@@ -31,7 +52,7 @@
                     @foreach($album->songs as $song)
                     <tr>
                         <td>
-                            <img height="50px" width="60px" src="/storage/cover_images/{{$song->coverimage->cover_image}}" /><span class="d-none">{{$song->cover_image}}</span></td>
+                            <img height="50px" width="60px" src="/storage/cover_images/{{{$song->coverimage->cover_image}}}" /><span class="d-none">{{$song->cover_image}}</span></td>
                         <td>{{$song->title}}</td>
                         <td>{{$song->genre}}</td>
                         <td>{{$song->music_song}}</td>
@@ -57,6 +78,9 @@
     </div>
 </div>
 
+
+
+
 @endsection @section('script') {!!Html::script('js/datatable/dataTables.buttons.min.js')!!} {!!Html::script('js/datatable/buttons.flash.min.js')!!}
 {!!Html::script('js/datatable/jszip.min.js')!!} {!!Html::script('js/datatable/pdfmake.min.js')!!} {!!Html::script('js/datatable/vfs_fonts.js')!!}
 {!!Html::script('js/datatable/buttons.html5.min.js')!!} {!!Html::script('js/datatable/buttons.print.min.js')!!}
@@ -67,24 +91,6 @@
             responsive: true,
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-            "columnDefs": [
-                {
-                    "targets": 5,
-                    render: function (data, type, row) {
-                        return data.length > 10 ?
-                            data.substr(0, 10) + '…' :
-                            data;
-                    }
-                },
-                {
-                    "targets": 7,
-                    render: function (data, type, row) {
-                        return data.length > 10 ?
-                            data.substr(0, 10) + '…' :
-                            data;
-                    }
-                }
             ]
         });
         // var table = $('#musics-table').DataTable();

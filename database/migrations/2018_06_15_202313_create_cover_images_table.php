@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlbumsTable extends Migration
+class CreateCoverImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateAlbumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('albums', function (Blueprint $table) {
+        Schema::create('cover_images', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('artist_id')->unsigned();
-            $table->string('album_name');
-            $table->integer('cover_image_id');
+            $table->string('cover_image');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateAlbumsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('albums');
+        Schema::dropIfExists('cover_images');
     }
 }

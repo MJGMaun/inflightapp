@@ -1,108 +1,122 @@
-@extends('admin.layouts.app') @section('css')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> @endsection @section('content')
+@extends('admin.layouts.app')
+@section('css') 
+<link rel="stylesheet" href="{{ asset('css/jquery.dataTables.css') }}">
+@endsection
+@section('content')
 
-<a href="/admin/musics" class="btn btn-sm btn-primary">
+{{-- <a href="/admin/musics" class="btn btn-sm btn-primary">
     <span data-feather="arrow-left"></span>
     Back
-</a>
-<br>
-<br>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">New Artist</h1>
+</a> --}}
+<div class="row flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <a href="/admin/musics/">Artists</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$artist->artist_name}}
 </div>
 
-{!! Form::open(['action' => 'Admin\MusicsController@storeArtist', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => ['Admin\MusicsController@updateArtist', $artist->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])
+!!}
 <div class="row">
     <div class="col-md-6 col-sm-6 add-artists">
-        {{-- {{Form::label('artist_name', 'Artist Name')}} {{Form::text('artist_name', '', ['class' => 'form-control', 'placeholder' => 'Artist Name'])}} --}}
-        {{Form::label('artist', 'Artist')}} 
-        <select class="form-control artists" name="artists" id="artists">
-              <option disabled selected="true">Select Artist..</option>
-              <option name="new_artist" value="new_artist">New Artist..</option>
-                @foreach ($artists as $artist)
-                  <option value="{{$artist->id}}">{{ $artist->artist_name }}</option>
-                @endforeach
-        </select>
+        {{-- {{Form::label('artist_name', 'Artist Name')}} {{Form::text('artist_name', '', ['class' => 'form-control', 'placeholder'
+        => 'Artist Name'])}} --}} {{Form::label('artist', 'Artist Name')}} {{Form::text('artist', $artist->artist_name, ['class'
+        => 'form-control', 'placeholder' => 'Artist Name'])}} {{--
+        <select class="form-control artists" name="artists"
+            id="artists">
+            <option disabled selected="true">Select Artist..</option>
+            <option name="new_artist" value="new_artist">New Artist..</option>
+            @foreach ($artists as $artist)
+            <option value="{{$artist->id}}">{{ $artist->artist_name }}</option>
+            @endforeach
+        </select> --}}
     </div>
-    <div id="album" class="col-md-4 col-sm-4">
-        {{Form::label('albums[]', 'Album Name')}} <small> (Click plus button to add album)</small>
-        {{-- {{Form::text('albums[]', '', ['class' => 'form-control', 'placeholder' => 'Album Name'])}} --}}
-    </div>
-    <div class="col-md-2 col-sm-2"><br>
-        <a class="btn btn-primary add_album" title="Add Album">
-            <span data-feather="plus"></span>
-        </a>
-        <a class="btn btn-danger remove_album" title="Remove Album">
-            <span data-feather="minus"></span>
-        </a>
+    <div class="col-md-6 col-sm-6">
+        <div class="form-group">
+            {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-primary'])}} {!! Form::close() !!}
+        </div>
     </div>
 </div>
-<br>
-{{-- <div class="row">
+<br> {{--
+<div class="row">
     <div class="col">
         {{Form::label('cover_image', 'Cover Image')}}
-        <br> {{Form::file('cover_image')}}<br><br>
+        <br> {{Form::file('cover_image')}}
+        <br>
+        <br>
     </div>
     <div class="col">
         {{Form::label('album_songs[]', 'Songs')}}
         <br> {{Form::file('album_songs[]', ['multiple' => 'multiple'])}}
     </div>
 </div> --}}
-<div class="form-group">
-    {{Form::submit('Save', ['class' => 'btn btn-primary '])}} {!! Form::close() !!}
-    <a href="/admin/musics/" class="btn btn-light ">
-        Cancel
-    </a>
+
+
+<div style="width: 100%; padding-left: -10px; border: 1px;" class="">
+    <div class="table-responsive">
+        <table id="albums-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Cover Image</th>
+                    <th>Albums</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(count($artist->albums)) @foreach($artist->albums as $album)
+                <tr>
+                    <td>
+                        <img height="50px" width="60px" src="/storage/cover_images/{{$album->coverimage->cover_image}}" />
+                        <span class="d-none">{{$album->cover_image}}</span>
+                    </td>
+                    <td>{{$album->album_name}}</td>
+                    {{--
+                    <td>@foreach($artist->albums as $album)
+                        <li>
+                            <a href="/admin/musics/{{$album->id}}">{{ $album->album_name }} </a>
+                        </li>
+                        @endforeach</td> --}}
+                    <td>{{$album->created_at}}</td>
+                    <td>{{$album->updated_at}}</td>
+                    <td>
+                        <div class="row">
+                            <a href="/admin/musics/{{$album->id}}/editAlbum" class="btn btn-sm btn-primary edit-music">
+                                <span data-feather="edit"></span>
+                            </a>&nbsp; {!!Form::open(['action' => ['Admin\MusicsController@destroy', $album->id], 'method' =>
+                            'POST', 'class' => 'float-right'])!!} {{Form::hidden('_method', 'DELETE')}} {{Form::button('
+                            <span data-feather="trash-2"></span>',['class' => 'btn btn-sm btn-danger delete-music'])}} {!!Form::close()!!}
+                        </div>
+                    </td>
+                </tr>
+                @endforeach @endif
+            </tbody>
+        </table>
+    </div>
 </div>
 
-@endsection @section('script')
+
+
+
+@endsection @section('script') {!!Html::script('js/datatable/dataTables.buttons.min.js')!!} {!!Html::script('js/datatable/buttons.flash.min.js')!!}
+{!!Html::script('js/datatable/jszip.min.js')!!} {!!Html::script('js/datatable/pdfmake.min.js')!!} {!!Html::script('js/datatable/vfs_fonts.js')!!}
+{!!Html::script('js/datatable/buttons.html5.min.js')!!} {!!Html::script('js/datatable/buttons.print.min.js')!!}
 <script type="text/javascript">
-    // $(document).ready(function () {
-    //     $('a.add_album').click(function(e) {
-    //         e.preventDefault();
-    //         $('#album').append('<div class="new_album"><br>{{Form::text('albums[]', '', ['class' => 'form-control', 'placeholder' => 'Album Name'])}}{{Form::label('cover_image[]', 'Cover Image')}}<br>{{Form::file('cover_image[]')}}<br><br></div>');
-    //         });
-    //     $('a.remove_album').click(function (e) {
-    //         e.preventDefault();
-    //         if ($('#album .new_album').length >= 1) {
-    //             $('#album').children().last().remove();
-    //         }
-    //     });
-    // });
-        
-        $('a.add_album').click(function(e) {
-            e.preventDefault();
-            if ($('#album input').length < 5) {
-                $('#album').append('<div class="input">{{Form::text('albums[]', '', ['class' => 'form-control', 'placeholder' => 'Album Name'])}}<br></div>');
-            }
+    $(document).ready(function () {
+        $('#albums-table').DataTable({
+            dom: 'Bfrtip',
+            responsive: true,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
         });
-        $('a.remove_album').click(function (e) {
-            e.preventDefault();
-            if ($('#album .input').length >= 1) {
-                $('#album').children().last().remove();
-            }
-        });
+        // var table = $('#musics-table').DataTable();
+        // $('#musics-table tbody').on('click', '.btn.btn-primary.edit-music', function () {
+        //     var data = table.row($(this).parents('tr')).data();
+        // });
+        // $('#musics-table tbody').on('click', '.btn.btn-danger.delete-music', function () {
+        //     var data = table.row($(this).parents('tr')).data();
+        // });
 
-        // FOR NEW ALBUM OPTION APPEND ALBUM NAME
-        $('select[name="artists"]').change(function(){
-            
-            if ($(this).val() == "new_artist"){
-                $(".add-artists").append("<div><br><input name='artists' class='field form-control' type='text' placeholder='Artist Name'/><label class='remove float-right'>Remove</label></div>");
-                $('select[name="artists"]').attr("disabled","disabled");
-                $('input[name="albums[]"]').attr("disabled","disabled");
-                $('a.add_album, a.remove_album ').hide();
-                $('option[name="new_artist"]').remove();
-            }     
-        });
 
-        $(".add-artists").on("click", ".remove", function () {
-        //  var val = $(this).parent().find("input").val();         
-         $('select[name="artists"]').prepend("<option name='new_artist' value='new_artist'>New Artist..</option>");
-         $('select[name="artists"]').removeAttr('disabled');
-         $('input[name="albums[]"]').removeAttr('disabled');
-         $('a.add_album, a.remove_album').show();
-         $(this).parent().remove();
-     });
-
+    });
 </script>
 @endsection

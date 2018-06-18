@@ -49380,7 +49380,7 @@ if (false) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "c:\\xampp\\htdocs\\inflightapp\\resources\\assets\\js\\components\\ExampleComponent.vue"
+  var id = "C:\\xampp\\htdocs\\inflightapp\\resources\\assets\\js\\components\\ExampleComponent.vue"
   if (!module.hot.data) {
     hotAPI.createRecord(id, module.exports)
   } else {

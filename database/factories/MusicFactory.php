@@ -10,7 +10,8 @@ $factory->define(App\Music::class, function (Faker $faker) {
             return Album::all()->random();
         },
         'genre' => $faker->randomElement($array = array ('OPM','Pop','R&B','Hip-Hop','Rock','Jazz','R&B')),
-        'cover_image' => $faker->imageUrl($width = 640, $height = 480),
+        'cover_image_id' => '1',
+        //$faker->imageUrl($width = 640, $height = 480),
         'music_song' => 'nosong.jpg',
     ];
 });

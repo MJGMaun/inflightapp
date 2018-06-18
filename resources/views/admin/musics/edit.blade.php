@@ -1,101 +1,138 @@
-@extends('admin.layouts.app') {{-- @section('css')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> @endsection --}} @section('content')
+@extends('admin.layouts.app') @section('css')
+@endsection @section('content')
 
-<a href="/admin/movies" class="btn btn-sm btn-primary">
+<a href="/admin/musics" class="btn btn-sm btn-primary">
     <span data-feather="arrow-left"></span>
     Back
 </a>
 <br>
 <br>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">New Movie</h1>
+    <h1 class="h2">New Song</h1>
 </div>
 
-{!! Form::open(['action' => ['Admin\MoviesController@update', $movie->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])
-!!}
+{!! Form::open(['action' => ['Admin\MusicsController@update', $music->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="row">
-    <div class="col">
-        {{Form::label('title', 'Title')}} {{Form::text('title', $movie->title, ['class' => 'form-control', 'placeholder' => 'Title'])}}
+    <div class="col-md-6 col-sm-6">
+        {{Form::label('title', 'Title')}} {{Form::text('title', $music->title, ['class' => 'form-control', 'placeholder' => 'Title'])}}
     </div>
-    <div class="col">
-        {{Form::label('language', 'Language')}} {{Form::select('language', ['English' => 'English', 'Chinese' => 'Chinese'], $movie->language, ['class' => 'form-control'])}}
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col">
-        {{Form::label('running_time', 'Running Time')}} {{Form::text('running_time', $movie->running_time, ['class' => 'form-control',
-        'placeholder' => 'Enter movie running time'])}}
-    </div>
-    <div class="col">
-        {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', \Carbon\Carbon::now(), ['class' => 'form-control'])}}
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col">
-        {{Form::label('cast', 'Casts')}} {{Form::text('cast', $movie->cast, ['class' => 'form-control', 'placeholder' => 'Mikhaela Maun, Regina Lopez, Joyce Feliciano, Jessica Gomez'])}}
-    </div>
-    <div class="col">
-        <div class="card card-body bg-light">
-            {{Form::label('genre', 'Genre')}}
-            <div class="row">
-                {{-- @foreach($genres as $genre) --}} @foreach($genres as $genre)
-                <div class="col-md-3 col-sm-3">
-                    @if(in_array($genre->name, $movie_genres)) {{Form::checkbox('genres[]', $genre->name, ['checked' => 'checked'])}} &nbsp;{{$genre->name}}
-                    @else {{Form::checkbox('genres[]', $genre->name)}} &nbsp;{{$genre->name}} @endif
-                </div>
+    <div class="col-md-3 col-sm-3">
+        {{-- {{Form::label('artist', 'Artist')}} 
+        <select class="form-control artists" name="artists" id="artists">
+              <option disabled selected="true">Select Artist..</option>
+                @foreach ($artists as $artist)
+                  <option value="{{$artist->id}}">{{ $artist->artist_name }}</option>
                 @endforeach
+        </select> --}}
+    </div>
+    <div class="col-md-3 col-sm-3 add-albums">
+        {{-- {{Form::label('albums', 'Album')}}
+        <select class="form-control" name="albums" id="albums">
+              <option disabled selected="true">Select Albums..</option>
+        </select> --}}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+            {{Form::label('genres', 'Genre')}}
+        <div class="card card-body bg-light">
+            <div class="row">
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'OPM')}} OPM
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'Pop')}} Pop 
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'R&B')}} R&amp;B
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'Hip-Hop')}} Hip-Hop
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'Rock')}} Rock
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    {{Form::radio('genres', 'Jazz')}} Jazz
+                </div>
             </div>
         </div>
-        <br>
     </div>
-</div>
-<br>
-<div class="row">
-    <div class="col">
+    <div class="col-md-3 col-sm-3">
         {{Form::label('cover_image', 'Cover Image')}}
-        <br>{{$movie->cover_image}}<br><br>{{Form::file('cover_image')}}
+        <br> {{Form::file('cover_image')}}
     </div>
-    <div class="col">
-        {{Form::label('movie_video', 'Movie')}}
-        <br>{{$movie->movie_video}}<br><br>{{Form::file('movie_video')}}
+    <div class="col-md-3 col-sm-3">
+        {{Form::label('music_song', 'Song')}}
+        <br> {{Form::file('music_song')}}
     </div>
-</div>
-<br>
+</div><br>
 <div class="form-group">
-    {{Form::label('movie_description', 'Movie Description')}} {{Form::textarea('movie_description', $movie->movie_description, ['class' => 'form-control',
-    'placeholder' => 'Enter movie description here'])}}
-</div>
-<div class="form-group">
-    {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-primary'])}} {!! Form::close() !!}
-    <a href="/admin/movies" class="btn btn-light">
+    {{Form::hidden('_method', 'PUT')}}
+        {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
+    {!! Form::close() !!}
+    <a class="btn btn-light ">
         Cancel
     </a>
 </div>
 
-@endsection @section('script') {{--
-<script src="{{ asset('js/tagmanager.js') }}"></script>
-<script src="{{ asset('js/typeahead.js') }}"></script> --}} {{--
+@endsection @section('script') 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+{{-- <script src="{{ asset('js/tagmanager.js') }}"></script>
+<script src="{{ asset('js/typeahead.js') }}"></script> --}}
 <script type="text/javascript">
-    $(document).ready(function () {
-        var tagApi = $(".tm-input").tagsManager();
+    $(document).on('change','.artists',function(){
+            console.log("hmm its change");
 
+            var artist_id=$(this).val();
+            console.log(artist_id);
 
-        $(".typeahead").typeahead({
-            name: 'tags',
-            displayKey: 'name',
-            source: function (query, process) {
-                return $.get('ajaxpro.php', {
-                    query: query
-                }, function (data) {
-                    data = $.parseJSON(data);
-                    return process(data);
-                });
-            },
-            afterSelect: function (item) {
-                tagApi.tagsManager("pushTag", item);
-            }
+            var op=" ";
+
+            $.ajax({
+                type:'get',
+                url:'{!!URL::to('json_albums')!!}',
+                data:{'id':artist_id},
+                dataType: 'json',
+                success:function(data){
+                    console.log('success');
+                    console.log(data);
+
+                    dataLength = Object.keys(data).length;
+
+                    console.log("Length"+dataLength);
+                    op+='<option selected disabled>Choose Album</option>';
+                    op+='<option name="albums" value="1">Single (No Album)</option>';// FOR NEW ALBUM OPTION APPEND ALBUM NAME
+                    for(var i=0;i<dataLength;i++){
+                    op+='<option value="'+data[i].id+'">'+data[i].album_name+'</option>';
+                   }
+                    op+='<option name="new_album" value="New Album..">New Album..</option>';
+                    // FOR NEW ALBUM OPTION APPEND ALBUM NAME
+                   $(document).find('#albums').html(" ");
+                   $(document).find('#albums').append(op);
+                },
+                error:function(){
+                    console.log('error');
+                }
+            });
         });
-    });
-</script> --}} @endsection
+    // FOR NEW ALBUM OPTION APPEND ALBUM NAME
+        $('select[name="albums"]').change(function(){
+            
+            if ($(this).val() == "New Album.."){
+                $(".add-albums").append("<div><br><input name='albums' class='field form-control' type='text' placeholder='" + $(this).val() + "'/><label class='remove float-right'>Remove</label></div>");
+                $('select[name="albums"]').attr("disabled","disabled");
+                $('option[name="new_album"]').remove();
+            }     
+        });
+
+        $(".add-albums").on("click", ".remove", function () {
+        //  var val = $(this).parent().find("input").val();         
+         $('select[name="albums"]').append("<option name='new_album' value='New Album..'>New Album..</option>");
+         $('select[name="albums"]').removeAttr('disabled');
+         $(this).parent().remove();
+     });
+</script>
+@endsection

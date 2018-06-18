@@ -14,7 +14,7 @@ class Album extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'album_name', 'cover_image',
+        'album_name', 'cover_image_id',
     ];
 
     public function artists(){
@@ -25,5 +25,8 @@ class Album extends Model
     {
         return $this->hasMany('App\Music');
         // return $this->belongsToMany('App\Album', 'artist_id');
+    }
+    public function coverimage(){
+        return $this->belongsTo('App\CoverImage', 'cover_image_id');
     }
 }

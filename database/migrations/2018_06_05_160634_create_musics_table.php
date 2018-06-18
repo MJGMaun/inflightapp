@@ -20,7 +20,7 @@ class CreateMusicsTable extends Migration
             $table->integer('album_id')->unsigned();
             // $table->date('release_date');
             $table->string('genre');
-            $table->string('cover_image');
+            $table->integer('cover_image_id');
             $table->string('music_song');
             $table->timestamps();
         });

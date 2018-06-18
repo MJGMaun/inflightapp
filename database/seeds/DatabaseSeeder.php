@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(GenreTableSeeder::class);
         // Album seeder will use the albums above created.
         $this->call(AlbumTableSeeder::class);
+        // CoverImage seeder will use the CoverImages above created.
+        $this->call(CoverImageTableSeeder::class);
         // Movie factory.
         // factory(App\Model\Movie::class,10)->create();
         // Artist factory.

@@ -14,11 +14,14 @@ class Music extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'title', 'album_id', 'genre', 'cover_image', 'music_song',
+        'title', 'album_id', 'genre', 'cover_image_id', 'music_song',
     ];
 
     public function albums(){
         // return $this->belongsTo('App\Artist', 'artist_id');
         return $this->belongsTo('App\Album', 'artist_id');
+    }
+    public function coverimage(){
+        return $this->belongsTo('App\CoverImage', 'cover_image_id');
     }
 }
