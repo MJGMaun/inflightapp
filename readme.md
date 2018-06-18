@@ -1,3 +1,12 @@
+## Steps to install
+
+- npm install
+- composer install
+- maglagay ka database, inflightapp, name ng db
+- php artisan migrate, para malagyan table db mo
+- php artisan db:seed, para may data na agad datatabase mo
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
