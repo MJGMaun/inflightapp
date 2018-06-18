@@ -19,7 +19,7 @@ class Music extends Model
 
     public function albums(){
         // return $this->belongsTo('App\Artist', 'artist_id');
-        return $this->belongsTo('App\Album', 'artist_id');
+        return $this->belongsTo('App\Album', 'album_id');
     }
     public function coverimage(){
         return $this->belongsTo('App\CoverImage', 'cover_image_id');

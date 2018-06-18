@@ -38,24 +38,12 @@
             {{Form::label('genres', 'Genre')}}
         <div class="card card-body bg-light">
             <div class="row">
+                @foreach($genres as $genre)
                 <div class="col-md-3 col-sm-3">
-                    {{Form::radio('genres', 'OPM')}} OPM
+                    @if($music->genre == $genre ) {{Form::radio('genre', $music->genre, ['checked' => 'checked'])}} &nbsp;{{$music->genre}}
+                    @else {{Form::radio('genre', $genre)}} &nbsp;{{$genre}} @endif
                 </div>
-                <div class="col-md-3 col-sm-3">
-                    {{Form::radio('genres', 'Pop')}} Pop 
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    {{Form::radio('genres', 'R&B')}} R&amp;B
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    {{Form::radio('genres', 'Hip-Hop')}} Hip-Hop
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    {{Form::radio('genres', 'Rock')}} Rock
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    {{Form::radio('genres', 'Jazz')}} Jazz
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

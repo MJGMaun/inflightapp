@@ -359,15 +359,14 @@ class MusicsController extends Controller
     {
         $request->user()->authorizeRoles(['admin']);
         $music = Music::find($id);
-        $genres = ['OPM', 'Pop', 'R&B', 'Hip-Hop', 'Rock', 'Jazz'];
+        $genres = array('OPM', 'Pop', 'R&B', 'Hip-Hop', 'Rock', 'Jazz');
+
         // $genres = Genre::orderBy('name', 'asc')->get();
         // $movie_genres  = $movie->genres->pluck('name')->toArray();
-        dd($genres);
-
 
         
         $request->user()->authorizeRoles(['admin']);
-        return view('admin.musics.edit', compact('music'));
+        return view('admin.musics.edit', compact('music', 'genres'));
     }
 
     /**
@@ -380,10 +379,13 @@ class MusicsController extends Controller
     public function update($id, Request $request)
     {
         $music = Music::find($id);
+
+        $albumId = $music->albums->id;
+        // dd($albumId);
         $request->user()->authorizeRoles(['admin']);
         $this->validate($request, [ 
             'title' => 'required',
-            'genres' => 'required',
+            'genre' => 'required',
             'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg',
             'music_song' => 'mimetypes:audio/mp4, audio/mpeg, audio/x-wav|nullable',
         ]);
@@ -419,16 +421,15 @@ class MusicsController extends Controller
         //Update Music
             
         $music->title = $request->input('title');
-        $music->genre = $request->input('genres');
+        $music->genre = $request->input('genre');
 
         if($request->hasFile('cover_image')){
             $coverimage = new CoverImage;
 
-            $coverImage->cover_image = $fileNameToStore;
-            $coverImage->save();
+            $coverimage->cover_image = $fileNameToStore;
+            $coverimage->save();
 
-            $lastInsertedId = $coverImage->id;
-            $album->cover_image_id = $lastInsertedId;
+            $lastInsertedId = $coverimage->id;
             
             $music->cover_image_id = $lastInsertedId;
         }
@@ -438,7 +439,7 @@ class MusicsController extends Controller
         $music->save();
 
 
-        return redirect('/admin/musics/'.$id)->with('success', 'Song Updated');
+        return redirect('/admin/musics/'.$albumId)->with('success', 'Song Updated');
     }
 
     /**
