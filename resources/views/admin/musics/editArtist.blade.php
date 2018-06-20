@@ -57,7 +57,8 @@
                     <td>{{$album->updated_at}}</td>
                     <td>
                         <div class="row">
-                            <a href="/admin/musics/{{$album->id}}/editAlbum" class="btn btn-sm btn-primary edit-music">
+                            <a href="/admin/musics/{{$album->id}}/createWId" class="btn btn-sm btn-success" title="Add Song ({{$album->album_name}})"><span data-feather="plus"></span></a>&nbsp;
+                            <a href="/admin/musics/{{$album->id}}/editAlbum" class="btn btn-sm btn-primary edit-music" title="Edit Album ({{$album->album_name}})">
                                 <span data-feather="edit"></span>
                             </a>&nbsp; {!!Form::open(['action' => ['Admin\MusicsController@destroyAlbum', $album->id], 'method' =>
                             'POST', 'class' => 'float-right'])!!} {{Form::hidden('_method', 'DELETE')}} {{Form::submit('Delete',['class' => 'btn btn-sm btn-danger delete-music'])}} {!!Form::close()!!}

@@ -6,7 +6,7 @@
    {{$album->album_name}}
 </div>
 
-<a class="btn btn-sm btn-primary" href="/admin/musics/create">
+<a class="btn btn-sm btn-primary" href="/admin/musics/{{$album->id}}/createWId">
     <span data-feather="plus"></span>
     Add Song
 </a>

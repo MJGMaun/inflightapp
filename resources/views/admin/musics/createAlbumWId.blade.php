@@ -1,7 +1,7 @@
 @extends('admin.layouts.app') @section('css')
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> @endsection @section('content')
 
-<a href="/admin/musics" class="btn btn-sm btn-primary">
+<a href="/admin/musics/{{$artist->id}}/editArtist" class="btn btn-sm btn-primary">
     <span data-feather="arrow-left"></span>
     Back
 </a>
@@ -16,21 +16,20 @@
     <div class="col-md-6 col-sm-6 add-artists">
         {{Form::label('artists', 'Artist')}} 
         <select class="form-control artists" name="artists" id="artists">
-              <option disabled selected="true">Select Artist..</option>
-              <option name="new_artist" value="new_artist">New Artist..</option>
-                @foreach ($artists as $artist)
                   <option value="{{$artist->id}}">{{ $artist->artist_name }}</option>
-                @endforeach
         </select>
     </div>
     <div id="album" class="col-md-4 col-sm-4">
         {{Form::label('albums[]', 'Album Name')}} <small> (Click + to add album)</small>
+        {{Form::text('albums[]', '', ['class' => 'form-control', 'placeholder' => 'Album Name'])}}
+        <br>{{Form::file('cover_image')}}
+        <hr>
     </div>
-    <div class="col-md-2 col-sm-2"><br>
-        <a class="btn btn-primary add_album" title="Add Album">
+    <div class="col-md-2 col-sm-2">
+        <a class="btn btn-sm btn-primary add_album" title="Add Album">
             <span data-feather="plus"></span>
         </a>
-        <a class="btn btn-danger remove_album" title="Remove Album">
+        <a class="btn btn-sm btn-danger remove_album" title="Remove Album">
             <span data-feather="minus"></span>
         </a>
     </div>
