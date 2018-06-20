@@ -1,7 +1,9 @@
 @extends('admin.layouts.app') @section('css') @endsection @section('content')
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 <div class="row flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <a href="/admin/musics/">Artists</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$album->album_name}}
+   <a href="/admin/musics/">Artists</a> &nbsp; <span data-feather="chevron-right"></span><a href="/admin/musics/{{$artist->id}}/editArtist">{{$artist->artist_name}}</a> &nbsp; <span data-feather="chevron-right"></span>
+    &nbsp;
+   {{$album->album_name}}
 </div>
 
 <a class="btn btn-sm btn-primary" href="/admin/musics/create">
@@ -44,7 +46,7 @@
                             <a href="/admin/musics/{{$song->id}}/edit" class="btn btn-sm btn-primary edit-music"><span data-feather="edit"></span></a>&nbsp;
                             {!!Form::open(['action' => ['Admin\MusicsController@destroy', $song->id], 'method' => 'POST', 'class' => 'float-right'])!!}
                             {{Form::hidden('_method', 'DELETE')}}
-                            {{Form::button('<span data-feather="trash-2"></span>',['class' => 'btn btn-sm btn-danger delete-music'])}}
+                            {{Form::submit('Delete',['class' => 'btn btn-sm btn-danger delete-music'])}}
                             {!!Form::close()!!}</div></td>
                     </tr>
                     @endforeach

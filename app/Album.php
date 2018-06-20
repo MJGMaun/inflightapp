@@ -19,7 +19,7 @@ class Album extends Model
 
     public function artists(){
         // return $this->belongsTo('App\Artist', 'artist_id');
-        return $this->belongsTo('App\Artist');
+        return $this->belongsTo('App\Artist', 'artist_id');
     }
     public function songs()
     {

@@ -62,7 +62,7 @@ class MoviesController extends Controller
             'release_date' => 'required',
             'cast' => 'required',
             'genres' => 'required',
-            'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg',
+            'cover_image' => 'image|nullable|max:1999|mimetypes:jpg,png,jpeg',
             'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
             'movie_description' => 'required',
         ]);

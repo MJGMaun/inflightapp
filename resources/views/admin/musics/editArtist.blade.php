@@ -4,10 +4,6 @@
 @endsection
 @section('content')
 
-{{-- <a href="/admin/musics" class="btn btn-sm btn-primary">
-    <span data-feather="arrow-left"></span>
-    Back
-</a> --}}
 <div class="row flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
     <a href="/admin/musics/">Artists</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$artist->artist_name}}
 </div>
@@ -16,39 +12,21 @@
 !!}
 <div class="row">
     <div class="col-md-6 col-sm-6 add-artists">
-        {{-- {{Form::label('artist_name', 'Artist Name')}} {{Form::text('artist_name', '', ['class' => 'form-control', 'placeholder'
-        => 'Artist Name'])}} --}} {{Form::label('artist', 'Artist Name')}} {{Form::text('artist', $artist->artist_name, ['class'
-        => 'form-control', 'placeholder' => 'Artist Name'])}} {{--
-        <select class="form-control artists" name="artists"
-            id="artists">
-            <option disabled selected="true">Select Artist..</option>
-            <option name="new_artist" value="new_artist">New Artist..</option>
-            @foreach ($artists as $artist)
-            <option value="{{$artist->id}}">{{ $artist->artist_name }}</option>
-            @endforeach
-        </select> --}}
+        {{Form::label('artist', 'Artist Name')}} {{Form::text('artist', $artist->artist_name, ['class'
+        => 'form-control', 'placeholder' => 'Artist Name'])}} 
     </div>
     <div class="col-md-6 col-sm-6">
-        <div class="form-group">
-            {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-primary'])}} {!! Form::close() !!}
+        <div class="form-group" style="margin: 7px;"><br>
+            {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-success'])}} {!! Form::close() !!}
         </div>
     </div>
 </div>
-<br> {{--
-<div class="row">
-    <div class="col">
-        {{Form::label('cover_image', 'Cover Image')}}
-        <br> {{Form::file('cover_image')}}
-        <br>
-        <br>
-    </div>
-    <div class="col">
-        {{Form::label('album_songs[]', 'Songs')}}
-        <br> {{Form::file('album_songs[]', ['multiple' => 'multiple'])}}
-    </div>
-</div> --}}
-
-
+<br>
+<a class="btn btn-sm btn-primary" href="/admin/musics/{{$artist->id}}/createAlbumWId">
+    <span data-feather="plus"></span>
+    Add Album
+</a>
+<br><br>
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
         <table id="albums-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
@@ -81,9 +59,8 @@
                         <div class="row">
                             <a href="/admin/musics/{{$album->id}}/editAlbum" class="btn btn-sm btn-primary edit-music">
                                 <span data-feather="edit"></span>
-                            </a>&nbsp; {!!Form::open(['action' => ['Admin\MusicsController@destroy', $album->id], 'method' =>
-                            'POST', 'class' => 'float-right'])!!} {{Form::hidden('_method', 'DELETE')}} {{Form::button('
-                            <span data-feather="trash-2"></span>',['class' => 'btn btn-sm btn-danger delete-music'])}} {!!Form::close()!!}
+                            </a>&nbsp; {!!Form::open(['action' => ['Admin\MusicsController@destroyAlbum', $album->id], 'method' =>
+                            'POST', 'class' => 'float-right'])!!} {{Form::hidden('_method', 'DELETE')}} {{Form::submit('Delete',['class' => 'btn btn-sm btn-danger delete-music'])}} {!!Form::close()!!}
                         </div>
                     </td>
                 </tr>

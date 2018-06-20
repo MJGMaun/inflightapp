@@ -12,6 +12,6 @@ class AlbumTableSeeder extends Seeder
      */
     public function run()
     {
-        Album::create(array('album_name' => 'Single Only', 'artist_id' => '0', 'cover_image_id' => '1'));
+        // Album::create(array('album_name' => 'Single Only', 'artist_id' => '0', 'cover_image_id' => '1'));
     }
 }

@@ -22,16 +22,25 @@
         {{Form::text('album', $album->album_name, ['class'
         => 'form-control', 'placeholder' => 'Artist Name'])}}
     </div>
-    <div class="col-md-6 col-sm-6">
+    <div class="col-md-4 col-sm-4">
+        {{Form::label('cover_image', 'Cover Image')}}
+        <br> {{Form::file('cover_image')}}
+    </div>
+    <div class="col-md-2 col-sm-2">
         {{Form::label('cover_image', 'Cover Image')}}
         <br> {{Form::file('cover_image')}}
     </div>
 </div><br> 
 <div class="row">
     <div class="col-md-6 col-sm-6 add-artists">
-            {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-primary'])}} {!! Form::close() !!}
+            {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-success'])}} {!! Form::close() !!}
     </div>
-<br><br><br><br> 
+</div><br><br> 
+<a class="btn btn-sm btn-primary" href="/admin/musics/{{$album->id}}/createWId">
+    <span data-feather="plus"></span>
+    Add Song
+</a>
+<br><br>
 
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
@@ -63,10 +72,8 @@
                         <td>{{$song->updated_at}}</td>
                         <td><div class="row">
                             <a href="/admin/musics/{{$song->id}}/edit" class="btn btn-sm btn-primary edit-music"><span data-feather="edit"></span></a>&nbsp;
-                            {!!Form::open(['action' => ['Admin\MusicsController@destroy', $song->id], 'method' => 'POST', 'class' => 'float-right'])!!}
-                            {{Form::hidden('_method', 'DELETE')}}
-                            {{Form::button('<span data-feather="trash-2"></span>',['class' => 'btn btn-sm btn-danger delete-music'])}}
-                            {!!Form::close()!!}</div></td>
+                            {!!Form::open(['action' => ['Admin\MusicsController@destroy', $song->id], 'method' =>
+                            'POST', 'class' => 'float-right'])!!} {{Form::hidden('_method', 'DELETE')}} {{Form::submit('Delete',['class' => 'btn btn-sm btn-danger delete-music'])}} {!!Form::close()!!}</div></td>
                     </tr>
                     @endforeach
                     {{-- @else

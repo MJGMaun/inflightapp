@@ -23,4 +23,9 @@ class Artist extends Model
         return $this->hasMany('App\Album');
         // return $this->belongsToMany('App\Album', 'artist_id');
     }
+
+    public function songs()
+    {
+        return $this->hasManyThrough('App\Music', 'App\Album');
+    }
 }

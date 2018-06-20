@@ -4,9 +4,16 @@
 @endsection
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">Music</h1>
+    <h1 class="h2">Artists</h1>
 </div>
-
+<a class="btn btn-sm btn-primary" href="/admin/musics/createArtist">
+    <span data-feather="plus"></span>
+    Add Artist
+</a>
+<a class="btn btn-sm btn-primary" href="/admin/musics/createArtist">
+    <span data-feather="plus"></span>
+    Add Album
+</a>
 <a class="btn btn-sm btn-primary" href="/admin/musics/create">
     <span data-feather="plus"></span>
     Add Song
@@ -40,9 +47,9 @@
                         <td>{{$artist->updated_at}}</td>
                         <td><div class="row">
                             <a href="/admin/musics/{{$artist->id}}/editArtist" class="btn btn-sm btn-primary edit-music"><span data-feather="edit"></span></a>&nbsp;
-                            {!!Form::open(['action' => ['Admin\MusicsController@destroy', $artist->id], 'method' => 'POST', 'class' => 'float-right'])!!}
+                            {!!Form::open(['action' => ['Admin\MusicsController@destroyArtist', $artist->id], 'method' => 'POST', 'class' => 'float-right'])!!}
                             {{Form::hidden('_method', 'DELETE')}}
-                            {{Form::button('<span data-feather="trash-2"></span>',['class' => 'btn btn-sm btn-danger delete-music'])}}
+                            {{Form::submit('Delete',['class' => 'btn btn-sm btn-danger delete-music'])}}
                             {!!Form::close()!!}</div></td>
                     </tr>
                     @endforeach
