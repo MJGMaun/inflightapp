@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 
-<div class="row flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+<div class="d-flex align-items-center pb-2 mb-3 border-bottom">
     <a href="/admin/musics/">Artists</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$artist->artist_name}}
 </div>
 
@@ -27,6 +27,7 @@
     Add Album
 </a>
 <br><br>
+<h3>{{$artist->artist_name}} Albums</h3><br>
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
         <table id="albums-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">

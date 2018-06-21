@@ -31,6 +31,19 @@
                 </div>
               </li>
               <li class="nav-item">
+                <div class="dropdown">
+                  <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span data-feather="shopping-cart"></span> Shop
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/admin/products/createCategory"><span data-feather="layers"></span> &nbsp;&nbsp;Create Category</a>
+                    <a class="dropdown-item" href="/admin/products/createSubCategory"><span data-feather="list"></span> &nbsp;&nbsp;Sub Category</a>
+                    <a class="dropdown-item" href="/admin/products/create"><span data-feather="shopping-bag"></span> &nbsp;&nbsp;Insert Product</a>
+                    <a class="dropdown-item" href="/admin/products/create"><span data-feather="edit"></span> &nbsp;&nbsp;Manage Products</a>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="file-text"></span>
                   News

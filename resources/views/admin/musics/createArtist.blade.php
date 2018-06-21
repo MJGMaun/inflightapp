@@ -8,7 +8,7 @@
 <br>
 <br>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">New Artist</h1>
+    <h1 class="h2">New Artists &amp; Albums</h1>
 </div>
 
 {!! Form::open(['action' => 'Admin\MusicsController@storeArtist', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
@@ -25,6 +25,13 @@
     </div>
     <div id="album" class="col-md-4 col-sm-4">
         {{Form::label('albums[]', 'Album Name')}} <small> (Click + to add album)</small>
+        {{Form::text('albums[]', '', ['class' => 'form-control album', 'placeholder' => 'Album Name'])}}<br>
+        <div class="image-container">
+        <div class="image">
+            {{Form::label('cover_image', 'Cover Image')}}<br>{{Form::file('cover_image')}}
+        </div>
+        </div>
+        <hr><br>
     </div>
     <div class="col-md-2 col-sm-2"><br>
         <a class="btn btn-primary add_album" title="Add Album">
@@ -37,7 +44,7 @@
 </div>
 <br>
 <div class="form-group">
-    {{Form::submit('Save', ['class' => 'btn btn-primary '])}} {!! Form::close() !!}
+    {{Form::submit('Save', ['class' => 'btn btn-primary save'])}} {!! Form::close() !!}
     <a href="/admin/musics/" class="btn btn-light ">
         Cancel
     </a>
@@ -45,11 +52,21 @@
 
 @endsection @section('script')
 <script type="text/javascript">
-        
+        $('.save').hide();
+        $('.album').keyup(function(){
+            if(!$('.album').val()){
+                $('.save').hide();
+            }
+            else {
+                console.log("Hey");
+                
+                $('.save').show();
+            }
+        });
         $('a.add_album').click(function(e) {
             e.preventDefault();
             if ($('#album input').length < 5) {
-                $('#album').append('<div class="input">{{Form::text('albums[]', '', ['class' => 'form-control', 'placeholder' => 'Album Name'])}}<br>{{Form::label('cover_image', 'Cover Image')}}<br>{{Form::file('cover_image')}}<hr><br></div>');
+                $('#album').append('<div class="input">{{Form::text('albums[]', '', ['class' => 'form-control album', 'placeholder' => 'Album Name'])}}<br>{{Form::label('cover_image', 'Cover Image')}}<br>{{Form::file('cover_image')}}<hr><br></div>');
             }
         });
         $('a.remove_album').click(function (e) {
@@ -63,10 +80,12 @@
         $('select[name="artists"]').change(function(){
             
             if ($(this).val() == "new_artist"){
-                $(".add-artists").append("<div><br><input name='artists' class='field form-control' type='text' placeholder='Artist Name'/><label class='remove float-right'>Remove</label></div>");
+                $(".add-artists").append("<div><br><input name='new_artist_name' class='field form-control' type='text' placeholder='Artist Name'/><label class='remove float-right'>Remove</label></div>");
                 $('select[name="artists"]').attr("disabled","disabled");
                 $('input[name="albums[]"]').attr("disabled","disabled");
                 $('a.add_album, a.remove_album ').hide();
+                $('a.add_album, a.remove_album ').hide();
+                $('.image').remove();
                 $('option[name="new_artist"]').remove();
             }     
         });
@@ -74,6 +93,7 @@
         $(".add-artists").on("click", ".remove", function () {
         //  var val = $(this).parent().find("input").val();         
          $('select[name="artists"]').prepend("<option name='new_artist' value='new_artist'>New Artist..</option>");
+         $('.image-container').append('<div class="image">{{Form::label('cover_image', 'Cover Image')}}<br>{{Form::file('cover_image')}}</div>');
          $('select[name="artists"]').removeAttr('disabled');
          $('input[name="albums[]"]').removeAttr('disabled');
          $('a.add_album, a.remove_album').show();

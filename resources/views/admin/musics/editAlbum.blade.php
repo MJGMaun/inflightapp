@@ -4,11 +4,7 @@
 @endsection
 @section('content')
 
-{{-- <a href="/admin/musics" class="btn btn-sm btn-primary">
-    <span data-feather="arrow-left"></span>
-    Back
-</a> --}}
-<div class="row flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+<div class="d-flex align-items-center pb-2 mb-3 border-bottom">
    <a href="/admin/musics/">Artists</a> &nbsp; <span data-feather="chevron-right"></span><a href="/admin/musics/{{$artist->id}}/editArtist">{{$artist->artist_name}}</a> &nbsp; <span data-feather="chevron-right"></span>
     &nbsp;
    {{$album->album_name}}
@@ -22,11 +18,7 @@
         {{Form::text('album', $album->album_name, ['class'
         => 'form-control', 'placeholder' => 'Artist Name'])}}
     </div>
-    <div class="col-md-4 col-sm-4">
-        {{Form::label('cover_image', 'Cover Image')}}
-        <br> {{Form::file('cover_image')}}
-    </div>
-    <div class="col-md-2 col-sm-2">
+    <div class="col-md-6 col-sm-6">
         {{Form::label('cover_image', 'Cover Image')}}
         <br> {{Form::file('cover_image')}}
     </div>
@@ -41,6 +33,7 @@
     Add Song
 </a>
 <br><br>
+<h3>{{$album->album_name}} Songs</h3><br>
 
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">

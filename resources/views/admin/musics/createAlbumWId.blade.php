@@ -8,7 +8,7 @@
 <br>
 <br>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">New Artist</h1>
+    <h1 class="h2">New Album</h1>
 </div>
 
 {!! Form::open(['action' => 'Admin\MusicsController@storeArtist', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
@@ -36,7 +36,7 @@
 </div>
 <br>
 <div class="form-group">
-    {{Form::submit('Save', ['class' => 'btn btn-primary '])}} {!! Form::close() !!}
+    {{Form::submit('Save', ['class' => 'btn btn-success '])}} {!! Form::close() !!}
     <a href="/admin/musics/" class="btn btn-light ">
         Cancel
     </a>
