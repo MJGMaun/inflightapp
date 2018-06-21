@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.css') }}"> @endsection @section('content')
 
 <div class="d-flex align-items-center pb-2 mb-3 border-bottom">
-    <a href="/admin/products/createCategory">Categories</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$category->category_name}}
+    <a href="/admin/products/createCategory">Categories</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$category->product_category_name}}
 </div>
 {!! Form::open(['action' => ['Admin\ProductsController@updateCategory', $category->id ], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="card" style="width: 100%;">
@@ -15,7 +15,7 @@
             <div class="form-group row">
                 {{Form::label('category', 'Category', ['class' => 'col-sm-3 col-form-label'])}}
                 <div class="col-sm-7">
-                    {{Form::text('category', $category->category_name, ['class' => 'form-control', 'placeholder' => 'Enter Category Name'])}}
+                    {{Form::text('category', $category->product_category_name, ['class' => 'form-control', 'placeholder' => 'Enter Category Name'])}}
                 </div>
             </div>
         </li>
@@ -23,7 +23,7 @@
             <div class="form-group row">
                 {{Form::label('description', 'Description', ['class' => 'col-sm-3 col-form-label'])}}
                 <div class="col-sm-7">
-                    {{Form::textarea('description', $category->category_description, ['class' => 'form-control', 'placeholder' => 'Enter Category Description'])}}
+                    {{Form::textarea('description', $category->product_category_description, ['class' => 'form-control', 'placeholder' => 'Enter Category Description'])}}
                 </div>
             </div>
         </li>
@@ -57,8 +57,8 @@
                             @foreach($categories as $category)
                                 <tr>
                                     <td>{{$category->id}}</td>
-                                    <td>{{$category->category_name}}</td>
-                                    <td>{{$category->category_description}}</td>
+                                    <td>{{$category->product_category_name}}</td>
+                                    <td>{{$category->product_category_description}}</td>
                                     <td>{{$category->created_at}}</td>
                                     <td>{{$category->updated_at}}</td>
                                     <td>

@@ -16,8 +16,29 @@
     Insert Product
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item center text-center">Category</li>
-    <li class="list-group-item text-center">Sub Category</li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('category', 'Category', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                <select class="form-control categories" name="category" id="category">
+                    <option disabled selected="true">Select Category..</option>
+                        @foreach ($categories as $category)
+                        <option value="{{$category->id}}">{{ $category->product_category_name }}</option>
+                        @endforeach
+                </select>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('subCategory', 'Sub Category', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                <select class="form-control" name="subCategory" id="subCategory">
+                    <option disabled selected="true">Select Sub Category..</option>
+                </select>
+            </div>
+        </div>
+    </li>
     <li class="list-group-item text-center">Product Name</li>
     <li class="list-group-item text-center">Product Company</li>
     <li class="list-group-item text-center">Product Price</li>
@@ -33,21 +54,20 @@
 @endsection @section('script') 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-{{-- <script src="{{ asset('js/tagmanager.js') }}"></script>
-<script src="{{ asset('js/typeahead.js') }}"></script> --}}
 <script type="text/javascript">
-    $(document).on('change','.artists',function(){
-            console.log("hmm its change");
+    //DROPDOWN DEPENDENT
+    $(document).on('change','.categories',function(){
+            console.log("hmm it changed");
 
-            var artist_id=$(this).val();
-            console.log(artist_id);
+            var category_id=$(this).val();
+            console.log(category_id);
 
             var op=" ";
 
             $.ajax({
                 type:'get',
-                url:'{!!URL::to('json_albums')!!}',
-                data:{'id':artist_id},
+                url:'{!!URL::to('json_sub_categories')!!}',
+                data:{'id':category_id},
                 dataType: 'json',
                 success:function(data){
                     console.log('success');
@@ -71,21 +91,5 @@
                 }
             });
         });
-    // FOR NEW ALBUM OPTION APPEND ALBUM NAME
-        $('select[name="albums"]').change(function(){
-            
-            if ($(this).val() == "New Album.."){
-                $(".add-albums").append("<div><br><input name='albums' class='field form-control' type='text' placeholder='" + $(this).val() + "'/><label class='remove float-right'>Remove</label></div>");
-                $('select[name="albums"]').attr("disabled","disabled");
-                $('option[name="new_album"]').remove();
-            }     
-        });
-
-        $(".add-albums").on("click", ".remove", function () {
-        //  var val = $(this).parent().find("input").val();         
-         $('select[name="albums"]').append("<option name='new_album' value='New Album..'>New Album..</option>");
-         $('select[name="albums"]').removeAttr('disabled');
-         $(this).parent().remove();
-     });
 </script>
 @endsection

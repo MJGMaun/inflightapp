@@ -14,8 +14,11 @@ class ProductSubCategory extends Model
     public $timestamps = true;
 
     public function category(){
-        // return $this->belongsTo('App\Artist', 'artist_id');
-        return $this->belongsTo('App\ProductCategory');
+        return $this->belongsTo('App\ProductCategory', 'product_category_id');
+    }
+    public function products()
+    {
+        return $this->hasMany('App\Product');
     }
 
 }

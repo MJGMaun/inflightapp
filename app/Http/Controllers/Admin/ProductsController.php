@@ -19,7 +19,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        $request->user()->authorizeRoles(['admin']);
+        return view('admin.products.index');
     }
 
     /**
@@ -30,8 +31,9 @@ class ProductsController extends Controller
     public function create(Request $request)
     {
         $request->user()->authorizeRoles(['admin']);
-
-        return view('admin.products.create');
+        $categories = ProductCategory::orderBy('created_at', 'desc')->get();
+        $subCcategories = ProductSubCategory::orderBy('created_at', 'desc')->get();
+        return view('admin.products.create', compact('categories', 'subCategories'));
     }
 
     /**
@@ -94,7 +96,16 @@ class ProductsController extends Controller
     /*************************************
                 CUSTOM FUNCTIONS
     *************************************/
-
+        public function json_sub_categories(Request $request){
+            $category_id = $request->id;
+            //   $albums = Album::where('artist_id', '=', $artists_id)->get();
+                
+                $category = ProductCategory::find($category_id);
+                $data  = $category->subcategories->toArray();
+                dd($data);
+                
+                return $data;
+            }
     /*****************************
                 Category
     *****************************/
@@ -111,13 +122,13 @@ class ProductsController extends Controller
             $request->user()->authorizeRoles(['admin']);
 
             $this->validate($request, [ 
-                'category' => 'required|unique:product_categories,category_name',
+                'category' => 'required|unique:product_categories,product_category_name',
                 'description' => 'nullable',
             ]);
 
             $category = new ProductCategory;
-            $category->category_name = $request->input('category');
-            $category->category_description = $request->input('description');
+            $category->product_category_name = $request->input('category');
+            $category->product_category_description = $request->input('description');
             $category->save();
 
             return redirect('/admin/products/createCategory')->with('success', 'Product Category Added');
@@ -133,13 +144,13 @@ class ProductsController extends Controller
             $category = ProductCategory::find($id);
 
             $this->validate($request, [ 
-                'category' => 'required|unique:product_categories,category_name,'.$category->id,
+                'category' => 'required|unique:product_categories,product_category_name,'.$category->id,
                 'description' => 'nullable',
             ]);
 
             
-            $category->category_name = $request->input('category');
-            $category->category_description = $request->input('description');
+            $category->product_category_name = $request->input('category');
+            $category->product_category_description = $request->input('description');
             $category->save();
             return redirect('/admin/products/createCategory')->with('success', 'Product Category Updated');
         }
@@ -160,6 +171,9 @@ class ProductsController extends Controller
 
             $categories = ProductCategory::orderBy('created_at', 'desc')->get();
             $subCategories = ProductSubCategory::orderBy('created_at', 'desc')->get();
+            
+
+
 
             return view('admin.products.createSubCategory', compact('categories', 'subCategories'));
         }
@@ -169,12 +183,12 @@ class ProductsController extends Controller
 
             $this->validate($request, [ 
                 'category' => 'required',
-                'subCategoryName' => 'required|unique:product_sub_categories,sub_category_name',
+                'subCategoryName' => 'required|unique:product_sub_categories,product_sub_category_name',
             ]);
 
             $subCategory = new ProductSubCategory;
-            $subCategory->category_id = $request->input('category');
-            $subCategory->sub_category_name = $request->input('subCategoryName');
+            $subCategory->product_category_id = $request->input('category');
+            $subCategory->product_sub_category_name = $request->input('subCategoryName');
             $subCategory->save();
 
             return redirect('/admin/products/createSubCategory')->with('success', 'Product Sub Category Added');
@@ -193,12 +207,12 @@ class ProductsController extends Controller
 
             $this->validate($request, [ 
                 'category' => 'required',
-                'subCategoryName' => 'required|unique:product_sub_categories,sub_category_name,'.$subCategory->id,
+                'subCategoryName' => 'required|unique:product_sub_categories,product_sub_category_name,'.$subCategory->id,
             ]);
 
             
-            $subCategory->category_id = $request->input('category');
-            $subCategory->sub_category_name = $request->input('subCategoryName');
+            $subCategory->product_category_id = $request->input('category');
+            $subCategory->product_sub_category_name = $request->input('subCategoryName');
             $subCategory->save();
             return redirect('/admin/products/createSubCategory')->with('success', 'Product Sub Category Updated');
         }

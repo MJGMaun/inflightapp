@@ -51,8 +51,8 @@
                             @foreach($categories as $category)
                                 <tr>
                                     <td>{{$category->id}}</td>
-                                    <td>{{$category->category_name}}</td>
-                                    <td>{{$category->category_description}}</td>
+                                    <td>{{$category->product_category_name}}</td>
+                                    <td>{{$category->product_category_description}}</td>
                                     <td>{{$category->created_at}}</td>
                                     <td>{{$category->updated_at}}</td>
                                     <td>

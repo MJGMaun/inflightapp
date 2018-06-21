@@ -14,7 +14,7 @@
                     <select class="form-control artists" name="category" id="category">
                         <option disabled selected="true">Select Category..</option>
                         @foreach ($categories as $category)
-                            <option value="{{$category->id}}">{{ $category->category_name}}</option>
+                            <option value="{{$category->id}}">{{ $category->product_category_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -56,8 +56,8 @@
                             @foreach($subCategories as $subCategory)
                                  <tr>
                                     <td>{{$subCategory->id}}</td>
-                                    <td>{{$subCategory->category->category_name}}</td>
-                                    <td>{{$subCategory->sub_category_name}}</td>
+                                    <td>{{$subCategory->category->product_category_name}}</td>
+                                    <td>{{$subCategory->product_sub_category_name}}</td>
                                     <td>{{$subCategory->created_at}}</td>
                                     <td>{{$subCategory->updated_at}}</td>
                                     <td>

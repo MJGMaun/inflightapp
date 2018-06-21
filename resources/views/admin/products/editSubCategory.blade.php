@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.css') }}"> @endsection @section('content')
 
 <div class="d-flex align-items-center pb-2 mb-3 border-bottom">
-    <a href="/admin/products/createSubCategory">{{$subCategory->category->category_name}}</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$subCategory->sub_category_name}}
+    <a href="/admin/products/createSubCategory">{{$subCategory->category->product_category_name}}</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$subCategory->product_sub_category_name}}
 </div>
 
 {!! Form::open(['action' => ['Admin\ProductsController@updateSubCategory', $subCategory->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
@@ -17,10 +17,10 @@
                 {{Form::label('category', 'Category', ['class' => 'col-sm-3 col-form-label'])}}
                 <div class="col-sm-7">
                     <select class="form-control artists" name="category" id="category">
-                        <option value="{{$subCategory->category->id}}">{{$subCategory->category->category_name}}</option>
+                        <option value="{{$subCategory->category->id}}">{{$subCategory->category->product_category_name}}</option>
                         @foreach ($categories as $category)
-                            @if($category->category_name != $subCategory->category->category_name)
-                                <option value="{{$category->id}}">{{ $category->category_name}}</option>
+                            @if($category->category_name != $subCategory->category->product_category_name)
+                                <option value="{{$category->id}}">{{ $category->product_category_name}}</option>
                             @endif
                         @endforeach
                     </select>
@@ -63,8 +63,8 @@
                             @foreach($subCategories as $subCategory)
                                  <tr>
                                     <td>{{$subCategory->id}}</td>
-                                    <td>{{$subCategory->category->category_name}}</td>
-                                    <td>{{$subCategory->sub_category_name}}</td>
+                                    <td>{{$subCategory->product_category->category_name}}</td>
+                                    <td>{{$subCategory->product_sub_category_name}}</td>
                                     <td>{{$subCategory->created_at}}</td>
                                     <td>{{$subCategory->updated_at}}</td>
                                     <td>

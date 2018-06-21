@@ -19,9 +19,7 @@ class Artist extends Model
 
     public function albums()
     {
-        // return $this->hasMany('App\Album');
         return $this->hasMany('App\Album');
-        // return $this->belongsToMany('App\Album', 'artist_id');
     }
 
     public function songs()

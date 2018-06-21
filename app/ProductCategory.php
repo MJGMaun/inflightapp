@@ -15,8 +15,10 @@ class ProductCategory extends Model
 
     public function subcategories()
     {
-        // return $this->hasMany('App\Album');
         return $this->hasMany('App\ProductSubCategory');
-        // return $this->belongsToMany('App\Album', 'artist_id');
+    }
+    public function products()
+    {
+        return $this->hasManyThrough('App\Product', 'App\ProductSubCategory');
     }
 }

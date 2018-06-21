@@ -51,6 +51,7 @@ Route::get('admin/products/{id}/editSubCategory', 'Admin\ProductsController@edit
 Route::put('admin/products/{id}/updateSubCategory', 'Admin\ProductsController@updateSubCategory')->name('products.updateSubCategory');
 Route::delete('admin/products/{id}/destroySubCategory', 'Admin\ProductsController@destroySubCategory')->name('products.destroySubCategory');
 
+Route::get('/json_sub_categories','Admin\ProductsController@json_sub_categories');
 Route::resource('admin/products', 'Admin\ProductsController');
 
 

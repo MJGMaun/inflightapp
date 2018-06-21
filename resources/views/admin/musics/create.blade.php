@@ -1,4 +1,4 @@
-@extends('admin.layouts.app') @section('css')
+    @extends('admin.layouts.app') @section('css')
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> @endsection @section('content')
 
 <a href="/admin/musics" class="btn btn-sm btn-primary">
@@ -78,9 +78,8 @@
 @endsection @section('script') 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-{{-- <script src="{{ asset('js/tagmanager.js') }}"></script>
-<script src="{{ asset('js/typeahead.js') }}"></script> --}}
 <script type="text/javascript">
+    //DROPDOWN DEPENDENT
     $(document).on('change','.artists',function(){
             console.log("hmm its change");
 

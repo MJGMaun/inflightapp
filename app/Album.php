@@ -18,13 +18,11 @@ class Album extends Model
     ];
 
     public function artists(){
-        // return $this->belongsTo('App\Artist', 'artist_id');
         return $this->belongsTo('App\Artist', 'artist_id');
     }
     public function songs()
     {
         return $this->hasMany('App\Music');
-        // return $this->belongsToMany('App\Album', 'artist_id');
     }
     public function coverimage(){
         return $this->belongsTo('App\CoverImage', 'cover_image_id');
