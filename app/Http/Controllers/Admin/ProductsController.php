@@ -102,7 +102,6 @@ class ProductsController extends Controller
                 
                 $category = ProductCategory::find($category_id);
                 $data  = $category->subcategories->toArray();
-                dd($data);
                 
                 return $data;
             }

@@ -39,7 +39,14 @@
             </div>
         </div>
     </li>
-    <li class="list-group-item text-center">Product Name</li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productName', 'Product Name', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::text('productName', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Name'])}}
+            </div>
+        </div>
+    </li>
     <li class="list-group-item text-center">Product Company</li>
     <li class="list-group-item text-center">Product Price</li>
     <li class="list-group-item text-center">Product Description</li>
@@ -76,15 +83,14 @@
                     dataLength = Object.keys(data).length;
 
                     console.log("Length"+dataLength);
-                    op+='<option selected disabled>Choose Album</option>';
-                    op+='<option name="albums" value="1">Single (No Album)</option>';// FOR NEW ALBUM OPTION APPEND ALBUM NAME
+                    op+='<option selected disabled>Choose Sub Category</option>';
+                    op+='<option value="0">None</option>';// FOR NEW ALBUM OPTION APPEND ALBUM NAME
                     for(var i=0;i<dataLength;i++){
-                    op+='<option value="'+data[i].id+'">'+data[i].album_name+'</option>';
+                    op+='<option value="'+data[i].id+'">'+data[i].product_sub_category_name+'</option>';
                    }
-                    op+='<option name="new_album" value="New Album..">New Album..</option>';
                     // FOR NEW ALBUM OPTION APPEND ALBUM NAME
-                   $(document).find('#albums').html(" ");
-                   $(document).find('#albums').append(op);
+                   $(document).find('#subCategory').html(" ");
+                   $(document).find('#subCategory').append(op);
                 },
                 error:function(){
                     console.log('error');
