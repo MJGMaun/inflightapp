@@ -19,6 +19,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="/admin/series">
+                  <span data-feather="film"></span>
+                  Series
+                </a>
+              </li>
+              <li class="nav-item">
                 <div class="dropdown">
                   <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span data-feather="headphones"></span> Music
