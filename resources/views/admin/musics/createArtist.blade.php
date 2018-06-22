@@ -76,8 +76,9 @@
             }
         });
 
-        // FOR NEW ALBUM OPTION APPEND ALBUM NAME
+        // FOR NEW ARTIST APPEND ARTIST INPUT
         $('select[name="artists"]').change(function(){
+            $('.save').show();
             
             if ($(this).val() == "new_artist"){
                 $(".add-artists").append("<div><br><input name='new_artist_name' class='field form-control' type='text' placeholder='Artist Name'/><label class='remove float-right'>Remove</label></div>");
@@ -91,6 +92,7 @@
         });
 
         $(".add-artists").on("click", ".remove", function () {
+            $('.save').hides();
         //  var val = $(this).parent().find("input").val();         
          $('select[name="artists"]').prepend("<option name='new_artist' value='new_artist'>New Artist..</option>");
          $('.image-container').append('<div class="image">{{Form::label('cover_image', 'Cover Image')}}<br>{{Form::file('cover_image')}}</div>');

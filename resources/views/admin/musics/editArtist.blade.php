@@ -30,7 +30,7 @@
 <h3>{{$artist->artist_name}} Albums</h3><br>
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
-        <table id="albums-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
+        <table id="albums-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">
             <thead>
                 <tr>
                     <th>Cover Image</th>
@@ -58,11 +58,11 @@
                     <td>{{$album->updated_at}}</td>
                     <td>
                         <div class="row">
-                            <a href="/admin/musics/{{$album->id}}/createWId" class="btn btn-sm btn-success" title="Add Song ({{$album->album_name}})"><span data-feather="plus"></span></a>&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/musics/{{$album->id}}/createWId" class="btn btn-sm btn-success" title="Add Song ({{$album->album_name}})"><span data-feather="plus"></span></a>&nbsp;
                             <a href="/admin/musics/{{$album->id}}/editAlbum" class="btn btn-sm btn-primary edit-music" title="Edit Album ({{$album->album_name}})">
                                 <span data-feather="edit"></span>
                             </a>&nbsp; {!!Form::open(['action' => ['Admin\MusicsController@destroyAlbum', $album->id], 'method' =>
-                            'POST', 'class' => 'float-right'])!!} {{Form::hidden('_method', 'DELETE')}} {{Form::submit('Delete',['class' => 'btn btn-sm btn-danger delete-music'])}} {!!Form::close()!!}
+                            'POST', 'class' => 'float-right'])!!} {{Form::hidden('_method', 'DELETE')}} {{Form::button('<span data-feather="trash"></span>',['type' => 'submit','class' => 'btn btn-sm btn-danger delete-music'])}}{!!Form::close()!!}
                         </div>
                     </td>
                 </tr>

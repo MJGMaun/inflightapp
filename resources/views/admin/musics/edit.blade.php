@@ -1,7 +1,7 @@
 @extends('admin.layouts.app') @section('css')
 @endsection @section('content')
 
-<a href="/admin/musics" class="btn btn-sm btn-primary">
+<a href="javascript:history.go(-1)" class="btn btn-sm btn-primary">
     <span data-feather="arrow-left"></span>
     Back
 </a>

@@ -1,5 +1,5 @@
 @extends('admin.layouts.app') @section('css') @endsection @section('content')
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="{{ asset('css/jquery.dataTables.css') }}">
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
     <h1 class="h2">Movies</h1>
 </div>
@@ -14,7 +14,7 @@
 
 <div style="width: 100%; padding-left: -10px; border: 1px;">
     <div class="table-responsive">
-        <table id="movies-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
+        <table id="movies-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">
             <thead>
                 <tr>
                     <th>Cover Image</th>
@@ -42,7 +42,7 @@
                     {{--
                     <td>{{$movie->movie_description}}</td> --}}
                     <td>@foreach($movie->genres as $genre)
-                        <li>{{ $genre->name }} </li>
+                        {{ $genre->name }}
                     @endforeach</td>
                     <td>{{$movie->cast}}</td>
                     <td>{{$movie->language}}</td>
@@ -52,10 +52,10 @@
                     <td>{{$movie->created_at}}</td>
                     <td>{{$movie->updated_at}}</td>
                     <td><div class="row">
-                        <a href="/admin/movies/{{$movie->id}}/edit" class="btn btn-sm btn-primary edit-movie"><span data-feather="edit"></span></a>&nbsp;
+                        &nbsp;&nbsp;<a href="/admin/movies/{{$movie->id}}/edit" class="btn btn-sm btn-primary edit-movie"><span data-feather="edit"></span></a>&nbsp;
                         {!!Form::open(['action' => ['Admin\MoviesController@destroy', $movie->id], 'method' => 'POST', 'class' => 'float-right'])!!}
                         {{Form::hidden('_method', 'DELETE')}}
-                        {{Form::button('<span data-feather="trash-2"></span>',['class' => 'btn btn-sm btn-danger delete-movie'])}}
+                        {{Form::button('<span data-feather="trash"></span>',['type' => 'submit','class' => 'btn btn-sm btn-danger delete-music'])}}
                         {!!Form::close()!!}</div></td>
                 </tr>
                 @endforeach
