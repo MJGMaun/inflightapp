@@ -39,7 +39,7 @@
                     <a class="dropdown-item" href="/admin/products/createCategory"><span data-feather="layers"></span> &nbsp;&nbsp;Create Category</a>
                     <a class="dropdown-item" href="/admin/products/createSubCategory"><span data-feather="list"></span> &nbsp;&nbsp;Sub Category</a>
                     <a class="dropdown-item" href="/admin/products/create"><span data-feather="shopping-bag"></span> &nbsp;&nbsp;Insert Product</a>
-                    <a class="dropdown-item" href="/admin/products/create"><span data-feather="edit"></span> &nbsp;&nbsp;Manage Products</a>
+                    <a class="dropdown-item" href="/admin/products/"><span data-feather="edit"></span> &nbsp;&nbsp;Manage Products</a>
                   </div>
                 </div>
               </li>

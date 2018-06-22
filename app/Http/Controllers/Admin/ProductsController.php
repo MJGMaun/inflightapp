@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Product;
 use App\ProductCategory;
 use App\ProductSubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,10 +18,11 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $request->user()->authorizeRoles(['admin']);
-        return view('admin.products.index');
+        $products = Product::orderBy('created_at', 'desc')->get();
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -32,8 +34,7 @@ class ProductsController extends Controller
     {
         $request->user()->authorizeRoles(['admin']);
         $categories = ProductCategory::orderBy('created_at', 'desc')->get();
-        $subCcategories = ProductSubCategory::orderBy('created_at', 'desc')->get();
-        return view('admin.products.create', compact('categories', 'subCategories'));
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -44,7 +45,87 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->user()->authorizeRoles(['admin']);
+
+            $this->validate($request, [ 
+                'productCategory' => 'required',
+                'productSubCategory' => 'required',
+                'productName' => 'required|unique:products,product_name',
+                'productCompany' => 'required',
+                'productPriceBefore' => 'required|regex:/^\d*(\.\d{1,2})?$/',
+                'productPriceAfter' => 'required|regex:/^\d*(\.\d{1,2})?$/',
+                'productDescription' => 'required',
+                'productAvailability' => 'required',
+                'productImage1' => 'required|image|mimes:jpeg,jpg,png',
+                'productImage2' => 'nullable|image|mimes:jpeg,jpg,png',
+                'productImage3' => 'nullable|image|mimes:jpeg,jpg,png',
+            ]);
+                
+            //Handle File Cover Image 1
+            if($request->hasFile('productImage1')){
+                //Get filename with extension
+                $filenameWithExt = $request->file('productImage1')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just ext
+                $extension = $request->file('productImage1')->getClientOriginalExtension();
+                //Filename to store
+                $fileNameToStore1 = $filename.'_'.time().'.'.$extension;
+                //Upload image
+                $path = $request->file('productImage1')->storeAs('public/product_images', $fileNameToStore1);
+            } else {
+                $fileNameToStore1 = 'noimage.jpg';
+            }
+            
+            //Handle File Cover Image 2
+            if($request->hasFile('productImage2')){
+                //Get filename with extension
+                $filenameWithExt = $request->file('productImage2')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just ext
+                $extension = $request->file('productImage2')->getClientOriginalExtension();
+                //Filename to store
+                $fileNameToStore2 = $filename.'_'.time().'.'.$extension;
+                //Upload image
+                $path = $request->file('productImage2')->storeAs('public/product_images', $fileNameToStore2);
+            } else {
+                $fileNameToStore2 = 'noimage.jpg';
+            }
+            
+            //Handle File Cover Image 3
+            if($request->hasFile('productImage3')){
+                //Get filename with extension
+                $filenameWithExt = $request->file('productImage3')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just ext
+                $extension = $request->file('productImage3')->getClientOriginalExtension();
+                //Filename to store
+                $fileNameToStore3 = $filename.'_'.time().'.'.$extension;
+                //Upload image
+                $path = $request->file('productImage3')->storeAs('public/product_images', $fileNameToStore3);
+            } else {
+                $fileNameToStore3 = 'noimage.jpg';
+            }
+
+
+            $product = new Product;
+            $product->product_category_id = $request->input('productCategory');
+            $product->product_sub_category_id = $request->input('productSubCategory');
+            $product->product_name = $request->input('productName');
+            $product->product_company= $request->input('productCompany');
+            $product->product_price_before_discount = number_format($request->input('productPriceBefore'));
+            $product->product_price = number_format($request->input('productPriceAfter'));
+            $product->product_description = $request->input('productDescription');
+            $product->product_image_1 = $fileNameToStore1;
+            $product->product_image_2 = $fileNameToStore2;
+            $product->product_image_3 = $fileNameToStore3;
+            $product->product_availability = $request->input('productAvailability');
+
+            $product->save();
+
+            return redirect('/admin/products/create')->with('success', 'Product Added');
 
     }
 
@@ -65,9 +146,17 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        //
+        $request->user()->authorizeRoles(['admin']);
+
+        $product = Product::find($id);
+        $productPrice = preg_replace('/[^A-Za-z0-9\-]/', '', $product->product_price);
+        $productPriceBefore = preg_replace('/[^A-Za-z0-9\-]/', '', $product->product_price_before_discount);
+        $categories = ProductCategory::orderBy('created_at', 'desc')->get();
+        $subCategories = ProductSubCategory::orderBy('created_at', 'desc')->get();
+
+        return view('/admin/products/edit', compact('product', 'categories', 'subCategories', 'productPriceBefore', 'productPrice'));
     }
 
     /**
@@ -79,7 +168,86 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->user()->authorizeRoles(['admin']);
+            $product = Product::find($id);
+
+            $this->validate($request, [ 
+                'productCategory' => 'required',
+                'productSubCategory' => 'required',
+                'productName' => 'required|unique:products,product_name,'.$product->id,
+                'productCompany' => 'required',
+                'productPriceBefore' => 'required|regex:/^\d*(\.\d{1,2})?$/',
+                'productPriceAfter' => 'required|regex:/^\d*(\.\d{1,2})?$/',
+                'productDescription' => 'required',
+                'productAvailability' => 'required',
+                'productImage1' => 'nullable|image|mimes:jpeg,jpg,png',
+                'productImage2' => 'nullable|image|mimes:jpeg,jpg,png',
+                'productImage3' => 'nullable|image|mimes:jpeg,jpg,png',
+            ]);
+                
+            //Handle File Cover Image 1
+            if($request->hasFile('productImage1')){
+                //Get filename with extension
+                $filenameWithExt = $request->file('productImage1')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just ext
+                $extension = $request->file('productImage1')->getClientOriginalExtension();
+                //Filename to store
+                $fileNameToStore1 = $filename.'_'.time().'.'.$extension;
+                //Upload image
+                $path = $request->file('productImage1')->storeAs('public/product_images', $fileNameToStore1);
+            }
+            
+            //Handle File Cover Image 2
+            if($request->hasFile('productImage2')){
+                //Get filename with extension
+                $filenameWithExt = $request->file('productImage2')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just ext
+                $extension = $request->file('productImage2')->getClientOriginalExtension();
+                //Filename to store
+                $fileNameToStore2 = $filename.'_'.time().'.'.$extension;
+                //Upload image
+                $path = $request->file('productImage2')->storeAs('public/product_images', $fileNameToStore2);
+            }
+            
+            //Handle File Cover Image 3
+            if($request->hasFile('productImage3')){
+                //Get filename with extension
+                $filenameWithExt = $request->file('productImage3')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just ext
+                $extension = $request->file('productImage3')->getClientOriginalExtension();
+                //Filename to store
+                $fileNameToStore3 = $filename.'_'.time().'.'.$extension;
+                //Upload image
+                $path = $request->file('productImage3')->storeAs('public/product_images', $fileNameToStore3);
+            }
+
+            $product->product_category_id = $request->input('productCategory');
+            $product->product_sub_category_id = $request->input('productSubCategory');
+            $product->product_name = $request->input('productName');
+            $product->product_company= $request->input('productCompany');
+            $product->product_price_before_discount = number_format($request->input('productPriceBefore'));
+            $product->product_price = number_format($request->input('productPriceAfter'));
+            $product->product_description = $request->input('productDescription');
+            if($request->hasFile('productImage1')){
+                $product->product_image_1 = $fileNameToStore1;
+            }
+            if($request->hasFile('productImage2')){
+                $product->product_image_2 = $fileNameToStore2;
+            }
+            if($request->hasFile('productImage3')){
+                $product->product_image_3 = $fileNameToStore3;
+            }
+            $product->product_availability = $request->input('productAvailability');
+
+            $product->save();
+
+            return redirect('/admin/products/')->with('success', 'Product '.$product->product_name.' Updated');
     }
 
     /**
@@ -88,9 +256,26 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $request->user()->authorizeRoles(['admin']);
+        $product = Product::find($id);
+
+        if($product->product_image_1 != 'noimage.jpg'){
+            // Delete Image
+            Storage::delete('public/product_images/'.$product->product_image_1);
+        }
+        if($product->product_image_2 != 'noimage.jpg'){
+            // Delete Image
+            Storage::delete('public/product_images/'.$product->product_image_2);
+        }
+        if($product->product_image_3 != 'noimage.jpg'){
+            // Delete Image
+            Storage::delete('public/product_images/'.$product->product_image_3);
+        }
+
+        $product->delete();
+        return redirect('/admin/products')->with('success', 'Product Removed');
     }
 
     /*************************************

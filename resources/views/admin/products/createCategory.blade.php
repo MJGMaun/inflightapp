@@ -35,7 +35,7 @@
     <br>
     <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
         <div class="table-responsive">
-            <table id="categories-table" class="table table-striped table-hover dt-responsive display nowrap" cellspacing="0">
+            <table id="categories-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -57,10 +57,9 @@
                                     <td>{{$category->updated_at}}</td>
                                     <td>
                                         <div class="row">
-                                        <a href="/admin/products/{{$category->id}}/editCategory" class="btn btn-sm btn-primary" ><span data-feather="edit"></span></a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/products/{{$category->id}}/editCategory" class="btn btn-sm btn-primary" ><span data-feather="edit"></span></a>
                                         &nbsp; {!!Form::open(['action' => ['Admin\ProductsController@destroyCategory', $category->id], 'method'
-                                            => 'POST', 'class' => 'float-right'])!!} {{Form::hidden('_method', 'DELETE')}} {{Form::submit('Delete',['class'
-                                            => 'btn btn-sm btn-danger delete-music'])}} {!!Form::close()!!}
+                                            => 'POST', 'class' => 'float-right'])!!} {{Form::hidden('_method', 'DELETE')}} {{Form::button('<span data-feather="trash"></span>',['type' => 'submit','class' => 'btn btn-sm btn-danger delete-music'])}} {!!Form::close()!!}
                                         </div>
                                     </td>
                                 </tr>

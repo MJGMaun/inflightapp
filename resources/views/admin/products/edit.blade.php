@@ -1,101 +1,187 @@
-@extends('admin.layouts.app') {{-- @section('css')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> @endsection --}} @section('content')
+@extends('admin.layouts.app') @section('css')
+@endsection @section('content')
 
-<a href="/admin/movies" class="btn btn-sm btn-primary">
+<a href="/admin/products" class="btn btn-sm btn-primary">
     <span data-feather="arrow-left"></span>
     Back
 </a>
 <br>
 <br>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">New Movie</h1>
+    <input type="input" value="{{$product->id}}" disabled hidden id="productID">
 </div>
-
-{!! Form::open(['action' => ['Admin\MoviesController@update', $movie->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])
-!!}
-<div class="row">
-    <div class="col">
-        {{Form::label('title', 'Title')}} {{Form::text('title', $movie->title, ['class' => 'form-control', 'placeholder' => 'Title'])}}
-    </div>
-    <div class="col">
-        {{Form::label('language', 'Language')}} {{Form::select('language', ['English' => 'English', 'Chinese' => 'Chinese'], $movie->language, ['class' => 'form-control'])}}
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col">
-        {{Form::label('running_time', 'Running Time')}} {{Form::text('running_time', $movie->running_time, ['class' => 'form-control',
-        'placeholder' => 'Enter movie running time'])}}
-    </div>
-    <div class="col">
-        {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', \Carbon\Carbon::now(), ['class' => 'form-control'])}}
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col">
-        {{Form::label('cast', 'Casts')}} {{Form::text('cast', $movie->cast, ['class' => 'form-control', 'placeholder' => 'Mikhaela Maun, Regina Lopez, Joyce Feliciano, Jessica Gomez'])}}
-    </div>
-    <div class="col">
-        <div class="card card-body bg-light">
-            {{Form::label('genre', 'Genre')}}
-            <div class="row">
-                {{-- @foreach($genres as $genre) --}} @foreach($genres as $genre)
-                <div class="col-md-3 col-sm-3">
-                    @if(in_array($genre->name, $movie_genres)) {{Form::checkbox('genres[]', $genre->name, ['checked' => 'checked'])}} &nbsp;{{$genre->name}}
-                    @else {{Form::checkbox('genres[]', $genre->name)}} &nbsp;{{$genre->name}} @endif
-                </div>
-                @endforeach
+{!! Form::open(['action' => ['Admin\ProductsController@update', $product->id ], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+<div class="card" style="width: 100%;">
+  <div class="card-header">
+    Insert Product
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productCategory', 'Category', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                <select class="form-control categories" name="productCategory" id="category">
+                        @foreach ($categories as $category)
+                            @if($category->id == $product->subcategory->category->id)
+                                <option selected="true" value="{{$category->id}}">{{ $category->product_category_name }}</option>
+                            @else
+                                <option value="{{$category->id}}">{{ $category->product_category_name }}</option>
+                            @endif
+                        @endforeach
+                </select>
             </div>
         </div>
-        <br>
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col">
-        {{Form::label('cover_image', 'Cover Image')}}
-        <br>{{$movie->cover_image}}<br><br>{{Form::file('cover_image')}}
-    </div>
-    <div class="col">
-        {{Form::label('movie_video', 'Movie')}}
-        <br>{{$movie->movie_video}}<br><br>{{Form::file('movie_video')}}
-    </div>
-</div>
-<br>
-<div class="form-group">
-    {{Form::label('movie_description', 'Movie Description')}} {{Form::textarea('movie_description', $movie->movie_description, ['class' => 'form-control',
-    'placeholder' => 'Enter movie description here'])}}
-</div>
-<div class="form-group">
-    {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-primary'])}} {!! Form::close() !!}
-    <a href="/admin/movies" class="btn btn-light">
-        Cancel
-    </a>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productSubCategory', 'Sub Category', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                <select class="form-control" name="productSubCategory" id="subCategories">
+                     <option value="{{$product->subcategory->id}}" selected="true" id="subCategory">{{$product->subcategory->product_sub_category_name}}</option>
+                </select>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productName', 'Product Name', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::text('productName', $product->product_name, ['class' => 'form-control', 'placeholder' => 'Enter Product Name'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productCompany', 'Product Company', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::text('productCompany', $product->product_company, ['class' => 'form-control', 'placeholder' => 'Enter Product Company'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productPriceBefore', 'Product Price Before', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::number('productPriceBefore', $productPriceBefore, ['class' => 'form-control', 'placeholder' => 'Enter Product Price Before'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productPriceAfter', 'Product Price After (Selling Price)', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::number('productPriceAfter', $productPrice, ['class' => 'form-control', 'placeholder' => 'Enter Product Price After'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productDescription', 'Product Description', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::textarea('productDescription', $product->product_description, ['class' => 'form-control', 'placeholder' => 'Enter Product Description'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productAvailability', 'Product Availability', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::select('productAvailability', ['In Stock' => 'In Stock','Out of Stock' => 'Out of Stock'], $product->product_availability, ['class' => 'form-control', 'placeholder' => 'Select Product Availability...'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productImage1', 'Product Image 1', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-4">
+                {{Form::file('productImage1')}}
+            </div>
+            <div class="col-sm-3">
+                <img height="100px" width="140px" src="/storage/product_images/{{$product->product_image_1}}" />
+            </div>
+            <div class="col-sm-2">
+                <br><span>{{$product->product_image_1}}</span>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productImage2', 'Product Image 2', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-4">
+                {{Form::file('productImage2')}}
+            </div>
+            <div class="col-sm-3">
+                <img height="100px" width="140px" src="/storage/product_images/{{$product->product_image_2}}" />
+            </div>
+            <div class="col-sm-2">
+                <br><span>{{$product->product_image_2}}</span>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productImage3', 'Product Image 3', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-4">
+                {{Form::file('productImage3')}}
+            </div>
+            <div class="col-sm-3">
+                <img height="100px" width="140px" src="/storage/product_images/{{$product->product_image_3}}" />
+            </div>
+            <div class="col-sm-2">
+                <br><span>{{$product->product_image_3}}</span>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item text-center">{{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-success'])}} {!! Form::close() !!}</li>
+  </ul>
 </div>
 
-@endsection @section('script') {{--
-<script src="{{ asset('js/tagmanager.js') }}"></script>
-<script src="{{ asset('js/typeahead.js') }}"></script> --}} {{--
+@endsection @section('script') 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 <script type="text/javascript">
-    $(document).ready(function () {
-        var tagApi = $(".tm-input").tagsManager();
+    //DROPDOWN DEPENDENT
+    $(document).on('change','.categories',function(){
 
+            console.log("hmm it changed");
+            $('#productID').val();
+            $('select#subCategories').children('option').remove();
+            var category_id=$(this).val();
+            var productID=$('#productID').val();
+            console.log(productID);
 
-        $(".typeahead").typeahead({
-            name: 'tags',
-            displayKey: 'name',
-            source: function (query, process) {
-                return $.get('ajaxpro.php', {
-                    query: query
-                }, function (data) {
-                    data = $.parseJSON(data);
-                    return process(data);
-                });
-            },
-            afterSelect: function (item) {
-                tagApi.tagsManager("pushTag", item);
-            }
+            var op=" ";
+
+            $.ajax({
+                type:'get',
+                url:'{!!URL::to('json_sub_categories')!!}',
+                data:{'id':category_id},
+                dataType: 'json',
+                success:function(data){
+                    console.log('success');
+                    console.log(data);
+
+                    dataLength = Object.keys(data).length;
+
+                    console.log("Length"+dataLength);
+                    op+='<option selected disabled>Choose Sub Category</option>';
+                    op+='<option value="0">None</option>';// FOR NEW ALBUM OPTION APPEND ALBUM NAME
+                    for(var i=0;i<dataLength;i++){
+                    // op+='<option id="subCategory" value="'+data[i].id+'">'+data[i].product_sub_category_name+'</option>';
+                        if(productID == data[i].product_category_id){
+                            op+='<option id="subCategory" selected="true" value="'+data[i].id+'">'+data[i].product_sub_category_name+'</option>';
+                        }else{
+                            op+='<option id="subCategory" value="'+data[i].id+'">'+data[i].product_sub_category_name+'</option>';
+                        }
+                   }
+                    // FOR NEW ALBUM OPTION APPEND ALBUM NAME
+                   $(document).find('#subCategories').html(" ");
+                   $(document).find('#subCategories').append(op);
+                },
+                error:function(){
+                    console.log('error');
+                }
+            });
         });
-    });
-</script> --}} @endsection
+</script>
+@endsection

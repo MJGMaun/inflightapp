@@ -1,13 +1,6 @@
-@extends('admin.layouts.app') @section('css')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> @endsection @section('content')
+@extends('admin.layouts.app') @section('css') @endsection @section('content')
 
-<a href="/admin/musics" class="btn btn-sm btn-primary">
-    <span data-feather="arrow-left"></span>
-    Back
-</a>
-<br>
-<br>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
     
 </div>
 {!! Form::open(['action' => 'Admin\ProductsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
@@ -18,9 +11,9 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item center text-center">
         <div class="form-group row">
-            {{Form::label('category', 'Category', ['class' => 'col-sm-3 col-form-label'])}}
+            {{Form::label('productCategory', 'Category', ['class' => 'col-sm-3 col-form-label'])}}
             <div class="col-sm-7">
-                <select class="form-control categories" name="category" id="category">
+                <select class="form-control categories" name="productCategory" id="category">
                     <option disabled selected="true">Select Category..</option>
                         @foreach ($categories as $category)
                         <option value="{{$category->id}}">{{ $category->product_category_name }}</option>
@@ -31,9 +24,9 @@
     </li>
     <li class="list-group-item center text-center">
         <div class="form-group row">
-            {{Form::label('subCategory', 'Sub Category', ['class' => 'col-sm-3 col-form-label'])}}
+            {{Form::label('productSubCategory', 'Sub Category', ['class' => 'col-sm-3 col-form-label'])}}
             <div class="col-sm-7">
-                <select class="form-control" name="subCategory" id="subCategory">
+                <select class="form-control" name="productSubCategory" id="subCategory">
                     <option disabled selected="true">Select Sub Category..</option>
                 </select>
             </div>
@@ -47,13 +40,70 @@
             </div>
         </div>
     </li>
-    <li class="list-group-item text-center">Product Company</li>
-    <li class="list-group-item text-center">Product Price</li>
-    <li class="list-group-item text-center">Product Description</li>
-    <li class="list-group-item text-center">Product Product Availability</li>
-    <li class="list-group-item text-center">Product Image 1</li>
-    <li class="list-group-item text-center">Product Image 2</li>
-    <li class="list-group-item text-center">Product Image 3</li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productCompany', 'Product Company', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::text('productCompany', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Company'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productPriceBefore', 'Product Price Before', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::number('productPriceBefore', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Price Before'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productPriceAfter', 'Product Price After (Selling Price)', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::number('productPriceAfter', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Price After'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productDescription', 'Product Description', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::textarea('productDescription', '', ['class' => 'form-control', 'placeholder' => 'Enter Product Description'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productAvailability', 'Product Availability', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::select('productAvailability', ['In Stock' => 'In Stock','Out of Stock' => 'Out of Stock'], null, ['class' => 'form-control', 'placeholder' => 'Select Product Availability...'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productImage1', 'Product Image 1', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::file('productImage1')}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productImage2', 'Product Image 2', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::file('productImage2')}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productImage3', 'Product Image 3', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::file('productImage3')}}
+            </div>
+        </div>
+    </li>
     <li class="list-group-item text-center">{{Form::submit('Save', ['class' => 'btn btn-primary '])}} {!! Form::close() !!}</li>
   </ul>
 </div>
