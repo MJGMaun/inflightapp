@@ -1,5 +1,5 @@
 @extends('admin.layouts.app') @section('css')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> @endsection @section('content')
+@endsection @section('content')
 
 <a href="javascript:history.go(-1)" class="btn btn-sm btn-primary">
     <span data-feather="arrow-left"></span>
