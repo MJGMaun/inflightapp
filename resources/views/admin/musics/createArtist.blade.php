@@ -44,7 +44,7 @@
 </div>
 <br>
 <div class="form-group">
-    {{Form::submit('Save', ['class' => 'btn btn-primary save'])}} {!! Form::close() !!}
+    {{Form::submit('Save', ['class' => 'btn btn-success save'])}} {!! Form::close() !!}
     <a href="/admin/musics/" class="btn btn-light ">
         Cancel
     </a>

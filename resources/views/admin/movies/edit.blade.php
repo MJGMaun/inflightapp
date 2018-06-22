@@ -68,7 +68,7 @@
     'placeholder' => 'Enter movie description here'])}}
 </div>
 <div class="form-group">
-    {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-primary'])}} {!! Form::close() !!}
+    {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-success'])}} {!! Form::close() !!}
     <a href="/admin/movies" class="btn btn-light">
         Cancel
     </a>

@@ -67,7 +67,7 @@
     'placeholder' => 'Enter movie description here'])}}
 </div>
 <div class="form-group">
-    {{Form::submit('Save', ['class' => 'btn btn-primary '])}} {!! Form::close() !!}
+    {{Form::submit('Save', ['class' => 'btn btn-success '])}} {!! Form::close() !!}
     <a class="btn btn-light ">
         Cancel
     </a>
