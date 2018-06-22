@@ -85,10 +85,14 @@ class MusicsController extends Controller
             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
             //Get just filename
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
             //Get just ext
             $extension = $request->file('cover_image')->getClientOriginalExtension();
             //Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         } else {
@@ -100,10 +104,14 @@ class MusicsController extends Controller
             $filenameWithExt = $request->file('music_song')->getClientOriginalName();
             //Get just filename
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
             //Get just ext
             $extension = $request->file('music_song')->getClientOriginalExtension();
             //Filename to store
-            $fileNameToStoreSong = $filename.'_'.time().'.'.$extension;
+            $fileNameToStoreSong = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('music_song')->storeAs('public/music_songs', $fileNameToStoreSong);
         }
@@ -237,8 +245,12 @@ class MusicsController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just ext
             $extension = $request->file('cover_image')->getClientOriginalExtension();
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
             //Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         }
@@ -250,8 +262,12 @@ class MusicsController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just ext
             $extension = $request->file('music_song')->getClientOriginalExtension();
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
             //Filename to store
-            $fileNameToStoreSong = $filename.'_'.time().'.'.$extension;
+            $fileNameToStoreSong = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('music_song')->storeAs('public/music_songs', $fileNameToStoreSong);
         }
@@ -358,7 +374,7 @@ class MusicsController extends Controller
             'artists' => 'sometimes|required|unique:artists,artist_name',
             'albums' =>  'sometimes|required',
             'new_artist' => 'sometimes|required',
-            'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
+            'cover_image' => 'required|image|mimes:jpeg,jpg,png',
         ]);
         $artist = $request->input('artists');
         $new_artist = $request->input('new_artist_name');
@@ -376,8 +392,12 @@ class MusicsController extends Controller
                     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                     //Get just ext
                     $extension = $request->file('cover_image')->getClientOriginalExtension();
+                    //Clean filename (Replace white spaces with hyphens)
+                    $cleanFilename = str_replace(' ', '-', $filename);
+                    //Cleaner filename
+                    $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
                     //Filename to store
-                    $fileNameToStore = $filename.'_'.time().'.'.$extension;
+                    $fileNameToStore = $cleanerFilename.'_'.time().'.'.$extension;
                     //Upload image
                     $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
                 } else {
@@ -546,8 +566,12 @@ class MusicsController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just ext
             $extension = $request->file('cover_image')->getClientOriginalExtension();
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
             //Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         }

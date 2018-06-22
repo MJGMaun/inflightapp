@@ -69,8 +69,12 @@ class ProductsController extends Controller
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 //Get just ext
                 $extension = $request->file('productImage1')->getClientOriginalExtension();
+                //Clean filename (Replace white spaces with hyphens)
+                $cleanFilename = str_replace(' ', '-', $filename);
+                //Cleaner filename
+                $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
                 //Filename to store
-                $fileNameToStore1 = $filename.'_'.time().'.'.$extension;
+                $fileNameToStore1 = $cleanerFilename.'_'.time().'.'.$extension;
                 //Upload image
                 $path = $request->file('productImage1')->storeAs('public/product_images', $fileNameToStore1);
             } else {
@@ -85,8 +89,12 @@ class ProductsController extends Controller
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 //Get just ext
                 $extension = $request->file('productImage2')->getClientOriginalExtension();
+                //Clean filename (Replace white spaces with hyphens)
+                $cleanFilename = str_replace(' ', '-', $filename);
+                //Cleaner filename
+                $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
                 //Filename to store
-                $fileNameToStore2 = $filename.'_'.time().'.'.$extension;
+                $fileNameToStore2 = $cleanerFilename.'_'.time().'.'.$extension;
                 //Upload image
                 $path = $request->file('productImage2')->storeAs('public/product_images', $fileNameToStore2);
             } else {
@@ -101,8 +109,12 @@ class ProductsController extends Controller
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 //Get just ext
                 $extension = $request->file('productImage3')->getClientOriginalExtension();
+                //Clean filename (Replace white spaces with hyphens)
+                $cleanFilename = str_replace(' ', '-', $filename);
+                //Cleaner filename
+                $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
                 //Filename to store
-                $fileNameToStore3 = $filename.'_'.time().'.'.$extension;
+                $fileNameToStore3 = $cleanerFilename.'_'.time().'.'.$extension;
                 //Upload image
                 $path = $request->file('productImage3')->storeAs('public/product_images', $fileNameToStore3);
             } else {
@@ -193,8 +205,12 @@ class ProductsController extends Controller
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 //Get just ext
                 $extension = $request->file('productImage1')->getClientOriginalExtension();
+                //Clean filename (Replace white spaces with hyphens)
+                $cleanFilename = str_replace(' ', '-', $filename);
+                //Cleaner filename
+                $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
                 //Filename to store
-                $fileNameToStore1 = $filename.'_'.time().'.'.$extension;
+                $fileNameToStore1 = $cleanerFilename.'_'.time().'.'.$extension;
                 //Upload image
                 $path = $request->file('productImage1')->storeAs('public/product_images', $fileNameToStore1);
             }
@@ -207,8 +223,12 @@ class ProductsController extends Controller
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 //Get just ext
                 $extension = $request->file('productImage2')->getClientOriginalExtension();
+                //Clean filename (Replace white spaces with hyphens)
+                $cleanFilename = str_replace(' ', '-', $filename);
+                //Cleaner filename
+                $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
                 //Filename to store
-                $fileNameToStore2 = $filename.'_'.time().'.'.$extension;
+                $fileNameToStore2 = $cleanerFilename.'_'.time().'.'.$extension;
                 //Upload image
                 $path = $request->file('productImage2')->storeAs('public/product_images', $fileNameToStore2);
             }
@@ -221,8 +241,12 @@ class ProductsController extends Controller
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 //Get just ext
                 $extension = $request->file('productImage3')->getClientOriginalExtension();
+                //Clean filename (Replace white spaces with hyphens)
+                $cleanFilename = str_replace(' ', '-', $filename);
+                //Cleaner filename
+                $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
                 //Filename to store
-                $fileNameToStore3 = $filename.'_'.time().'.'.$extension;
+                $fileNameToStore3 = $cleanerFilename.'_'.time().'.'.$extension;
                 //Upload image
                 $path = $request->file('productImage3')->storeAs('public/product_images', $fileNameToStore3);
             }

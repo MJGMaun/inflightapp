@@ -62,7 +62,7 @@ class MoviesController extends Controller
             'release_date' => 'required',
             'cast' => 'required',
             'genres' => 'required',
-            'cover_image' => 'image|nullable|max:1999|mimetypes:jpg,png,jpeg',
+            'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
             'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
             'movie_description' => 'required',
         ]);
@@ -75,8 +75,12 @@ class MoviesController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just ext
             $extension = $request->file('cover_image')->getClientOriginalExtension();
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
             //Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         } else {
@@ -90,8 +94,12 @@ class MoviesController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just ext
             $extension = $request->file('movie_video')->getClientOriginalExtension();
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
             //Filename to store
-            $fileNameToStoreVid = $filename.'_'.time().'.'.$extension;
+            $fileNameToStoreVid = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('movie_video')->storeAs('public/movie_videos', $fileNameToStoreVid);
         } else {
@@ -185,8 +193,12 @@ class MoviesController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just ext
             $extension = $request->file('cover_image')->getClientOriginalExtension();
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
             //Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $fileNameToStore = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         }
@@ -198,8 +210,12 @@ class MoviesController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just ext
             $extension = $request->file('movie_video')->getClientOriginalExtension();
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
             //Filename to store
-            $fileNameToStoreVid = $filename.'_'.time().'.'.$extension;
+            $fileNameToStoreVid = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('movie_video')->storeAs('public/movie_videos', $fileNameToStoreVid);
         }
