@@ -35,8 +35,9 @@ class MusicsController extends Controller
 
         $artists = Artist::orderBy('created_at', 'desc')->get();
         $albums = Album::orderBy('created_at', 'desc')->get();
+        $songs = Music::orderBy('created_at', 'desc')->get();
 
-        return view('admin.musics.index', compact('artists', 'albums'));
+        return view('admin.musics.index', compact('artists', 'albums', 'songs'));
     }
 
     /**
