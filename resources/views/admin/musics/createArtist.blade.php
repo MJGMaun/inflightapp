@@ -92,7 +92,7 @@
         });
 
         $(".add-artists").on("click", ".remove", function () {
-            $('.save').hides();
+            $('.save').hide();
         //  var val = $(this).parent().find("input").val();         
          $('select[name="artists"]').prepend("<option name='new_artist' value='new_artist'>New Artist..</option>");
          $('.image-container').append('<div class="image">{{Form::label('cover_image', 'Cover Image')}}<br>{{Form::file('cover_image')}}</div>');
