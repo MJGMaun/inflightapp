@@ -44,8 +44,8 @@ class AdsController extends Controller
             'name' => 'required',
             'roll' => 'required',
             'time' => 'sometimes|required',
-            'playsNeeded' => 'required',
-            // 'ad_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required'
+            'playsNeeded' => 'required|integer|min:0',
+            'ad_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required'
         ]);
 
 
@@ -66,7 +66,7 @@ class AdsController extends Controller
             //Upload image
             $path = $request->file('ad_video')->storeAs('public/ads_videos', $fileNameToStoreVid);
         } else {
-            $fileNameToStoreVid = 'novideo.png';
+            $fileNameToStoreVid = 'novideo.jpg';
         }
 
         
@@ -118,7 +118,56 @@ class AdsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [ 
+            'name' => 'required',
+            'roll' => 'required',
+            'time' => 'sometimes|required',
+            'playsNeeded' => 'sometimes|required|integer|min:0',
+            'playsNeededAdd' => 'sometimes|required|integer|min:0',
+            'ad_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable'
+        ]);
+
+
+        //Handle File Movie
+        if($request->hasFile('ad_video')){
+            //Get filename with extension
+            $filenameWithExt = $request->file('ad_video')->getClientOriginalName();
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //Get just ext
+            $extension = $request->file('ad_video')->getClientOriginalExtension();
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
+            //Filename to store
+            $fileNameToStoreVid = $cleanerFilename.'_'.time().'.'.$extension;
+            //Upload image
+            $path = $request->file('ad_video')->storeAs('public/ads_videos', $fileNameToStoreVid);
+        }
+
+        // $number_of_plays_remaining
+         //Create Movie
+        $ad = Ad::findOrFail($id);
+        $ad->name = $request->input('name');
+        $ad->roll = $request->input('roll');
+        $ad->time = $request->input('time');
+        $playsNeeded = $request->input('playsNeeded');
+        $playsNeededAdd = $request->input('playsNeededAdd');
+        if(isset($playsNeededAdd)){
+            $total = $playsNeededAdd+$ad->number_of_plays_needed;
+            $ad->number_of_plays_needed = $total;
+            $ad->number_of_plays_remaining = $total;
+        } else if(isset($playsNeeded)) {
+            $ad->number_of_plays_needed = $playsNeeded;
+            $ad->number_of_plays_remaining = $playsNeeded;
+        }
+        if($request->hasFile('ad_video')){
+            $ad->ad_video = $fileNameToStoreVid;
+        }
+        $ad->save();
+        
+        return redirect('/admin/ads/')->with('success', 'Ad Edited');
     }
 
     /**
@@ -129,6 +178,14 @@ class AdsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ad = Ad::findOrFail($id);
+
+        if($ad->ad_video != 'novideo.jpg'){
+            // Delete Image
+            Storage::delete('public/ads_videos/'.$ad->ad_video);
+        }
+
+        $ad->delete();
+        return redirect('/admin/ads')->with('success', 'Ad Removed');
     }
 }

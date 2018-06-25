@@ -46,7 +46,7 @@
         <br> {{Form::file('ad_video')}}
     </div>
     <div class="col-md-3 col-sm-3">
-        {{Form::label('playsNeeded', 'Plays Needed')}} {{Form::text('playsNeeded', '', ['class' => 'form-control', 'placeholder' => '2000'])}}
+        {{Form::label('playsNeeded', 'Plays Needed')}} {{Form::number('playsNeeded', '', ['class' => 'form-control', 'min' => '0', 'placeholder' => 'Enter Value'])}}
     </div>
 </div>
 <br>    
