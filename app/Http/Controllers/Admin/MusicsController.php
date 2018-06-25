@@ -375,7 +375,7 @@ class MusicsController extends Controller
             'artists' => 'sometimes|required|unique:artists,artist_name',
             'albums' =>  'sometimes|required',
             'new_artist' => 'sometimes|required',
-            'cover_image' => 'required|image|mimes:jpeg,jpg,png',
+            'cover_image' => 'sometimes|required|image|mimes:jpeg,jpg,png',
         ]);
         $artist = $request->input('artists');
         $new_artist = $request->input('new_artist_name');
