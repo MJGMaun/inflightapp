@@ -44,7 +44,7 @@
         {{Form::label('cast', 'Casts')}} {{Form::text('cast', '', ['class' => 'form-control', 'placeholder' => 'Mikhaela Maun, Regina Lopez, Joyce Feliciano, Jessica Gomez'])}}
     </div>
     <div class="col-md-3 col-sm-3">
-        {{Form::label('running_time', 'Running Time')}} {{ Form::time('running_time', null, ['class' => 'form-control without_ampm', 'step' => '1']) }}
+        {{Form::label('running_time', 'Running Time')}} {{ Form::time('running_time', '00:00:00', ['class' => 'form-control without_ampm', 'step' => '1']) }}
     </div>
     <div class="col-md-3 col-sm-3">    
         {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', null, ['class' => 'form-control'])}}

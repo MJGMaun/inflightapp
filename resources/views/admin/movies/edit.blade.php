@@ -17,8 +17,7 @@
 <br>
 <div class="row">
     <div class="col">
-        {{Form::label('running_time', 'Running Time')}} {{Form::text('running_time', $movie->running_time, ['class' => 'form-control',
-        'placeholder' => 'Enter movie running time'])}}
+        {{Form::label('running_time', 'Running Time')}} {{ Form::time('running_time', $movie->running_time, ['class' => 'form-control without_ampm', 'step' => '1']) }}
     </div>
     <div class="col">
         {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', \Carbon\Carbon::now(), ['class' => 'form-control'])}}
