@@ -1,4 +1,17 @@
 @extends('admin.layouts.app') @section('css')
+<style>
+    .without_ampm::-webkit-datetime-edit-ampm-field {
+   display: none;
+ }
+ input[type=time]::-webkit-clear-button {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   -o-appearance: none;
+   -ms-appearance:none;
+   appearance: none;
+   margin: -10px; 
+ }
+</style>
 @endsection @section('content')
 
 <a href="javascript:history.go(-1)" class="btn btn-sm btn-primary">
@@ -31,11 +44,10 @@
         {{Form::label('cast', 'Casts')}} {{Form::text('cast', '', ['class' => 'form-control', 'placeholder' => 'Mikhaela Maun, Regina Lopez, Joyce Feliciano, Jessica Gomez'])}}
     </div>
     <div class="col-md-3 col-sm-3">
-        {{Form::label('running_time', 'Running Time')}} {{Form::text('running_time', '', ['class' => 'form-control', 'placeholder'
-        => 'Enter movie running time'])}}
+        {{Form::label('running_time', 'Running Time')}} {{ Form::time('running_time', null, ['class' => 'form-control without_ampm', 'step' => '1']) }}
     </div>
     <div class="col-md-3 col-sm-3">    
-        {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', \Carbon\Carbon::now(), ['class' => 'form-control'])}}
+        {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', null, ['class' => 'form-control'])}}
     </div>
 </div>
 <br>

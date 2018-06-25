@@ -20,8 +20,14 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/admin/series">
-                  <span data-feather="film"></span>
+                  <span data-feather="tv"></span>
                   Series
+                </a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link" href="/admin/ads">
+                  <span data-feather="cast"></span>
+                  Ads
                 </a>
               </li>
               <li class="nav-item">

@@ -28,7 +28,7 @@ class MoviesController extends Controller
     {   
         $request->user()->authorizeRoles(['admin']);
 
-        $movies = Movie::orderBy('created_at', 'desc')->paginate(10);
+        $movies = Movie::orderBy('created_at', 'desc')->get();
         return view('admin.movies.index', compact('movies'));
         // return view('movies.index')->with('movies', $movies);
     }
@@ -63,7 +63,7 @@ class MoviesController extends Controller
             'cast' => 'required',
             'genres' => 'required',
             'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
-            'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
+            'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required',
             'movie_description' => 'required',
         ]);
 

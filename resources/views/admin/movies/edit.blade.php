@@ -1,14 +1,7 @@
 @extends('admin.layouts.app') {{-- @section('css')
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> @endsection --}} @section('content')
-
-<a <a href="javascript:history.go(-1)"  class="btn btn-sm btn-primary">
-    <span data-feather="arrow-left"></span>
-    Back
-</a>
-<br>
-<br>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">New Movie</h1>
+<div class="d-flex align-items-center pb-2 mb-3 border-bottom">
+    <a href="/admin/movies">Movies</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$movie->title}}
 </div>
 
 {!! Form::open(['action' => ['Admin\MoviesController@update', $movie->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])

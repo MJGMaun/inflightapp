@@ -14,13 +14,22 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//MOVIES
+Route::resource('admin/ads', 'Admin\AdsController');
+
 //MOVIES
 Route::resource('movies', 'MoviesController');
 Route::resource('admin/movies', 'Admin\MoviesController');
 
+//MOVIES
+Route::resource('admin/ads', 'Admin\AdsController');
+
 //MUSIC
 Route::get('admin/musics/{id}/createWId', 'Admin\MusicsController@createWId')->name('musics.createWId');
 Route::get('admin/musics/{id}/createAlbumWId', 'Admin\MusicsController@createAlbumWId')->name('musics.createAlbumWId');
+
+
 
 //ARTIST
 Route::get('admin/musics/createArtist', 'Admin\MusicsController@createArtist')->name('musics.createArtist');
