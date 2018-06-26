@@ -118,8 +118,11 @@ class AdsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $ad = Ad::findOrFail($id);
+        
         $this->validate($request, [ 
-            'name' => 'required',
+            'name' => 'required|unique:series,title,'.$ad->id,
             'roll' => 'required',
             'time' => 'sometimes|required',
             'playsNeeded' => 'sometimes|required|integer|min:0',
@@ -128,7 +131,7 @@ class AdsController extends Controller
         ]);
 
 
-        //Handle File Movie
+        //Handle File Video
         if($request->hasFile('ad_video')){
             //Get filename with extension
             $filenameWithExt = $request->file('ad_video')->getClientOriginalName();
@@ -146,9 +149,6 @@ class AdsController extends Controller
             $path = $request->file('ad_video')->storeAs('public/ads_videos', $fileNameToStoreVid);
         }
 
-        // $number_of_plays_remaining
-         //Create Movie
-        $ad = Ad::findOrFail($id);
         $ad->name = $request->input('name');
         $ad->roll = $request->input('roll');
         $ad->time = $request->input('time');

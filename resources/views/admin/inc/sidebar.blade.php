@@ -19,10 +19,18 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/admin/series">
-                  <span data-feather="tv"></span>
-                  Series
-                </a>
+                <div class="dropdown">
+                  <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span data-feather="tv"></span> Series
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/admin/series/"><span data-feather="monitor"></span> Browse Series</a>
+                    <a class="dropdown-item" href="/admin/series/create"><span data-feather="folder-plus"></span> Create Series</a>
+                    <a class="dropdown-item" href="/admin/series/createSeason"><span data-feather="plus-square"></span> Upload Season &amp; Episode</a>
+                    <a class="dropdown-item" href="/admin/series/create"><span data-feather="disc"></span> Upload Episode</a>
+                  </div>
+                </div>
+              </li>
               </li>
                <li class="nav-item">
                 <a class="nav-link" href="/admin/ads">

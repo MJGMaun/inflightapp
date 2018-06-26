@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.css') }}"> @endsection @section('content')
 
 <div class="d-flex align-items-center pb-2 mb-3 border-bottom">
-    <a href="/admin/products/createSubCategory">{{$subCategory->category->product_category_name}}</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$subCategory->product_sub_category_name}}
+    <a href="/admin/products/createSubCategory">Create Sub Category</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$subCategory->product_sub_category_name}}
 </div>
 
 {!! Form::open(['action' => ['Admin\ProductsController@updateSubCategory', $subCategory->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
@@ -31,7 +31,7 @@
             <div class="form-group row">
                 {{Form::label('subCategoryName', 'Sub Category', ['class' => 'col-sm-3 col-form-label'])}}
                 <div class="col-sm-7">
-                    {{Form::text('subCategoryName', $subCategory->sub_category_name, ['class' => 'form-control', 'placeholder' => 'Enter Sub Category Name'])}}
+                    {{Form::text('subCategoryName', $subCategory->product_sub_category_name, ['class' => 'form-control', 'placeholder' => 'Enter Sub Category Name'])}}
                 </div>
             </div>
         </li>
@@ -63,7 +63,7 @@
                             @foreach($subCategories as $subCategory)
                                  <tr>
                                     <td>{{$subCategory->id}}</td>
-                                    <td>{{$subCategory->product_category->category_name}}</td>
+                                    <td>{{$subCategory->category->category_name}}</td>
                                     <td>{{$subCategory->product_sub_category_name}}</td>
                                     <td>{{$subCategory->created_at}}</td>
                                     <td>{{$subCategory->updated_at}}</td>

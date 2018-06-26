@@ -86,7 +86,7 @@
                         {{-- <td><img height="50px" width="60px" src="/storage/cover_images/{{$music->cover_image}}" /><span class="d-none">{{$music->cover_image}}</span></td> --}}
                         <td><img height="50px" width="60px" src="/storage/cover_images/{{$album->coverimage->cover_image}}" /><span class="d-none">{{$album->coverimage->cover_image}}</span></td>
                         <td>@foreach($album->songs as $song)
-                        <li><a href="/admin/musics/{{$song->id}}">{{ $song->title }} </a></li>
+                        <li>{{ $song->title }}</li>
                             @endforeach</td>
                         <td>{{$album->artists->artist_name}}</td>
                         <td>{{$artist->created_at}}</td>

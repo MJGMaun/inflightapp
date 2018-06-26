@@ -15,4 +15,7 @@ class Genre extends Model
     public function movies(){
         return $this->belongsToMany('Movie');
     }
+    public function series(){
+        return $this->belongsToMany('Series');
+    }
 }

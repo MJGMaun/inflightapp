@@ -1,5 +1,5 @@
-@extends('admin.layouts.app') {{-- @section('css')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css"> @endsection --}} @section('content')
+@extends('admin.layouts.app') @section('css')
+ @section('content')
 <div class="d-flex align-items-center pb-2 mb-3 border-bottom">
     <a href="/admin/movies">Movies</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$movie->title}}
 </div>
@@ -32,7 +32,7 @@
         <div class="card card-body bg-light">
             {{Form::label('genre', 'Genre')}}
             <div class="row">
-                {{-- @foreach($genres as $genre) --}} @foreach($genres as $genre)
+                @foreach($genres as $genre)
                 <div class="col-md-3 col-sm-3">
                     @if(in_array($genre->name, $movie_genres)) {{Form::checkbox('genres[]', $genre->name, ['checked' => 'checked'])}} &nbsp;{{$genre->name}}
                     @else {{Form::checkbox('genres[]', $genre->name)}} &nbsp;{{$genre->name}} @endif

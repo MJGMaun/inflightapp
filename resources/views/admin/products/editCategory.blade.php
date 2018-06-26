@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.css') }}"> @endsection @section('content')
 
 <div class="d-flex align-items-center pb-2 mb-3 border-bottom">
-    <a href="/admin/products/createCategory">Categories</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$category->product_category_name}}
+    <a href="/admin/products/createCategory">Create Categories</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$category->product_category_name}}
 </div>
 {!! Form::open(['action' => ['Admin\ProductsController@updateCategory', $category->id ], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="card" style="width: 100%;">

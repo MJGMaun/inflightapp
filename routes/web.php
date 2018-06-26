@@ -16,13 +16,16 @@ Route::get('/', function () {
 });
 
 //MOVIES
-Route::resource('admin/ads', 'Admin\AdsController');
-
-//MOVIES
 Route::resource('movies', 'MoviesController');
 Route::resource('admin/movies', 'Admin\MoviesController');
 
-//MOVIES
+//SERIES
+Route::get('admin/series/createSeason', 'Admin\SeriesController@createSeason')->name('musics.createSeason');
+Route::post('admin/musics/storeSeason', 'Admin\SeriesController@storeSeason')->name('musics.storeSeason');
+Route::get('/json_seasons','Admin\SeriesController@json_seasons');
+Route::resource('admin/series', 'Admin\SeriesController');
+
+//ADs
 Route::resource('admin/ads', 'Admin\AdsController');
 
 //MUSIC

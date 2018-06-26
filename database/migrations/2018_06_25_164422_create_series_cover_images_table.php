@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeriesTable extends Migration
+class CreateSeriesCoverImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateSeriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('series', function (Blueprint $table) {
+        Schema::create('series_cover_images', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('cast');
-            $table->mediumText('description');
-            $table->date('release_date');
-            $table->integer('cover_image_id')->unsigned();
+            $table->string('cover_image');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateSeriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('series');
+        Schema::dropIfExists('series_cover_images');
     }
 }
