@@ -27,7 +27,7 @@
                     <a class="dropdown-item" href="/admin/series/"><span data-feather="monitor"></span> Browse Series</a>
                     <a class="dropdown-item" href="/admin/series/create"><span data-feather="folder-plus"></span> Create Series</a>
                     <a class="dropdown-item" href="/admin/series/createSeason"><span data-feather="plus-square"></span> Upload Season &amp; Episode</a>
-                    <a class="dropdown-item" href="/admin/series/create"><span data-feather="disc"></span> Upload Episode</a>
+                    {{-- <a class="dropdown-item" href="/admin/series/create"><span data-feather="disc"></span> Upload Episode</a> --}}
                   </div>
                 </div>
               </li>
@@ -67,6 +67,12 @@
                 <a class="nav-link" href="#">
                   <span data-feather="file-text"></span>
                   News
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/games/create">
+                  <span data-feather="airplay"></span>
+                  Games
                 </a>
               </li>
             </ul>

@@ -96,9 +96,10 @@
                             @foreach($series as $serie)
                                 <tr>
                                     <td><img height="50px" width="60px" src="/storage/series_cover_images/{{$serie->coverimage->cover_image}}" /><span class="d-none">{{$serie->coverimage->cover_image}}</span></td>
-                                    <td>{{$serie->title}}</td>
-                                    <td>Seasons</td>
-                                    <td>Episodes</td>
+                                    <td data-title="{{$serie->title}}">{{$serie->title}}</td>
+                                    {{-- EDIT MODAL NAME OKIIIIII --}}
+                                <td><button type="button" id="modal" class="btn btn-sm btn-primary" data-toggle="modal" data-pandi="{{$serie->id}}" data-target="#exampleModal">View Seasons</button></td>
+                                    <td>View Episodes</td>
                                     <td>{{$serie->cast}}</td>
                                     <td>{{$serie->description}}</td>
                                     <td>{{$serie->created_at}}</td>
@@ -112,8 +113,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        @else
-                        <p>No Categories Found</p>
                     @endif
                 </tbody>
             </table>

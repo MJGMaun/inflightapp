@@ -89,7 +89,7 @@
       </div>
     </div>
   </div>
-</div>lorem
+</div>
 
 @endsection @section('script')
 {!!Html::script('js/datatable/dataTables.buttons.min.js')!!}
