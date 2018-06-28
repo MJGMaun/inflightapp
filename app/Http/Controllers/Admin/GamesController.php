@@ -131,7 +131,61 @@ class GamesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $game = Game::findOrFail($id);
+
+        $this->validate($request, [
+                'name' => 'required|unique:games,name,'.$game->id,
+                'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
+                'game_apk' => 'nullable|file',
+                //:application/vnd.android.package-archive
+            ]);
+            
+            //Handle File Cover Image 1
+            if($request->hasFile('cover_image')){
+                //Get filename with extension
+                $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just ext
+                $extension = $request->file('cover_image')->getClientOriginalExtension();
+                //Clean filename (Replace white spaces with hyphens)
+                $cleanFilename = str_replace(' ', '-', $filename);
+                //Cleaner filename
+                $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
+                //Filename to store
+                $fileNameToStore = $cleanerFilename.'_'.time().'.'.$extension;
+                //Upload image
+                $path = $request->file('cover_image')->storeAs('public/games_cover_images', $fileNameToStore);
+            }
+
+            //Handle File Games
+            if($request->hasFile('game_apk')){
+                //Get filename with extension
+                $filenameWithExt = $request->file('game_apk')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just ext
+                $extension = $request->file('game_apk')->getClientOriginalExtension();
+                //Clean filename (Replace white spaces with hyphens)
+                $cleanFilename = str_replace(' ', '-', $filename);
+                //Cleaner filename
+                $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
+                //Filename to store
+                $fileNameToStoreGame = $cleanerFilename.'_'.time().'.'.$extension;
+                //Upload image
+                $path = $request->file('game_apk')->storeAs('public/games_apks', $fileNameToStoreGame);
+            }
+
+            $game->name = $request->input('name');
+            if($request->hasFile('cover_image')){
+            $game->cover_image = $fileNameToStore;
+            }
+            if($request->hasFile('game_apk')){
+            $game->game_apk = $fileNameToStoreGame;
+            }
+            $game->save();
+
+            return redirect('/admin/games/create')->with('success', 'Game Updated');
     }
 
     /**

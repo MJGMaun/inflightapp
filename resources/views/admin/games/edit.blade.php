@@ -1,6 +1,6 @@
 @extends('admin.layouts.app') @section('css')
 <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.css') }}"> @endsection @section('content')
-{!! Form::open(['action' => 'Admin\GamesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => ['Admin\GamesController@update', $game->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="d-flex align-items-center pb-2 mb-3 border-bottom">
     <a href="/admin/products/createCategory">Create Games</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$game->name}}
 </div>
@@ -35,7 +35,7 @@
         </div>
         </li>
 
-        <li class="list-group-item text-center">{{Form::submit('Save', ['class' => 'btn btn-success '])}} {!! Form::close() !!}</li>
+        <li class="list-group-item text-center">{{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-success'])}} {!! Form::close() !!}</li>
     </ul>
 </div>
 <br>
