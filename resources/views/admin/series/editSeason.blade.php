@@ -1,63 +1,59 @@
 @extends('admin.layouts.app') @section('css')
 @endsection @section('content')
 
-<a href="javascript:history.go(-1)" class="btn btn-sm btn-primary">
-    <span data-feather="arrow-left"></span>
-    Back
-</a>
-<br>
-<br>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h4>New Season &amp; Episodes</h4>
+<div class="d-flex align-items-center pb-2 mb-3 border-bottom">
+    <a href="/admin/series">Series</a> &nbsp; <span data-feather="chevron-right"></span> &nbsp;{{$serie->title}}
 </div>
 
-{!! Form::open(['action' => 'Admin\SeriesController@storeSeason', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'form'])
+{!! Form::open(['action' => ['Admin\SeriesController@updateSeason', $season->id], 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'form'])
 !!}
 <div class="row">
     <div class="col-md-6 col-sm-6 add-series">
         {{Form::label('series', 'Series')}}
         <select class="form-control series" name="series" id="series">
-            <option disabled selected="true">Select Series..</option>
-            {{--
-            <option name="new_artist" value="new_artist">New Artist..</option> --}} @foreach ($series as $serie)
-            <option value="{{$serie->id}}">{{ $serie->title}}</option>
-            @endforeach
+                <option selected="true" value="{{$serie->id}}">{{ $serie->title}}</option>
         </select>
+    </div>
+    <div class="col-md-3 col-sm-3 add-series">
+        <a class="btn btn-primary add_episode" title="Add Album">
+                <span data-feather="plus"></span>
+            </a>
+            <a class="btn btn-danger remove_episode" title="Remove Album">
+                <span data-feather="minus"></span>
+            </a>
+
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-md-6 col-sm-6 add-series">
         {{Form::label('season', 'Season')}} 
-            {{Form::text('season', '1', ['class' => 'form-control season', 'readonly' => 'true'])}}
+            {{Form::text('season', $season->season_number, ['class' => 'form-control season', 'readonly' => 'true'])}}
         <br>
         <div class="image-containe pull-left">
-            <div class="image ">
-                {{Form::label('cover_image', 'Season Cover Image')}}
-                <br>{{Form::file('cover_image')}}
-            </div>
+            {{Form::label('seasonimage', 'Season Cover Image')}}<br>
+            <img height="100px" width="110px" src="/storage/series_cover_images/{{$season->seriescoverimage->cover_image}}" />
         </div>
         <div class="pull-right">
-            <br>
-            <a class="btn btn-primary add_episode" title="Add Album">
-                <span data-feather="plus"></span>
-            </a>
-            <a class="btn btn-danger remove_episode" title="Remove Album">
-                <span data-feather="minus"></span>
-            </a>
+            <div class="image ">
+                {{Form::label('', '')}}
+                <br>{{Form::file('cover_image')}}
+            </div>
         </div>
 
     </div>
     <div id="episode" class="col-md-5 col-sm-5">
-        <div class="row">
+        @foreach($season->episodes as $episode)
+            <div class="row">
             <div class="col-md-8 col-sm-8">
                 {{Form::label('episodes[]', 'Episode Title')}}
                 <small> (Click + to add episode)</small>
-                {{Form::text('episodes[]', '', ['class' => 'form-control episodes', 'placeholder' => 'Episode Title'])}}
+                {{Form::text('episode_ids[]', $episode->id, ['class' => 'form-control d-none', 'placeholder' => 'Episode Title', 'readonly' => 'true'])}}
+                {{Form::text('episodes[]', $episode->title, ['class' => 'form-control episodes', 'placeholder' => 'Episode Title'])}}
             </div>
             <div class="col-md-4 col-sm-4">
                 {{Form::label('episodeNumbers[]', 'Episode Number')}}
-                {{Form::number('episodeNumbers[]', '', ['class' => 'form-control episodes', 'placeholder' => 'Episode #', 'min' => '0'])}}
+                {{Form::number('episodeNumbers[]',  $episode->episode_number, ['class' => 'form-control episodes', 'placeholder' => 'Episode #', 'min' => '0'])}}
             </div>
         </div>
         <br>
@@ -71,11 +67,13 @@
         </div>
         <hr>
         <br>
+        @endforeach
     </div>
-</div>
-<div class="form-group">
-    {{Form::submit('Save', ['class' => 'btn btn-success save'])}} {!! Form::close() !!}
-    <a href="/admin/musics/" class="btn btn-light ">
+<div class="form-group"><br>
+    {{Form::hidden('_method', 'PUT')}}
+        {{Form::submit('Save', ['class' => 'btn btn-success'])}}
+    {!! Form::close() !!}
+    <a class="btn btn-light ">
         Cancel
     </a>
 </div>

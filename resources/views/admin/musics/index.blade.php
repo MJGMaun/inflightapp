@@ -4,24 +4,12 @@
 @endsection
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">Artists</h1>
+    <h4>Artists</h4>
 </div>
-<a class="btn btn-sm btn-primary" href="/admin/musics/createArtist">
+<a class="btn btn-sm btn-primary pull-right" href="/admin/musics/createArtist">
     <span data-feather="plus"></span>
     Add Artist
 </a>
-<a class="btn btn-sm btn-primary" href="/admin/musics/createArtist">
-    <span data-feather="plus"></span>
-    Add Album
-</a>
-<a class="btn btn-sm btn-primary" href="/admin/musics/create">
-    <span data-feather="plus"></span>
-    Add Song
-</a>
-<br>
-<br>
-
-
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
             <table id="artists-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">
@@ -63,9 +51,12 @@
 <br><br><br>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">Albums</h1>
+    <h4>Albums</h4>
 </div>
-
+<a class="btn btn-sm btn-primary pull-right" href="/admin/musics/createArtist">
+    <span data-feather="plus"></span>
+    Add Album
+</a>
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
             <table id="albums-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">
@@ -109,9 +100,12 @@
 <br><br><br>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">Songs</h1>
+    <h4>Songs</h4>
 </div>
-
+<a class="btn btn-sm btn-primary pull-right" href="/admin/musics/create">
+    <span data-feather="plus"></span>
+    Add Song
+</a>
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
             <table id="songs-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">

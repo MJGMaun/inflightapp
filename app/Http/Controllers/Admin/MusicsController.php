@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Music;
 use App\Artist;
 use App\Album;
-use App\CoverImage;
+use App\CoverImage; 
 use DB;
 use App\Http\Controllers\Controller;
 
@@ -330,12 +330,10 @@ class MusicsController extends Controller
 
     public function json_albums(Request $request){
       $artist_id = $request->id;
-    //   $albums = Album::where('artist_id', '=', $artists_id)->get();
         
         $artist = Artist::find($artist_id);
         $data  = $artist->albums->toArray();
-        // dd($data);
-        
+
         return $data;
     }
 

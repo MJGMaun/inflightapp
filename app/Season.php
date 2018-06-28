@@ -14,7 +14,7 @@ class Season extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'series_id', 'series_number',
+        'series_id', 'series_number', 'season_cover_image_id', 
     ];
 
     public function series(){
@@ -24,7 +24,7 @@ class Season extends Model
     {
         return $this->hasMany('App\Episode');
     }
-    public function coverimage(){
-        return $this->belongsTo('App\CoverImage', 'cover_image_id');
+    public function seriescoverimage(){
+        return $this->belongsTo('App\SeriesCoverImage', 'season_cover_image_id');
     }
 }
