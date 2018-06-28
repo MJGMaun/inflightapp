@@ -68,7 +68,7 @@
                                     <td>{{$game->updated_at}}</td>
                                     <td>
                                         <div class="row">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/products/{{$game->id}}/editCategory" class="btn btn-sm btn-primary" ><span data-feather="edit"></span></a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/games/{{$game->id}}/edit" class="btn btn-sm btn-primary" ><span data-feather="edit"></span></a>
                                         &nbsp; {!!Form::open(['action' => ['Admin\GamesController@destroy', $game->id], 'method'
                                             => 'POST', 'class' => 'float-right'])!!} {{Form::hidden('_method', 'DELETE')}} {{Form::button('<span data-feather="trash"></span>',['type' => 'submit','class' => 'btn btn-sm btn-danger delete-music'])}} {!!Form::close()!!}
                                         </div>
