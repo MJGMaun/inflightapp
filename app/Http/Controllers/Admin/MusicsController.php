@@ -121,7 +121,7 @@ class MusicsController extends Controller
 
         //Create Music
         $artists = new Artist;
-        $album = new Album;
+        $albums = new Album;
         $musics = new Music;
         
 
@@ -138,25 +138,25 @@ class MusicsController extends Controller
             $lastInsertedIdCover = $coverImage->id;
 
 
-            $album->album_name = $album;
-            $album->artist_id = $artist;
-            $album->cover_image_id = $lastInsertedIdCover;
-            $album->save();
+            $albums->album_name = $album;
+            $albums->artist_id = $artist;
+            $albums->cover_image_id = $lastInsertedIdCover;
+            $albums->save();
 
 
-            $lastInsertedId = $album->id;
+            $lastInsertedId = $albums->id;
 
             $musics->title = $request->input('title');
             $musics->album_id = $lastInsertedId;
             $musics->genre = $request->input('genres');
-            $musics->cover_image = $lastInsertedIdCover;
+            $musics->cover_image_id = $lastInsertedIdCover;
             $musics->music_song = $fileNameToStoreSong;
             $musics->save();
 
             return redirect('/admin/musics')->with('success', 'Song & Album Uploaded');
         } 
         else { //no new album
-
+            $thisAlbum = Album::findOrFail($album);
             $coverImage = new CoverImage;
             $coverImage->cover_image = $fileNameToStore;
             $coverImage->save();
@@ -166,7 +166,11 @@ class MusicsController extends Controller
             $musics->title = $request->input('title');
             $musics->album_id = $request->input('albums');
             $musics->genre = $request->input('genres');
-            $musics->cover_image_id = $lastInsertedId;
+            if($request->hasFile('cover_image')){
+                $musics->cover_image_id = $lastInsertedId;
+            } else {
+                $musics->cover_image_id = $thisAlbum->cover_image_id;
+            }
             $musics->music_song = $fileNameToStoreSong;
             $musics->save();
             
@@ -415,17 +419,17 @@ class MusicsController extends Controller
                 $albums->cover_image_id = $lastInsertedId;
                 $albums->save();
             }
-            return redirect('/admin/musics')->with('success', 'Albums Uploaded');
+            return redirect('/admin/musics')->with('success', 'Albums Added');
 
         }
         else if(isset($new_artist)){   //NEW ARTIST
             $artists = new Artist;
             $artists->artist_name = $new_artist;
             $artists->save();
-            return redirect('/admin/musics/createArtist')->with('success', 'Artist Uploaded');
+            return redirect('/admin/musics/createArtist')->with('success', 'Artist Added');
         }
         else{
-            return redirect('/admin/musics/createArtist')->with('error', 'The artists has already been taken.');
+            return redirect('/admin/musics/createArtist')->with('error', 'The artist has already been taken.');
         }
     }
     /**
@@ -491,20 +495,32 @@ class MusicsController extends Controller
     {
         $request->user()->authorizeRoles(['admin']);
         $artist = Artist::find($id);
-
-        foreach($artist->albums as $album){
-            if($album->coverimage->cover_image != 'noimage.jpg'){
-                // Delete Image
-                Storage::delete('public/cover_images/'.$album->coverimage->cover_image);
-                $album->coverimage()->delete();
+        if(count($artist->albums)){
+            foreach($artist->albums as $album){
+                if($album->coverimage->cover_image != 'noimage.jpg'){
+                    // Delete Image
+                    Storage::delete('public/cover_images/'.$album->coverimage->cover_image);
+                    $album->coverimage()->delete();
+                }
+                if(count($album->songs)){
+                    foreach($artist->songs as $song){
+                        if($song->cover_image_id != $album->cover_image_id){
+                            // Delete Song
+                            Storage::delete('public/cover_images/'.$song->coverimage->cover_image);
+                        }
+                    }
+                }
             }
         }
-        foreach($artist->songs as $song){
-            if($song->coverimage->cover_image != 'nosong.jpg'){
-                // Delete Song
-                Storage::delete('public/music_songs/'.$song->coverimage->cover_image);
+        if(count($artist->songs)){
+            foreach($artist->songs as $song){
+                if($song->music_song != 'nosong.jpg'){
+                    // Delete Song
+                    Storage::delete('public/music_songs/'.$song->music_song);
+                }
             }
         }
+                
 
         $artist->songs()->delete();
         $artist->albums()->delete();
@@ -609,10 +625,22 @@ class MusicsController extends Controller
         $request->user()->authorizeRoles(['admin']);
         $album = Album::find($id);
         
+            if(count($album->songs)){
+                foreach($artist->songs as $song){
+                    if($song->cover_image_id != $album->cover_image_id){
+                        // Delete Song
+                        Storage::delete('public/cover_images/'.$song->coverimage->cover_image);
+                         $song->coverimage()->delete();
+                    }
+                }
+            }
+
+
             if($album->coverimage->cover_image != 'noimage.jpg'){
                 // Delete Image
                 Storage::delete('public/cover_images/'.$album->coverimage->cover_image);
                 $album->coverimage()->delete();
+               
             }
 
 

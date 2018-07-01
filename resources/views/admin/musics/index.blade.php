@@ -138,7 +138,7 @@
                         <td><div class="row">
                             &nbsp;&nbsp;
                             <a title="Edit Album" href="/admin/musics/{{$song->id}}/editArtist" class="btn btn-sm btn-primary"><span data-feather="edit"></span></a>&nbsp;
-                            {!!Form::open(['action' => ['Admin\MusicsController@destroyAlbum', $song->id], 'method' => 'POST', 'class' => 'float-right'])!!}
+                            {!!Form::open(['action' => ['Admin\MusicsController@destroy', $song->id], 'method' => 'POST', 'class' => 'float-right'])!!}
                             {{Form::hidden('_method', 'DELETE')}}
                             {{Form::button('<span data-feather="trash"></span>',['title' => 'Delete Artist','type' => 'submit','class' => 'btn btn-sm btn-danger delete-music'])}}
                             {!!Form::close()!!}</div></td>

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Ad;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class AdsController extends Controller
 {
