@@ -263,12 +263,24 @@ class ProductsController extends Controller
             $product->product_price_token = number_format($request->input('productPriceToken'));
             $product->product_description = $request->input('productDescription');
             if($request->hasFile('productImage1')){
+                if($product->product_image_1 != 'noimage.jpg'){
+                    // Delete Image
+                    Storage::delete('public/product_images/'.$product->product_image_1);
+                }
                 $product->product_image_1 = $fileNameToStore1;
             }
             if($request->hasFile('productImage2')){
+                if($product->product_image_2 != 'noimage.jpg'){
+                    // Delete Image
+                    Storage::delete('public/product_images/'.$product->product_image_2);
+                }
                 $product->product_image_2 = $fileNameToStore2;
             }
             if($request->hasFile('productImage3')){
+                if($product->product_image_3 != 'noimage.jpg'){
+                    // Delete Image
+                    Storage::delete('public/product_images/'.$product->product_image_3);
+                }
                 $product->product_image_3 = $fileNameToStore3;
             }
             $product->product_availability = $request->input('productAvailability');
@@ -370,6 +382,9 @@ class ProductsController extends Controller
         {
             
             $category = ProductCategory::find($id);
+            if(count($category->subcategories)){
+                $category->subcategories()->delete();
+            }
             $category->delete();
             return redirect('/admin/products/createCategory')->with('success', 'Product Category Deleted');
         }

@@ -231,7 +231,6 @@ class MusicsController extends Controller
     public function update($id, Request $request)
     {
         $music = Music::find($id);
-
         $albumId = $music->albums->id;
         // dd($albumId);
         $request->user()->authorizeRoles(['admin']);
@@ -284,6 +283,11 @@ class MusicsController extends Controller
         $music->genre = $request->input('genre');
 
         if($request->hasFile('cover_image')){
+            if($song->cover_image_id != $music->albums->cover_image_id){
+                    // Delete Image
+                    Storage::delete('public/cover_images/'.$song->coverimage->cover_image);
+                    $song->coverimage()->delete();
+            }
             $coverimage = new CoverImage;
 
             $coverimage->cover_image = $fileNameToStore;
@@ -294,6 +298,10 @@ class MusicsController extends Controller
             $music->cover_image_id = $lastInsertedId;
         }
         if($request->hasFile('music_song')){
+            if($song->music_song != 'nosong.jpg'){
+                // Delete Song
+                Storage::delete('public/music_songs/'.$song->music_song);
+            }
             $music->music_song = $fileNameToStoreSong;
         }
         $music->save();
@@ -594,6 +602,9 @@ class MusicsController extends Controller
         //Edit Album Image
         $album->album_name = $request->input('album');
         if($request->hasFile('cover_image')){
+            // Delete image
+            Storage::delete('public/cover_images/'.$album->coverimage->cover_image);
+            $album->coverimage()->delete();
             $coverImage = new CoverImage;
             $coverImage->cover_image = $fileNameToStore;
             $coverImage->save();
@@ -628,7 +639,7 @@ class MusicsController extends Controller
             if(count($album->songs)){
                 foreach($artist->songs as $song){
                     if($song->cover_image_id != $album->cover_image_id){
-                        // Delete Song
+                        // Delete image
                         Storage::delete('public/cover_images/'.$song->coverimage->cover_image);
                          $song->coverimage()->delete();
                     }
@@ -636,12 +647,12 @@ class MusicsController extends Controller
             }
 
 
-            if($album->coverimage->cover_image != 'noimage.jpg'){
-                // Delete Image
-                Storage::delete('public/cover_images/'.$album->coverimage->cover_image);
-                $album->coverimage()->delete();
+            // if($album->coverimage->cover_image != 'noimage.jpg'){
+            //     // Delete Image
+            //     Storage::delete('public/cover_images/'.$album->coverimage->cover_image);
+            //     $album->coverimage()->delete();
                
-            }
+            // }
 
 
         foreach($album->songs as $song){

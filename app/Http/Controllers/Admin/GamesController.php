@@ -178,10 +178,12 @@ class GamesController extends Controller
 
             $game->name = $request->input('name');
             if($request->hasFile('cover_image')){
-            $game->cover_image = $fileNameToStore;
+                Storage::delete('public/games_cover_images/'.$game->cover_image);
+                $game->cover_image = $fileNameToStore;
             }
             if($request->hasFile('game_apk')){
-            $game->game_apk = $fileNameToStoreGame;
+                Storage::delete('public/games_apks/'.$game->game_apk);
+                $game->game_apk = $fileNameToStoreGame;
             }
             $game->save();
 

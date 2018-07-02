@@ -203,10 +203,10 @@
                     header+=series_title;
                     for(var i=0;i<dataLength;i++){
                         details+='<img height="70px" width="80px" src="/storage/series_cover_images/'+data[i].season_cover_image+'"></img><br>';
-                        details+='<p>Season: '+data[i].season_number+'<a href="series/'+data[i].season_id+'/editSeason" class="btn btn-sm btn-primary pull-right">Edit Season</a></p>';
+                        details+='<p>Season: '+data[i].season_number+'<a href="'+data[i].season_id+'/editSeason" class="btn btn-sm btn-primary pull-right">Edit Season</a></p>';
 
                         for(var x=0;x<data[i].episodes.length;x++){
-                        details+='<p>Episode '+data[i].episodes_number[x]+': <a href="series/'+data[i].episodes_id[x]+'/editEpisode">'+' '+data[i].episodes[x]+'</a><a style="margin-left:3px;" href="/admin/series//editEpisode" class="btn btn-sm btn-danger pull-right" ><span data-feather="edit">Delete</span></a><a style="margin-left:5px;" href="/admin/series/'+data[i].episodes_id[x]+'/editEpisode" class="btn btn-sm btn-primary pull-right" ><span data-feather="edit">Edit</span></a></p>';
+                        details+='<div class="row"><div class="col-6">Episode '+data[i].episodes_number[x]+': <a href="series/'+data[i].episodes_id[x]+'/editEpisode">'+' '+data[i].episodes[x]+'</a></div><div class="col-6">{!!Form::open(["action" => ["Admin\SeriesController@destroyEpisode", '+data[i].episodes_id[x]+'], "method" => "POST", "class" => "float-right", "style" => "margin-left:5px;"])!!}{{Form::hidden("_method", "DELETE")}}{{Form::button("Delete",["type" => "submit","class" => "btn btn-sm btn-danger"])}}{!!Form::close()!!}<a style="margin-left:5px;" href="/admin/series/'+data[i].episodes_id[x]+'/editEpisode" class="btn btn-sm btn-primary pull-right" ><span data-feather="edit">Edit</span></a></div></div>';
                         }
                         details+='<hr>';
                    }

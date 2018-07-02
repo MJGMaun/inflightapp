@@ -66,8 +66,6 @@ class AdsController extends Controller
             $fileNameToStoreVid = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
             $path = $request->file('ad_video')->storeAs('public/ads_videos', $fileNameToStoreVid);
-        } else {
-            $fileNameToStoreVid = 'novideo.jpg';
         }
 
         
@@ -164,6 +162,7 @@ class AdsController extends Controller
             $ad->number_of_plays_remaining = $playsNeeded;
         }
         if($request->hasFile('ad_video')){
+            Storage::delete('public/ads_videos/'.$ad->ad_video);
             $ad->ad_video = $fileNameToStoreVid;
         }
         $ad->save();

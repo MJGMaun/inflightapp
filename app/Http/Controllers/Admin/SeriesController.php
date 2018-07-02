@@ -213,7 +213,7 @@ class SeriesController extends Controller
      */
     public function destroy($id)
     {
-        $serie = Series::find($id);
+        $serie = Series::findOrFail($id);
         $serie->genres()->detach();
 
         if($serie->cover_image != 'noimage.jpg'){
@@ -453,7 +453,7 @@ class SeriesController extends Controller
                     //Filename to store
                     $fileNameToStoreVid = $cleanerFilename.'_'.time().'.'.$extension;
                     //Upload image
-                    $path = $episode_videos[$x]->storeAs('public/movie_videos', $fileNameToStoreVid);
+                    $path = $episode_videos[$x]->storeAs('public/series_videos', $fileNameToStoreVid);
                     }
 
                     $number  = $episode_numbers[$x];
@@ -527,40 +527,6 @@ class SeriesController extends Controller
         $cover_images = $request->file('cover_images');
         $episode_videos = $request->file('episode_videos');
 
-            // // Handle File Cover Image 1
-            // if($request->hasFile('cover_image')){
-            //     //Get filename with extension
-            //     $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-            //     //Get just filename
-            //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            //     //Get just ext
-            //     $extension = $request->file('cover_image')->getClientOriginalExtension();
-            //     //Clean filename (Replace white spaces with hyphens)
-            //     $cleanFilename = str_replace(' ', '-', $filename);
-            //     //Cleaner filename
-            //     $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
-            //     //Filename to store
-            //     $fileNameToStore = $cleanerFilename.'_'.time().'.'.$extension;
-            //     //Upload image
-            //     $path = $request->file('cover_image')->storeAs('public/series_cover_images', $fileNameToStore);
-            // }
-
-            // $seasonId = $episode->season_id;
-            // $season = Season::findOrFail($seasonId);
-            // $season->series_id = $request->input('series');
-            // $season->season_number = $request->input('season');
-
-            // if($request->hasFile('cover_image')){
-            // $coverImage = new SeriesCoverImage;
-            // $coverImage->cover_image = $fileNameToStore;
-            // $coverImage->save();
-
-            // $lastInsertedIdCover = $coverImage->id;
-
-            // $season->season_cover_image_id = $lastInsertedIdCover;
-            // }
-            // $season->save();
-
 
                 if($request->hasFile('episode_videos')){
                     //Get filename with extension
@@ -576,7 +542,7 @@ class SeriesController extends Controller
                     //Filename to store
                     $fileNameToStoreVid = $cleanerFilename.'_'.time().'.'.$extension;
                     //Upload image
-                    $path = $episode_video->storeAs('public/movie_videos', $fileNameToStoreVid);
+                    $path = $episode_video->storeAs('public/series_videos', $fileNameToStoreVid);
                 }
                     $episode = Episode::findOrFail($id);
                     $episode_number = $request->input('episodeNumber');
@@ -593,6 +559,23 @@ class SeriesController extends Controller
                     $episode->save();
 
         return redirect('/admin/series/')->with('success', 'Episode Updated');
+    }
+    public function destroyEpisode($id, Request $request)
+    {
+        $episode = Episode::findOrFail($id);
+
+        if($episode->episode_cover_image_id != $episode->season->cover_image_id){
+                // Delete Image
+                Storage::delete('public/cover_images/'.$episode->coverimage->cover_image);
+                $episode->coverimage()->delete();
+        }
+
+            // Delete Video
+            Storage::delete('public/series_videos/'.$episode->episode_video);
+
+        $episode->delete();
+
+        return redirect('/admin/series/')->with('success', 'Episode Deleted');
     }
 
 }

@@ -29,12 +29,17 @@ Route::resource('admin/movies', 'Admin\MoviesController');
     /*****************************
             SERIES
     *****************************/
+    // SEASON
 Route::get('admin/series/createSeason', 'Admin\SeriesController@createSeason');
 Route::post('admin/series/storeSeason', 'Admin\SeriesController@storeSeason');
 Route::get('admin/series/{id}/editSeason', 'Admin\SeriesController@editSeason');
 Route::put('admin/series/{id}/updateSeason', 'Admin\SeriesController@updateSeason');
+Route::delete('admin/series/{id}/destroySeason', 'Admin\SeriesController@destroySeason');
+    //EPISODE
 Route::get('admin/series/{id}/editEpisode', 'Admin\SeriesController@editEpisode');
 Route::put('admin/series/{id}/updateEpisode', 'Admin\SeriesController@updateEpisode');
+Route::delete('admin/series/{id}/destroyEpisode', 'Admin\SeriesController@destroyEpisode');
+    //OTHERS
 Route::get('/json_seasons','Admin\SeriesController@json_seasons');
 Route::get('/json_seasons_modal','Admin\SeriesController@json_seasons_modal');
 Route::resource('admin/series', 'Admin\SeriesController');
