@@ -76,6 +76,14 @@
     </li>
     <li class="list-group-item center text-center">
         <div class="form-group row">
+            {{Form::label('productPriceToken', 'Product Price Token', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::number('productPriceToken', $product->product_price_token, ['class' => 'form-control', 'placeholder' => 'Enter Product Price Token'])}}
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
             {{Form::label('productDescription', 'Product Description', ['class' => 'col-sm-3 col-form-label'])}}
             <div class="col-sm-7">
                 {{Form::textarea('productDescription', $product->product_description, ['class' => 'form-control', 'placeholder' => 'Enter Product Description'])}}

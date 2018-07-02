@@ -24,6 +24,7 @@
                         <th>Product Name</th>
                         <th>Product Price</th>
                         <th>Product Price Before</th>
+                        <th>Product Price Token</th>
                         <th>Product Availability</th>
                         <th>Product Category</th>
                         <th>Product Sub Category</th>
@@ -40,6 +41,7 @@
                                     <td>{{$product->product_name}}</td>
                                     <td>{{$product->product_price}}</td>
                                     <td>{{$product->product_price_before_discount}}</td>
+                                    <td>{{$product->product_price_token}}</td>
                                     <td>{{$product->product_availability}}</td>
                                     <td>{{$product->subcategory->category->product_category_name}}</td>
                                     <td>{{$product->subcategory->product_sub_category_name}}</td>

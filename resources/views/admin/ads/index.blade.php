@@ -68,7 +68,21 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#ads-table').DataTable({
+            dom: 'Bfrtip',
             responsive: true,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            "columnDefs": [
+                {
+                    "targets": 5,
+                    render: function (data, type, row) {
+                        return data.length > 20 ?
+                            data.substr(0, 20) + '…' :
+                            data;
+                    }
+                }
+            ]
         });
      });
 </script>

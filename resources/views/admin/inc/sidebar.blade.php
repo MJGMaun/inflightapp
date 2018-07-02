@@ -2,7 +2,7 @@
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
-            <ul class="nav flex-column"><br>
+            <ul class="nav flex-column">
               <h7  class="nav-link">
                   Howdy, {{Auth::user()->name}}!
               </h7  >

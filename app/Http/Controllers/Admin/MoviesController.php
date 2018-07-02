@@ -230,9 +230,17 @@ class MoviesController extends Controller
         $movie->running_time = $request->input('running_time');
         $movie->release_date = $request->input('release_date');
         if($request->hasFile('cover_image')){
+            if($movie->cover_image != 'noimage.jpg'){
+            // Delete Image
+            Storage::delete('public/cover_images/'.$movie->cover_image);
+            }
             $movie->cover_image = $fileNameToStore;
         }
         if($request->hasFile('movie_video')){
+            if($movie->movie_video != 'novideo.jpg'){
+            // Delete Image
+            Storage::delete('public/movie_videos/'.$movie->movie_video);
+            }
             $movie->movie_video = $fileNameToStoreVid;
         }
         $movie->save();
