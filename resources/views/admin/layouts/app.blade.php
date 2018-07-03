@@ -16,7 +16,8 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/admin.css') }}" rel="stylesheet"> @yield('css')
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-confirm.css') }}" rel="stylesheet"> @yield('css')
 
 </head>
 
@@ -36,6 +37,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/admin.js') }}"></script>
+    <script src="{{ asset('js/jquery-confirm.js') }}"></script>
     <script src="{{ asset('js/feather.min.js') }}"></script>
     
     @yield('script')

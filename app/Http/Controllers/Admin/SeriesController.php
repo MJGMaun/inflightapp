@@ -561,7 +561,8 @@ class SeriesController extends Controller
         return redirect('/admin/series/')->with('success', 'Episode Updated');
     }
     public function destroyEpisode($id, Request $request)
-    {
+    {   
+        $series_id = $request->id;
         $episode = Episode::findOrFail($id);
 
         if($episode->episode_cover_image_id != $episode->season->cover_image_id){
@@ -575,7 +576,7 @@ class SeriesController extends Controller
 
         $episode->delete();
 
-        return redirect('/admin/series/')->with('success', 'Episode Deleted');
+        return response()->json($episode);
     }
 
 }

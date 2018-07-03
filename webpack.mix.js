@@ -15,4 +15,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/admin.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/admin.scss', 'public/css')
-    .copy('node_modules/datatables.net-dt/css/jquery.dataTables.css', 'public/css');
+    .copy('node_modules/datatables.net-dt/css/jquery.dataTables.css', 'public/css')
+    .copy('node_modules/jquery-confirm/css/jquery-confirm.css', 'public/css')
+    .copy('node_modules/jquery-confirm/js/jquery-confirm.js', 'public/js');

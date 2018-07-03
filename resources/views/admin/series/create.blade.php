@@ -94,7 +94,7 @@
                                     <td><img height="50px" width="60px" src="/storage/series_cover_images/{{$serie->coverimage->cover_image}}" /><span class="d-none">{{$serie->coverimage->cover_image}}</span></td>
                                     <td data-title="{{$serie->title}}">{{$serie->title}}</td>
                                     {{-- EDIT MODAL NAME OKIIIIII --}}
-                                <td><button type="button" id="modal" class="btn btn-sm btn-primary" data-toggle="modal" data-pandi="{{$serie->id}}" data-target="#exampleModal">View Seasons</button></td>
+                                <td><button type="button" id="modal" class="btn btn-sm btn-primary" data-toggle="modal" data-id="{{$serie->id}}" data-target="#exampleModal">View Seasons</button></td>
                                     <td>View Episodes</td>
                                     <td>{{$serie->cast}}</td>
                                     <td>{{$serie->description}}</td>
@@ -172,19 +172,11 @@
     });
 
         //MODAL
-        
     $('#series-table tbody').on('click', '#modal', function () {
         $('.number, .season-number, .details, .modal-title').empty();
             var table = $('#series-table').DataTable();
             var series_title = $(this).closest('tr').find("td:eq(1)").text();
-
-            // var e =$(this).attr('data-title');
-            // alert(data);
-
-            var serie_id=$(this).attr("data-pandi");
-            // var serie_title=$(this).attr("data-pandi");
-            console.log(serie_id);
-
+            var serie_id=$(this).data("id");
             var header=" ";
             var details=" ";
 
@@ -194,19 +186,15 @@
                 data:{'id':serie_id},
                 dataType: 'json',
                 success:function(data){
-                    console.log('success');
-                    console.log(data);
-
                     //var dataLength = Object.keys(data).length;
                     var dataLength = data.length; 
-                    console.log("Length "+dataLength);
                     header+=series_title;
                     for(var i=0;i<dataLength;i++){
                         details+='<img height="70px" width="80px" src="/storage/series_cover_images/'+data[i].season_cover_image+'"></img><br>';
                         details+='<p>Season: '+data[i].season_number+'<a href="'+data[i].season_id+'/editSeason" class="btn btn-sm btn-primary pull-right">Edit Season</a></p>';
 
                         for(var x=0;x<data[i].episodes.length;x++){
-                        details+='<div class="row"><div class="col-6">Episode '+data[i].episodes_number[x]+': <a href="series/'+data[i].episodes_id[x]+'/editEpisode">'+' '+data[i].episodes[x]+'</a></div><div class="col-6">{!!Form::open(["action" => ["Admin\SeriesController@destroyEpisode", '+data[i].episodes_id[x]+'], "method" => "POST", "class" => "float-right", "style" => "margin-left:5px;"])!!}{{Form::hidden("_method", "DELETE")}}{{Form::button("Delete",["type" => "submit","class" => "btn btn-sm btn-danger"])}}{!!Form::close()!!}<a style="margin-left:5px;" href="/admin/series/'+data[i].episodes_id[x]+'/editEpisode" class="btn btn-sm btn-primary pull-right" ><span data-feather="edit">Edit</span></a></div></div>';
+                        details+='<div class="row"><div class="col-6">Episode '+data[i].episodes_number[x]+': <a href="series/'+data[i].episodes_id[x]+'/editEpisode">'+' '+data[i].episodes[x]+'</a></div><div class="col-6"><button class="btn btn-sm btn-danger delete-episode" data-id="'+data[i].episodes_id[x]+'" data-token="{{ csrf_token() }}">Delete</button><a href="/admin/series/'+data[i].episodes_id[x]+'/editEpisode" class="btn btn-sm btn-primary pull-right" ><span data-feather="edit">Edit</span></a></div></div>';
                         }
                         details+='<hr>';
                    }
@@ -222,5 +210,44 @@
                 }
             });
         });
+
+
+
+        //DELETE EPISODE
+        $(document).on('click','.delete-episode',function(){
+            
+            $.confirm({
+                title: 'DELETE EPISODE',
+                content: 'Are you sure you want to delete this episode?',
+                type: 'red',
+                typeAnimated: true,
+                buttons: {
+                        confirm: {
+                            text: 'Delete',
+                            btnClass: 'btn-red',
+                            action: function(){
+                                var episode_id = $('.delete-episode').data("id");
+                                $.ajax({
+                                    type: 'DELETE',
+                                    url: 'destroyEpisode/' + episode_id,
+                                    data: {
+                                        '_token': $('input[name=csrf-token]').val(),
+                                    },
+                                    success: function(data) {
+                                    // $('.post' + $('.id').text()).remove();
+                                    console.log("DELETED");
+                                    
+                                    }
+                                });
+                            }
+                        },
+                        cancel: function () {
+                            $.alert('Canceled!');
+                        }
+                }
+            });
+            
+        });
+            
 </script>
 @endsection

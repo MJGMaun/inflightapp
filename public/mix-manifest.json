@@ -3,5 +3,7 @@
     "/css/app.css": "/css/app.css",
     "/css/admin.css": "/css/admin.css",
     "/js/admin.js": "/js/admin.js",
-    "/css/jquery.dataTables.css": "/css/jquery.dataTables.css"
+    "/css/jquery.dataTables.css": "/css/jquery.dataTables.css",
+    "/css/jquery-confirm.css": "/css/jquery-confirm.css",
+    "/js/jquery-confirm.js": "/js/jquery-confirm.js"
 }
