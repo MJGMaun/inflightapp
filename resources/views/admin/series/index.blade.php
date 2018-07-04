@@ -146,21 +146,17 @@
                 data:{'id':serie_id},
                 dataType: 'json',
                 success:function(data){
-                    console.log('success');
-                    console.log(data);
-
                     //var dataLength = Object.keys(data).length;
                     var dataLength = data.length; 
-                    console.log("Length "+dataLength);
                     header+=series_title;
                     for(var i=0;i<dataLength;i++){
                         details+='<img height="70px" width="80px" src="/storage/series_cover_images/'+data[i].season_cover_image+'"></img><br>';
-                        details+='<p>Season: '+data[i].season_number+'<a href="series/'+data[i].season_id+'/editSeason" class="btn btn-sm btn-primary pull-right">Edit Season</a></p>';
+                        details+='<p>Season: '+data[i].season_number+'<a href="/admin/series/'+data[i].season_id+'/editSeason" class="btn btn-sm btn-primary pull-right">Edit Season</a></p>';
 
                         for(var x=0;x<data[i].episodes.length;x++){
-                        details+='<div class="row"><div class="col-6">Episode '+data[i].episodes_number[x]+': <a href="series/'+data[i].episodes_id[x]+'/editEpisode">'+' '+data[i].episodes[x]+'</a></div><div class="col-6">{!!Form::open(['action' => ['Admin\SeriesController@destroyEpisode', '+data[i].episodes_id[x]+'], 'method' => 'POST', 'class' => 'float-right', 'style' => 'margin-left:5px;'])!!}{{Form::hidden('_method', 'DELETE')}}{{Form::button('Delete',['type' => 'submit','class' => 'btn btn-sm btn-danger delete-music'])}}{!!Form::close()!!}<a style="margin-left:5px;" href="/admin/series/'+data[i].episodes_id[x]+'/editEpisode" class="btn btn-sm btn-primary pull-right" ><span data-feather="edit">Edit</span></a></div></div>';
+                        details+='<div class="row"><div class="col-6">Episode '+data[i].episodes_number[x]+': <a href="admin/series/'+data[i].episodes_id[x]+'/editEpisode">'+' '+data[i].episodes[x]+'</a></div><div class="col-6"><button class="btn btn-sm btn-danger delete-episode" data-id="'+data[i].episodes_id[x]+'" data-token="{{ csrf_token() }}">Delete</button><a href="/admin/series/'+data[i].episodes_id[x]+'/editEpisode" class="btn btn-sm btn-primary pull-right" ><span data-feather="edit">Edit</span></a></div></div>';
                         }
-                        // details+='<hr>';
+                        details+='<hr>';
                    }
                    
                     // FOR NEW ALBUM OPTION APPEND ALBUM NAME
@@ -173,6 +169,48 @@
                     console.log('error');
                 }
             });
+        });
+
+
+        //DELETE EPISODE
+        $(document).on('click','.delete-episode',function(){
+            
+            $.confirm({
+                title: 'DELETE EPISODE',
+                content: 'Are you sure you want to delete this episode?',
+                type: 'red',
+                typeAnimated: true,
+                buttons: {
+                        confirm: {
+                            text: 'Delete',
+                            btnClass: 'btn-red',
+                            action: function(){
+                                var episode_id = $('.delete-episode').data("id");
+                                $.ajax({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    },
+                                    type: 'POST',
+                                    url: 'series/destroyEpisode/' + episode_id,
+                                    data: {
+                                        '_token':$('.delete-episode').data('token'),
+                                    },
+                                    contentType: false,
+                                    processData: false,
+                                    success: function(data) {
+                                    // $('.post' + $('.id').text()).remove();
+                                    console.log("DELETED");
+                                    
+                                    }
+                                });
+                            }
+                        },
+                        cancel: function () {
+                            $.alert('Canceled!');
+                        }
+                }
+            });
+            
         });
 </script>
 @endsection

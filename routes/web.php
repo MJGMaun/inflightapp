@@ -38,7 +38,7 @@ Route::delete('admin/series/{id}/destroySeason', 'Admin\SeriesController@destroy
     //EPISODE
 Route::get('admin/series/{id}/editEpisode', 'Admin\SeriesController@editEpisode');
 Route::put('admin/series/{id}/updateEpisode', 'Admin\SeriesController@updateEpisode');
-Route::delete('/destroyEpisode/{id}', 'Admin\SeriesController@destroyEpisode');
+Route::post('admin/series/destroyEpisode/{id}', 'Admin\SeriesController@destroyEpisode');
     //OTHERS
 Route::get('/json_seasons','Admin\SeriesController@json_seasons');
 Route::get('/json_seasons_modal','Admin\SeriesController@json_seasons_modal');
