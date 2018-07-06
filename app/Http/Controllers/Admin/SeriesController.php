@@ -292,7 +292,7 @@ class SeriesController extends Controller
                 'series' => 'required',
                 'season' => 'required',
                 'cover_image' => 'file|nullable|image|mimes:jpeg,jpg,png',
-                'episodes.*' => 'required|distinct',
+                'episodes.*' => 'required|distinct|unique:episodes,title',
                 'episodeNumbers.*' => 'required|distinct',
                 'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required',
             ]);
@@ -361,8 +361,8 @@ class SeriesController extends Controller
 
                     $episode = new Episode;
                     $episode->title = $title;
-                    $episode->description = 'Hello';
-                    $episode->running_time = '1:00:00';
+                    // $episode->description = 'Hello';
+                    // $episode->running_time = '1:00:00';
                     $episode->episode_number = $number;
                     $episode->episode_video = $fileNameToStoreVid;
                     $episode->episode_cover_image_id = $lastInsertedIdCover;
@@ -391,9 +391,11 @@ class SeriesController extends Controller
                 'series' => 'required',
                 'season' => 'required',
                 'cover_image' => 'file|nullable|image|mimes:jpeg,jpg,png',
-                'episodes.*' => 'required|distinct',
+                'episodes_title.*' => 'required|distinct',
+                'episodes_title_new.*' => 'required|distinct',
                 'episodeNumbers.*' => 'required|distinct',
-                'episode_videos.*' => 'nullable|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required',
+                'episodeNumbers_new.*' => 'required|distinct',
+                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi',
             ]);
         $cover_images = $request->file('cover_images');
         $episode_videos = $request->file('episode_videos');
@@ -436,8 +438,6 @@ class SeriesController extends Controller
                 $x = 0;
                 $episode_numbers = $request->input('episodeNumbers');
                 $episodes_title = $request->input('episodes_title');
-                $episode_numbers_new = $request->input('episodeNumbers_new');
-                $episodes_title_new = $request->input('episodes_title_new');
                 $episode_ids = $request->input('episode_ids');
                 if($request->hasFile('episode_videos')){
                     $countvideos = count($request->file('episode_videos'));
@@ -465,8 +465,8 @@ class SeriesController extends Controller
                     // $epvideo = $episode_video[$x];
                     $episode = Episode::findOrFail($epId);
                     $episode->title = $title;
-                    $episode->description = 'Hello';
-                    $episode->running_time = '1:00:00';
+                    // $episode->description = 'Hello';
+                    // $episode->running_time = '1:00:00';
                     $episode->episode_number = $number;
                     if(isset($episode_videos[$x])){
                     Storage::delete('public/series_videos/'.$episode->episode_video);
@@ -482,15 +482,15 @@ class SeriesController extends Controller
             }
         }else{
                 if(isset($episode_ids)){
-                    for($x=0; $x < count($episode_ids); $x++){
+                    for($x=0; $x < count($episode_ids)-1; $x++){
                     $number  = $episode_numbers[$x];
                     $title = $episodes_title[$x];
                     $epId = $episode_ids[$x];
 
                     $episode = Episode::findOrFail($epId);
                     $episode->title = $title;
-                    $episode->description = 'Hello';
-                    $episode->running_time = '1:00:00';
+                    // $episode->description = 'Hello';
+                    // $episode->running_time = '1:00:00';
                     $episode->episode_number = $number;
                     if($request->hasFile('cover_image')){
                     $episode->episode_cover_image_id = $lastInsertedIdCover;
@@ -501,6 +501,8 @@ class SeriesController extends Controller
                 }}
         }
         if($request->hasFile('episode_videos_new')){
+                    $episode_numbers_new = $request->input('episodeNumbers_new');
+                    $episodes_title_new = $request->input('episodes_title_new');
                     $countvideosnew = count($request->file('episode_videos_new'));
                 for($y = 0; $y <= $countvideosnew-1; $y++){
                     if(isset($episode_videos_new[$y])){
@@ -525,8 +527,8 @@ class SeriesController extends Controller
 
                     $episode = new Episode;
                     $episode->title = $titleNew;
-                    $episode->description = 'Hello';
-                    $episode->running_time = '1:00:00';
+                    // $episode->description = 'Hello';
+                    // $episode->running_time = '1:00:00';
                     $episode->episode_number = $numberNew;
                     $episode->episode_video = $fileNameToStoreVidNew;
                     $episode->episode_cover_image_id = $season->season_cover_image_id;
@@ -589,8 +591,8 @@ class SeriesController extends Controller
                     $episodes_title = $request->input('episode');
 
                     $episode->title = $episodes_title;
-                    $episode->description = 'Hi';
-                    $episode->running_time = '1:00:00';
+                    // $episode->description = 'Hi';
+                    // $episode->running_time = '1:00:00';
                     $episode->episode_number = $episode_number;
                     if($request->hasFile('episode_videos')){
                     Storage::delete('public/series_videos/'.$episode->episode_video);

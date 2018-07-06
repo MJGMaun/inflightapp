@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-4 col-sm-4">
                 {{Form::label('episodeNumbers[]', 'Episode Number')}}
-                {{Form::number('episodeNumbers[]',  $episode->episode_number, ['class' => 'form-control episodes', 'placeholder' => 'Episode #', 'min' => '0'])}}
+                {{Form::number('episodeNumbers[]',  $episode->episode_number, ['class' => 'form-control episode_numbers', 'placeholder' => 'Episode #', 'min' => '0',  'readonly'])}}
             </div>
         </div>
         <br>
@@ -121,7 +121,8 @@
     });
     $('a.add_episode').click(function (e) {
         e.preventDefault();
-            $('#episode').append('<div class="input"><div class="row"><div class="col-md-8 col-sm-8">{{Form::label('episodes_title_new', 'Episode Title')}}<small> (Click + to add episode)</small>{{Form::text('episodes_title_new[]', '', ['class' => 'form-control episodes', 'placeholder' => 'Episode Title'])}}</div><div class="col-md-4 col-sm-4">{{Form::label('episodeNumbers_new', 'Episode Number')}}{{Form::number('episodeNumbers_new[]', '', ['class' => 'form-control episodes', 'placeholder' => 'Episode #', 'min' => '0'])}}</div></div><br><div class="row"><div class="video-container col-md-6 col-sm-6"><div class="video">{{Form::label('episode_videos_new', 'Episode Video')}}<br>{{Form::file('episode_videos_new[]')}}</div></div></div><hr><br></div>');
+            var episode_number = parseInt($('.episode_numbers:last').val()) +parseInt(1);
+            $('#episode').append('<div class="input"><div class="row"><div class="col-md-8 col-sm-8">{{Form::label('episodes_title_new', 'Episode Title')}}<small> (Click + to add episode)</small>{{Form::text('episodes_title_new[]', '', ['class' => 'form-control episodes', 'placeholder' => 'Episode Title'])}}</div><div class="col-md-4 col-sm-4">{{Form::label('episodeNumbers_new', 'Episode Number')}}<input type="number" class="form-control episode_numbers" name="episodeNumbers_new[]" value="'+episode_number+'" placeholder="Episode #" min="0" readonly></div></div><br><div class="row"><div class="video-container col-md-6 col-sm-6"><div class="video">{{Form::label('episode_videos_new', 'Episode Video')}}<br>{{Form::file('episode_videos_new[]')}}</div></div></div><hr><br></div>');
     });
     $('a.remove_episode').click(function (e) {
         e.preventDefault();

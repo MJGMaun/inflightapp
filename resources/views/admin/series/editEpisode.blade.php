@@ -1,7 +1,7 @@
 @extends('admin.layouts.app') @section('css')
 @endsection @section('content')
 
-<a href="/admin/musics" class="btn btn-sm btn-primary">
+<a href="javascript:history.go(-1)" class="btn btn-sm btn-primary">
     <span data-feather="arrow-left"></span>
     Back
 </a>
@@ -44,7 +44,7 @@
             </div>
             <div class="col-md-4 col-sm-4">
                 {{Form::label('episodeNumber', 'Episode Number')}}
-                {{Form::number('episodeNumber', $episode->episode_number, ['class' => 'form-control episodes', 'placeholder' => 'Episode #', 'min' => '0'])}}
+                {{Form::number('episodeNumber', $episode->episode_number, ['class' => 'form-control episodes', 'placeholder' => 'Episode #', 'min' => '0', 'readonly'])}}
             </div>
         </div>
         <br>
