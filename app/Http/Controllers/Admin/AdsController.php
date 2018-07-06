@@ -65,7 +65,7 @@ class AdsController extends Controller
             //Filename to store
             $fileNameToStoreVid = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
-            $path = $request->file('ad_video')->storeAs('public/ads_videos', $fileNameToStoreVid);
+            $path = $request->file('ad_video')->storeAs('public/ad_videos', $fileNameToStoreVid);
         }
 
         
@@ -145,7 +145,7 @@ class AdsController extends Controller
             //Filename to store
             $fileNameToStoreVid = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
-            $path = $request->file('ad_video')->storeAs('public/ads_videos', $fileNameToStoreVid);
+            $path = $request->file('ad_video')->storeAs('public/ad_videos', $fileNameToStoreVid);
         }
 
         $ad->name = $request->input('name');
@@ -162,7 +162,7 @@ class AdsController extends Controller
             $ad->number_of_plays_remaining = $playsNeeded;
         }
         if($request->hasFile('ad_video')){
-            Storage::delete('public/ads_videos/'.$ad->ad_video);
+            Storage::delete('public/ad_videos/'.$ad->ad_video);
             $ad->ad_video = $fileNameToStoreVid;
         }
         $ad->save();
@@ -182,7 +182,7 @@ class AdsController extends Controller
 
         if($ad->ad_video != 'novideo.jpg'){
             // Delete Image
-            Storage::delete('public/ads_videos/'.$ad->ad_video);
+            Storage::delete('public/ad_videos/'.$ad->ad_video);
         }
 
         $ad->delete();
