@@ -383,26 +383,28 @@ class MusicsController extends Controller
     {
         $this->validate($request, [ 
             'artists' => 'sometimes|required|unique:artists,artist_name',
-            'albums' =>  'sometimes|required',
+            'albums.*' =>  'sometimes|required',
+            'categories.*' =>  'sometimes|required',
             'new_artist' => 'sometimes|required',
-            'cover_image' => 'sometimes|required|image|mimes:jpeg,jpg,png',
+            'cover_image.*' => 'sometimes|required|image|mimes:jpeg,jpg,png',
         ]);
         $artist = $request->input('artists');
         $new_artist = $request->input('new_artist_name');
         $album_names = $request->input('albums');
+        $categories = $request->input('categories');
+        $cover_images = $request->file('cover_image');
         
         if (isset($album_names)){
-            
+            $x = 0;
             foreach($album_names as $album){ // NEW AlBBUM
-
                 //Handle File Cover Image
-                if($request->hasFile('cover_image')){
+                if(isset($cover_images[$x])){
                     //Get filename with extension
-                    $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+                    $filenameWithExt = $cover_images[$x]->getClientOriginalName();
                     //Get just filename
                     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                     //Get just ext
-                    $extension = $request->file('cover_image')->getClientOriginalExtension();
+                    $extension = $cover_images[$x]->getClientOriginalExtension();
                     //Clean filename (Replace white spaces with hyphens)
                     $cleanFilename = str_replace(' ', '-', $filename);
                     //Cleaner filename
@@ -410,7 +412,7 @@ class MusicsController extends Controller
                     //Filename to store
                     $fileNameToStore = $cleanerFilename.'_'.time().'.'.$extension;
                     //Upload image
-                    $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+                    $path = $cover_images[$x]->storeAs('public/cover_images', $fileNameToStore);
                 } else {
                     $fileNameToStore = 'noimage.jpg';
                 }
@@ -424,8 +426,10 @@ class MusicsController extends Controller
                 $albums = new Album;
                 $albums->album_name = $album;
                 $albums->artist_id = $artist;
+                $albums->category = $categories[$x];
                 $albums->cover_image_id = $lastInsertedId;
                 $albums->save();
+                $x++;
             }
             return redirect('/admin/musics')->with('success', 'Albums Added');
 

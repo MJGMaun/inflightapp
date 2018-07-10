@@ -294,7 +294,7 @@ class SeriesController extends Controller
                 'cover_image' => 'file|nullable|image|mimes:jpeg,jpg,png',
                 'episodes.*' => 'required|distinct|unique:episodes,title',
                 'episodeNumbers.*' => 'required|distinct',
-                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required',
+                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi',
             ]);
         $cover_images = $request->file('cover_images');
         $episode_videos = $request->file('episode_videos');

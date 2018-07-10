@@ -65,6 +65,7 @@
                     <th>Cover Image</th>
                     <th>Songs</th>
                     <th>Artist Name</th>
+                    <th>Category</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Action</th>
@@ -80,6 +81,15 @@
                         <li>{{ $song->title }}</li>
                             @endforeach</td>
                         <td>{{$album->artists->artist_name}}</td>
+                         <td>@if($album->category == 1)
+                                Top Albums of The Month
+                            @elseif($album->category == 2)
+                                New Albums Released
+                            @elseif($album->category == 3)
+                                Popular Albums
+                            @else
+                                None
+                            @endif 
                         <td>{{$artist->created_at}}</td>
                         <td>{{$artist->updated_at}}</td>
                         <td><div class="row">

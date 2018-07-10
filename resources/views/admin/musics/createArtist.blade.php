@@ -26,10 +26,18 @@
     <div id="album" class="col-md-4 col-sm-4">
         {{Form::label('albums[]', 'Album Name')}} <small> (Click + to add album)</small>
         {{Form::text('albums[]', '', ['class' => 'form-control album', 'placeholder' => 'Album Name'])}}<br>
-        <div class="image-container">
-        <div class="image">
-            {{Form::label('cover_image', 'Cover Image')}}<br>{{Form::file('cover_image')}}
-        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                {{Form::label('categories[]', 'Category')}} {{Form::select('categories[]', ['1' => 'Top Albums of The Month','2' => 'New Album Released', '3' => 'Popular Album', '0' => 'None'], null,
+        ['class' => 'form-control', 'placeholder' => 'Select a category...'])}}
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="image-container">
+                    <div class="image">
+                        {{Form::label('cover_image', 'Cover Image')}}<br>{{Form::file('cover_image[]')}}
+                    </div>
+                </div>
+            </div>
         </div>
         <hr><br>
     </div>
@@ -52,7 +60,9 @@
 
 @endsection @section('script')
 <script type="text/javascript">
-        $('.save').hide();
+        if(!$('.album').val()){
+                $('.save').hide();
+            }
         $('.album').keyup(function(){
             if(!$('.album').val()){
                 $('.save').hide();
@@ -66,7 +76,7 @@
         $('a.add_album').click(function(e) {
             e.preventDefault();
             if ($('#album input').length < 5) {
-                $('#album').append('<div class="input">{{Form::text('albums[]', '', ['class' => 'form-control album', 'placeholder' => 'Album Name'])}}<br>{{Form::label('cover_image', 'Cover Image')}}<br>{{Form::file('cover_image')}}<hr><br></div>');
+                $('#album').append('<div class="input">{{Form::text('albums[]', '', ['class' => 'form-control album', 'placeholder' => 'Album Name'])}}<br><div class="row"><div class="col-md-6 col-sm-6">{{Form::label('categories[]', 'Category')}} {{Form::select('categories[]', ['1' => 'Top Albums of The Month','2' => 'New Album Released', '3' => 'Popular Album', '0' => 'None'], null, ['class' => 'form-control', 'placeholder' => 'Select a category...'])}}</div><div class="col-md-6 col-sm-6"><div class="image-container"><div class="image">{{Form::label('cover_image[]', 'Cover Image')}}<br>{{Form::file('cover_image[]')}}</div></div></div></div><hr><br></div>');
             }
         });
         $('a.remove_album').click(function (e) {
@@ -84,6 +94,7 @@
                 $(".add-artists").append("<div><br><input name='new_artist_name' class='field form-control' type='text' placeholder='Artist Name'/><label class='remove float-right'>Remove</label></div>");
                 $('select[name="artists"]').attr("disabled","disabled");
                 $('input[name="albums[]"]').attr("disabled","disabled");
+                $('select[name="categories[]"]').attr("disabled","disabled");
                 $('a.add_album, a.remove_album ').hide();
                 $('a.add_album, a.remove_album ').hide();
                 $('.image').remove();
@@ -94,10 +105,14 @@
         $(".add-artists").on("click", ".remove", function () {
             $('.save').hide();
         //  var val = $(this).parent().find("input").val();         
-         $('select[name="artists"]').prepend("<option name='new_artist' value='new_artist'>New Artist..</option>");
+         $('select[name="artists"]').append("<option name='new_artist' value='new_artist'>New Artist..</option>");
          $('.image-container').append('<div class="image">{{Form::label('cover_image', 'Cover Image')}}<br>{{Form::file('cover_image')}}</div>');
+         $('select[name="artists"] option').prop('selected', function() {
+             return this.defaultSelected;
+         });
          $('select[name="artists"]').removeAttr('disabled');
          $('input[name="albums[]"]').removeAttr('disabled');
+         $('select[name="categories[]"]').removeAttr('disabled');
          $('a.add_album, a.remove_album').show();
          $(this).parent().remove();
      });
