@@ -1,4 +1,4 @@
-    @extends('admin.layouts.app') @section('css')
+@extends('admin.layouts.app') @section('css')
 @endsection @section('content')
 
 <a href="/admin/musics" class="btn btn-sm btn-primary">

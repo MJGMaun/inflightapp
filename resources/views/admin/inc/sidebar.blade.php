@@ -3,74 +3,78 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
-              <h7  class="nav-link">
-                  Howdy, {{Auth::user()->name}}!
-              </h7  >
+              <h7 class="nav-link greeting">, {{Auth::user()->name}}!</h7>
               <li class="nav-item">
-                <a class="nav-link active" href="/admin/home">
+                <a class="nav-link <?= isset($_GET['action']) && $_GET['action'] == 'home' ? ' active' : '' ?>" href="/admin/home?action=home">
                   <span data-feather="home"></span>
                   Dashboard <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/admin/movies">
+                <a class="nav-link <?= isset($_GET['action']) && $_GET['action'] == 'movies' ? ' active' : '' ?>" href="/admin/movies?action=movies">
                   <span data-feather="film"></span>
                   Movies
                 </a>
               </li>
               <li class="nav-item">
-                <div class="dropdown">
-                  <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span data-feather="tv"></span> Series
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/admin/series/"><span data-feather="monitor"></span> Browse Series</a>
-                    <a class="dropdown-item" href="/admin/series/create"><span data-feather="folder-plus"></span> Create Series</a>
-                    <a class="dropdown-item" href="/admin/series/createSeason"><span data-feather="plus-square"></span> Upload Season &amp; Episode</a>
-                    {{-- <a class="dropdown-item" href="/admin/series/create"><span data-feather="disc"></span> Upload Episode</a> --}}
-                  </div>
-                </div>
-              </li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"><span data-feather="tv"></span>Series</a>
+                  <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'browseseries' ? ' active' : '' ?>" href="/admin/series?action=browseseries"><span data-feather="monitor"></span> Browse Series</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'seriescreate' ? ' active' : '' ?>" href="/admin/series/create?action=seriescreate"><span data-feather="folder-plus"></span> Create Series</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'seasoncreate' ? ' active' : '' ?>" href="/admin/series/createSeason?action=seasoncreate"><span data-feather="plus-square"></span> Upload Season &amp; Episode</a>
+                    </li>
+                   </ul>
               </li>
                <li class="nav-item">
-                <a class="nav-link" href="/admin/ads">
+                <a class="nav-link <?= isset($_GET['action']) && $_GET['action'] == 'ads' ? ' active' : '' ?>" href="/admin/ads?action=ads">
                   <span data-feather="cast"></span>
                   Ads
                 </a>
               </li>
-              <li class="nav-item">
-                <div class="dropdown">
-                  <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span data-feather="headphones"></span> Music
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/admin/musics"><span data-feather="music"></span> &nbsp;&nbsp;Browse Artists &amp; Albums</a>
-                    <a class="dropdown-item" href="/admin/musics/createArtist"><span data-feather="user-plus"></span> &nbsp;&nbsp;Create Artists &amp; Albums</a>
-                    <a class="dropdown-item" href="/admin/musics/create"><span data-feather="headphones"></span> &nbsp;&nbsp;Upload Song</a>
-                  </div>
-                </div>
+             <li class="nav-item">
+                <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"><span data-feather="headphones"></span> Music</a>
+                  <ul class="collapse list-unstyled" id="pageSubmenu1">
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'browsemusic' ? ' active' : '' ?>" href="/admin/musics?action=browsemusic"><span data-feather="music"></span> &nbsp;&nbsp;Browse Artists &amp; Albums</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'createartist' ? ' active' : '' ?>" href="/admin/musics/createArtist?action=createartist"><span data-feather="user-plus"></span> &nbsp;&nbsp;Create Artists &amp; Albums</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'uploadsong' ? ' active' : '' ?>" href="/admin/musics/create?action=uploadsong"><span data-feather="headphones"></span> &nbsp;&nbsp;Upload Song</a>
+                    </li>
+                   </ul>
               </li>
               <li class="nav-item">
-                <div class="dropdown">
-                  <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span data-feather="shopping-cart"></span> Shop
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/admin/products/createCategory"><span data-feather="layers"></span> &nbsp;&nbsp;Create Category</a>
-                    <a class="dropdown-item" href="/admin/products/createSubCategory"><span data-feather="list"></span> &nbsp;&nbsp;Sub Category</a>
-                    <a class="dropdown-item" href="/admin/products/create"><span data-feather="shopping-bag"></span> &nbsp;&nbsp;Insert Product</a>
-                    <a class="dropdown-item" href="/admin/products/"><span data-feather="edit"></span> &nbsp;&nbsp;Manage Products</a>
-                  </div>
-                </div>
+                <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"><span data-feather="shopping-cart"></span> Shop</a>
+                  <ul class="collapse list-unstyled" id="pageSubmenu2">
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'createcategory' ? ' active' : '' ?>" href="/admin/products/createCategory?action=createcategory"><span data-feather="layers"></span> &nbsp;&nbsp;Create Category</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'createsubcategory' ? ' active' : '' ?>" href="/admin/products/createSubCategory?action=createsubcategory"><span data-feather="list"></span> &nbsp;&nbsp;Sub Category</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'create' ? ' active' : '' ?>" href="/admin/products/create?action=create"><span data-feather="shopping-bag"></span> &nbsp;&nbsp;Insert Product</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'browseproducts' ? ' active' : '' ?>" href="/admin/products?action=browseproducts"><span data-feather="edit"></span> &nbsp;&nbsp;Manage Products</a>
+                    </li>
+                   </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link <?= isset($_GET['action']) && $_GET['action'] == '#' ? ' active' : '' ?>" href="#">
                   <span data-feather="file-text"></span>
                   News
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/admin/games/create">
+                <a class="nav-link <?= isset($_GET['action']) && $_GET['action'] == 'games' ? ' active' : '' ?>" href="/admin/games/create?action=games">
                   <span data-feather="airplay"></span>
                   Games
                 </a>

@@ -42,7 +42,24 @@
     
     @yield('script')
     <script>
-        feather.replace()
+        feather.replace();
+
+        $( document ).ready(function() {
+            var now = new Date();
+            var hrs = now.getHours();
+            var msg = "";
+            if (hrs >=  5){
+              msg = "Good morning";
+            } 
+            if (hrs >= 12){
+              msg = "Good afternoon";
+            } 
+            if (hrs >= 17){
+              msg = "Good evening";
+            } 
+            $('.greeting').prepend(msg);
+        });
+
     </script>
 </body>
 
