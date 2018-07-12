@@ -19,7 +19,7 @@ class CreateScratchCardsTable extends Migration
             $table->string('code');
             $table->string('pin');
             $table->date('card_expiration');
-            $table->date('card_validity');
+            $table->integer('card_validity');
             $table->string('status')->default("A");
             $table->timestamps();
         });

@@ -89,7 +89,7 @@
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link <?= isset($_GET['action']) && $_GET['action'] == 'scratchcards' ? ' active' : '' ?>" href="/admin/scratchcards/create?action=scratchcards">
+                <a class="nav-link <?= isset($_GET['action']) && $_GET['action'] == 'scratchcards' ? ' active' : '' ?>" href="/admin/scratchcards?action=scratchcards">
                   <span data-feather="credit-card"></span>
                   Scratch Cards
                 </a>

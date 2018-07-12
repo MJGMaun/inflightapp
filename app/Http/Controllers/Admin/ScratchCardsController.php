@@ -13,9 +13,12 @@ class ScratchCardsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $request->user()->authorizeRoles(['admin']);
+        $scratchcards = ScratchCard::orderBy('created_at', 'desc')->get();
+
+        return view('admin.scratchcards.index', compact('scratchcards'));
     }
 
     /**
@@ -54,13 +57,15 @@ class ScratchCardsController extends Controller
             $count = count($code);
             for($x=0; $x < $count; $x++){
                 $scratchcard = new ScratchCard;
-                $scratchcard->amount =  $amount;
-                $scratchcard->code = $code;
-                $scratchcard->pin =  $pin;
-                $scratchcard->card_expiration =  $card_expiration;
-                $scratchcard->card_validity =  $card_validity;
+                $scratchcard->amount =  $amount[$x];
+                $scratchcard->code = $code[$x];
+                $scratchcard->pin =  $pin[$x];
+                $scratchcard->card_expiration =  $card_expiration[$x];
+                $scratchcard->card_validity =  $card_validity[$x];
                 $scratchcard->save();
             }
+
+            return redirect('/admin/scratchcards/create')->with('success', 'Scratch Cards Added');
     }
 
     /**
@@ -105,6 +110,10 @@ class ScratchCardsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $scratchcard = ScratchCard::findOrFail($id);
+
+        $scratchcard->delete();
+
+        return redirect('/admin/scratchcards/')->with('success', 'Scratch Card Removed');
     }
 }
