@@ -14,6 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+    /*****************************
+            SCRATCHCARDS
+    *****************************/
+Route::resource('admin/scratchcards', 'Admin\ScratchCardsController');
 
     /*****************************
             MOVIES

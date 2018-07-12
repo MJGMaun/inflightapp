@@ -45,7 +45,7 @@ class GamesController extends Controller
     {
         $this->validate($request, [
                 'name' => 'required',
-                'cover_image' => 'required|image|mimes:jpeg,jpg,png',
+                'cover_image' => 'required|image|mimes:jpeg,jpg,png,gif',
                 'game_apk' => 'required|file',
                 //:application/vnd.android.package-archive
             ]);
@@ -135,7 +135,7 @@ class GamesController extends Controller
 
         $this->validate($request, [
                 'name' => 'required|unique:games,name,'.$game->id,
-                'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
+                'cover_image' => 'nullable|image|mimes:jpeg,jpg,png,gif',
                 'game_apk' => 'nullable|file',
                 //:application/vnd.android.package-archive
             ]);
