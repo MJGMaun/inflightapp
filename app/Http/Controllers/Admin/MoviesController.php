@@ -64,6 +64,7 @@ class MoviesController extends Controller
             'genres' => 'required',
             'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
             'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required',
+            'trailer_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required',
             'movie_description' => 'required',
         ]);
 
@@ -106,6 +107,26 @@ class MoviesController extends Controller
             $fileNameToStoreVid = 'novideo.png';
         }
 
+        //Handle File Trailer
+        if($request->hasFile('trailer_video')){
+            //Get filename with extension
+            $filenameWithExt = $request->file('movie_video')->getClientOriginalName();
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //Get just ext
+            $extension = $request->file('movie_video')->getClientOriginalExtension();
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
+            //Filename to store
+            $fileNameToStoreVidTrailer = $cleanerFilename.'_'.time().'.'.$extension;
+            //Upload image
+            $path = $request->file('movie_video')->storeAs('public/trailer_videos', $fileNameToStoreVidTrailer);
+        } else {
+            $fileNameToStoreVid = 'novideo.png';
+        }
+
 
         //Create Movie
         $movie = new Movie;
@@ -118,6 +139,7 @@ class MoviesController extends Controller
         $movie->release_date = $request->input('release_date');
         $movie->cover_image = $fileNameToStore;
         $movie->movie_video = $fileNameToStoreVid;
+        $movie->trailer_video = $fileNameToStoreVidTrailer;
         $movie->save();
 
         $genres = $request->input('genres');
@@ -182,6 +204,7 @@ class MoviesController extends Controller
             'genres' => 'required',
             'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg',
             'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
+            'trailer_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
             'movie_description' => 'required',
         ]);
 
@@ -221,6 +244,25 @@ class MoviesController extends Controller
         }
 
 
+        //Handle File Trailer
+        if($request->hasFile('trailer_video')){
+            //Get filename with extension
+            $filenameWithExt = $request->file('movie_video')->getClientOriginalName();
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //Get just ext
+            $extension = $request->file('movie_video')->getClientOriginalExtension();
+            //Clean filename (Replace white spaces with hyphens)
+            $cleanFilename = str_replace(' ', '-', $filename);
+            //Cleaner filename
+            $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
+            //Filename to store
+            $fileNameToStoreVidTrailer = $cleanerFilename.'_'.time().'.'.$extension;
+            //Upload image
+            $path = $request->file('movie_video')->storeAs('public/trailer_videos', $fileNameToStoreVidTrailer);
+        }
+
+
         //Edit Movie
         $movie = Movie::find($id);
         $movie->title = $request->input('title');
@@ -242,6 +284,13 @@ class MoviesController extends Controller
             Storage::delete('public/movie_videos/'.$movie->movie_video);
             }
             $movie->movie_video = $fileNameToStoreVid;
+        }
+        if($request->hasFile('trailer_video')){
+            if($movie->movie_video != 'novideo.jpg'){
+            // Delete Image
+            Storage::delete('public/movie_videos/'.$movie->movie_video);
+            }
+            $movie->trailer_video = $fileNameToStoreVidTrailer;
         }
         $movie->save();
         $genres = $request->input('genres');

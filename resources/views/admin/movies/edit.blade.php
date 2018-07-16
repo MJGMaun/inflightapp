@@ -45,14 +45,17 @@
 </div>
 <br>
 <div class="row">
-    <div class="col">
-        {{Form::label('cover_image', 'Cover Image')}}
-        <br>{{$movie->cover_image}}<br><br>{{Form::file('cover_image')}}
-    </div>
-    <div class="col">
-        {{Form::label('movie_video', 'Movie')}}
-        <br>{{$movie->movie_video}}<br><br>{{Form::file('movie_video')}}
-    </div>
+        <div class="col-md-3 col-sm-3">
+            {{Form::label('movie_video', 'Full Movie')}}
+            <br> {{Form::file('movie_video')}}
+            <br><br>
+            {{Form::label('cover_image', 'Cover Image')}}
+            <br> {{Form::file('cover_image')}}
+        </div>
+        <div class="col-md-3 col-sm-3">
+            {{Form::label('trailer_video', 'Trailer')}}
+            <br> {{Form::file('trailer_video')}}
+        </div>
 </div>
 <br>
 <div class="form-group">

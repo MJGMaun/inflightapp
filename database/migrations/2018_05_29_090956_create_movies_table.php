@@ -23,6 +23,7 @@ class CreateMoviesTable extends Migration
             $table->date('release_date');
             $table->string('cover_image');
             $table->string('movie_video');
+            $table->string('trailer_video');
             $table->mediumText('movie_description');
             $table->timestamps();
         });
