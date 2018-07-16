@@ -86,7 +86,7 @@ class SeriesController extends Controller
             $series = new Series;
             $series->title = $request->input('title');
             $series->cast = $request->input('cast');
-            $serie->main_genre = $request->input('main_genre');
+            $series->main_genre = $request->input('main_genre');
             $series->release_date = $request->input('release_date');
             $series->description= $request->input('description');
 

@@ -30,7 +30,7 @@
             <div class="form-group row">
                 {{Form::label('main_genre', 'Main genre', ['class' => 'col-sm-3 col-form-label'])}}
                 <div class="col-sm-7">
-                    {{Form::select('main_genre', $serie->main_genre, ['1' => 'Action','2' => 'Adventure', '3' => 'Comedy', '4' => 'Drama', '5' => 'Horror', '6' => 'Romance', '7' => 'Sci-Fi & Fantasy', '8' => 'Kids', '0' => 'None'], null,
+                    {{Form::select('main_genre', ['1' => 'Action','2' => 'Adventure', '3' => 'Comedy', '4' => 'Drama', '5' => 'Horror', '6' => 'Romance', '7' => 'Sci-Fi & Fantasy', '8' => 'Kids', '0' => 'None'], $serie->main_genre,
         ['class' => 'form-control', 'placeholder' => 'Select a main genre...'])}}
                 </div>
             </div>

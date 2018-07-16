@@ -14,7 +14,7 @@ class Series extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'title', 'cast', 'description', 'release_date', 'cover_image_id',
+        'title', 'cast', 'main_genre', 'description', 'release_date', 'cover_image_id',
     ];
     public function genres(){
        return $this->belongsToMany(Genre::class);
