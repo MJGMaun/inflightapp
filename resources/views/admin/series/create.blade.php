@@ -88,7 +88,7 @@
                         <th>Cover Image</th>
                         <th>Title</th>
                         <th>Seasons</th>
-                        <th>Episodes</th>
+                        <th>Main Genre</th>
                         <th>Casts</th>
                         <th>Plot</th>
                         <th>Created At</th>
@@ -104,7 +104,26 @@
                                     <td data-title="{{$serie->title}}">{{$serie->title}}</td>
                                     {{-- EDIT MODAL NAME OKIIIIII --}}
                                 <td><button type="button" id="modal" class="btn btn-sm btn-primary" data-toggle="modal" data-id="{{$serie->id}}" data-target="#exampleModal">View Seasons</button></td>
-                                    <td>View Episodes</td>
+                                    <td>@if($serie->main_genre == 1)
+                                            Action
+                                        @elseif($serie->main_genre == 2)
+                                            Adventure
+                                        @elseif($serie->main_genre == 3)
+                                            Comedy
+                                        @elseif($serie->main_genre == 4)
+                                            Drama
+                                        @elseif($serie->main_genre == 5)
+                                            Horror
+                                        @elseif($serie->main_genre == 6)
+                                            Romance
+                                        @elseif($serie->main_genre == 7)
+                                            Sci-Fi &amp; Fantasy
+                                        @elseif($serie->main_genre == 8)
+                                            Kids
+                                        @else
+                                            None
+                                        @endif
+                                    </td>
                                     <td>{{$serie->cast}}</td>
                                     <td>{{$serie->description}}</td>
                                     <td>{{$serie->created_at}}</td>
