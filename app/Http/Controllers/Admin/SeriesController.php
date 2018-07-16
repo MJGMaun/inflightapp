@@ -56,6 +56,7 @@ class SeriesController extends Controller
                 'title' => 'required|unique:series,title',
                 'cast' => 'required',
                 'genres' => 'required',
+                'main_genre' => 'required',
                 'release_date' => 'required|date',
                 'description' => 'required',
                 'cover_image' => 'required|image|mimes:jpeg,jpg,png',
@@ -85,6 +86,7 @@ class SeriesController extends Controller
             $series = new Series;
             $series->title = $request->input('title');
             $series->cast = $request->input('cast');
+            $serie->main_genre = $request->input('main_genre');
             $series->release_date = $request->input('release_date');
             $series->description= $request->input('description');
 
@@ -151,6 +153,7 @@ class SeriesController extends Controller
         $this->validate($request, [ 
                 'title' => 'required|unique:series,title,'.$serie->id,
                 'cast' => 'required',
+                'main_genre' => 'required',
                 'genres' => 'required',
                 'release_date' => 'required|date',
                 'description' => 'required',
@@ -178,6 +181,7 @@ class SeriesController extends Controller
 
             $serie->title = $request->input('title');
             $serie->cast = $request->input('cast');
+            $serie->main_genre = $request->input('main_genre');
             $serie->release_date = $request->input('release_date');
             $serie->description= $request->input('description');
 

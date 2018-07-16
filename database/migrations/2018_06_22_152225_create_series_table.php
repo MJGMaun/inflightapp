@@ -17,6 +17,7 @@ class CreateSeriesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('cast');
+            $table->string('main_genre');
             $table->mediumText('description');
             $table->date('release_date');
             $table->integer('cover_image_id')->unsigned();
