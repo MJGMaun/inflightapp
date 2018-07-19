@@ -66,9 +66,11 @@
                     <th>Songs</th>
                     <th>Artist Name</th>
                     <th>Category</th>
+                    <th>Release Date</th>
+                    <th>Description</th>
                     <th>Created At</th>
                     <th>Updated At</th>
-                    <th>Action</th>
+                    <th style="padding-right: 50px;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -89,7 +91,9 @@
                                 Popular Albums
                             @else
                                 None
-                            @endif 
+                            @endif
+                        <td>{{$album->release_date}}</td>
+                        <td>{{$album->description}}</td> 
                         <td>{{$artist->created_at}}</td>
                         <td>{{$artist->updated_at}}</td>
                         <td><div class="row">
