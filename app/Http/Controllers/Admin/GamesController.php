@@ -44,9 +44,9 @@ class GamesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-                'name' => 'required',
-                'cover_image' => 'required|image|mimes:jpeg,jpg,png,gif',
-                'game_apk' => 'required|file',
+                'name' => 'required|max:190',
+                'cover_image' => 'required|image|mimes:jpeg,jpg,png,gif|max:190',
+                'game_apk' => 'required|file|max:190',
                 //:application/vnd.android.package-archive
             ]);
             
@@ -134,9 +134,9 @@ class GamesController extends Controller
         $game = Game::findOrFail($id);
 
         $this->validate($request, [
-                'name' => 'required|unique:games,name,'.$game->id,
-                'cover_image' => 'nullable|image|mimes:jpeg,jpg,png,gif',
-                'game_apk' => 'nullable|file',
+                'name' => 'required|max:190|unique:games,name,'.$game->id,
+                'cover_image' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:190',
+                'game_apk' => 'nullable|file|max:190',
                 //:application/vnd.android.package-archive
             ]);
             

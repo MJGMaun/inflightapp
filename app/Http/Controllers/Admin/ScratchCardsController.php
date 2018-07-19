@@ -42,9 +42,9 @@ class ScratchCardsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [ 
-                'amount.*' => 'required|numeric',
-                'code.*' => 'required|unique:scratch_cards,code',
-                'pin.*' => 'required',
+                'amount.*' => 'required|numeric|max:190',
+                'code.*' => 'required|unique:scratch_cards,code|max:190',
+                'pin.*' => 'required|max:190',
                 'card_expiration.*' => 'required|date',
                 'card_validity.*' => 'required|numeric',
             ]);

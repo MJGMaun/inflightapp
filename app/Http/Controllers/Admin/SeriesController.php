@@ -53,13 +53,13 @@ class SeriesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [ 
-                'title' => 'required|unique:series,title',
-                'cast' => 'required',
-                'genres' => 'required',
-                'main_genre' => 'required',
+                'title' => 'required|unique:series,title|max:190',
+                'cast' => 'required|max:190',
+                'genres' => 'required|max:190',
+                'main_genre' => 'required|max:190',
                 'release_date' => 'required|date',
-                'description' => 'required',
-                'cover_image' => 'required|image|mimes:jpeg,jpg,png',
+                'description' => 'required|max:190',
+                'cover_image' => 'required|image|mimes:jpeg,jpg,png|max:190',
             ]);
 
 
@@ -151,13 +151,13 @@ class SeriesController extends Controller
         $serie = Series::findOrFail($id);
 
         $this->validate($request, [ 
-                'title' => 'required|unique:series,title,'.$serie->id,
-                'cast' => 'required',
-                'main_genre' => 'required',
-                'genres' => 'required',
+                'title' => 'required|max:190|unique:series,title,'.$serie->id,
+                'cast' => 'required|max:190',
+                'main_genre' => 'required|max:190',
+                'genres' => 'required|max:190',
                 'release_date' => 'required|date',
-                'description' => 'required',
-                'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
+                'description' => 'required|max:190',
+                'cover_image' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
             ]);
 
 
@@ -293,12 +293,12 @@ class SeriesController extends Controller
     public function storeSeason(Request $request)
     {
         $this->validate($request, [ 
-                'series' => 'required',
-                'season' => 'required',
-                'cover_image' => 'file|nullable|image|mimes:jpeg,jpg,png',
-                'episodes.*' => 'required|distinct|unique:episodes,title',
-                'episodeNumbers.*' => 'required|distinct',
-                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi',
+                'series' => 'required|max:190',
+                'season' => 'required|max:190',
+                'cover_image' => 'file|nullable|image|mimes:jpeg,jpg,png|max:190',
+                'episodes.*' => 'required|distinct|unique:episodes,title|max:190',
+                'episodeNumbers.*' => 'required|distinct|max:190',
+                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|max:190',
             ]);
         $cover_images = $request->file('cover_images');
         $episode_videos = $request->file('episode_videos');
@@ -392,14 +392,14 @@ class SeriesController extends Controller
     public function updateSeason($id, Request $request)
     {
         $this->validate($request, [ 
-                'series' => 'required',
-                'season' => 'required',
-                'cover_image' => 'file|nullable|image|mimes:jpeg,jpg,png',
-                'episodes_title.*' => 'required|distinct',
-                'episodes_title_new.*' => 'required|distinct',
-                'episodeNumbers.*' => 'required|distinct',
-                'episodeNumbers_new.*' => 'required|distinct',
-                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi',
+                'series' => 'required|max:190',
+                'season' => 'required|max:190',
+                'cover_image' => 'file|nullable|image|mimes:jpeg,jpg,png|max:190',
+                'episodes_title.*' => 'required|distinct|max:190',
+                'episodes_title_new.*' => 'required|distinct|max:190',
+                'episodeNumbers.*' => 'required|distinct|max:190',
+                'episodeNumbers_new.*' => 'required|distinct|max:190',
+                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|max:190',
             ]);
         $cover_images = $request->file('cover_images');
         $episode_videos = $request->file('episode_videos');
@@ -564,11 +564,11 @@ class SeriesController extends Controller
     public function updateEpisode($id, Request $request)
     {
         $this->validate($request, [ 
-                'series' => 'required',
-                'season' => 'required',
-                'episode' => 'required|distinct',
-                'episodeNumber' => 'required|distinct',
-                'episode_video' => 'nullable|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi',
+                'series' => 'required|max:190',
+                'season' => 'required|max:190',
+                'episode' => 'required|distinct|max:190',
+                'episodeNumber' => 'required|distinct|max:190',
+                'episode_video' => 'nullable|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|max:190',
             ]);
         $cover_images = $request->file('cover_images');
         $episode_videos = $request->file('episode_videos');

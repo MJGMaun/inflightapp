@@ -121,12 +121,12 @@ class AdsController extends Controller
         $ad = Ad::findOrFail($id);
         
         $this->validate($request, [ 
-            'name' => 'required|unique:series,title,'.$ad->id,
+            'name' => 'required|max:190|unique:series,title,'.$ad->id,
             'roll' => 'required',
             'time' => 'sometimes|required',
-            'playsNeeded' => 'sometimes|required|integer|min:0',
-            'playsNeededAdd' => 'sometimes|required|integer|min:0',
-            'ad_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable'
+            'playsNeeded' => 'sometimes|required|integer|min:0|max:190',
+            'playsNeededAdd' => 'sometimes|required|integer|min:0|max:190',
+            'ad_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable|max:190'
         ]);
 
 

@@ -60,12 +60,12 @@ class MoviesController extends Controller
             'category' => 'required',
             'running_time' => 'required',
             'release_date' => 'required',
-            'cast' => 'required',
+            'cast' => 'required|max:190',
             'genres' => 'required',
             'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
-            'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required',
-            'trailer_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required',
-            'movie_description' => 'required',
+            'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required|max:190',
+            'trailer_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required|max:190',
+            'movie_description' => 'required|max:190',
         ]);
 
         //Handle File Cover Image
@@ -200,9 +200,9 @@ class MoviesController extends Controller
             'language' => 'required',
             'running_time' => 'required',
             'release_date' => 'required',
-            'cast' => 'required',
+            'cast' => 'required|max:190',
             'genres' => 'required',
-            'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg',
+            'cover_image' => 'image|nullable|max:190|mimes:jpg,png,jpeg',
             'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
             'trailer_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
             'movie_description' => 'required',

@@ -48,18 +48,18 @@ class ProductsController extends Controller
         $request->user()->authorizeRoles(['admin']);
 
             $this->validate($request, [ 
-                'productCategory' => 'required',
-                'productSubCategory' => 'required',
-                'productName' => 'required|unique:products,product_name',
-                'productCompany' => 'required',
-                'productPriceBefore' => 'required|regex:/^\d*(\.\d{1,2})?$/',
-                'productPriceAfter' => 'required|regex:/^\d*(\.\d{1,2})?$/',
-                'productPriceToken' => 'required|regex:/^\d*(\.\d{1,2})?$/',
-                'productDescription' => 'required',
-                'productAvailability' => 'required',
-                'productImage1' => 'required|image|mimes:jpeg,jpg,png',
-                'productImage2' => 'nullable|image|mimes:jpeg,jpg,png',
-                'productImage3' => 'nullable|image|mimes:jpeg,jpg,png',
+                'productCategory' => 'required|max:190',
+                'productSubCategory' => 'required|max:190',
+                'productName' => 'required|unique:products,product_name|max:190',
+                'productCompany' => 'required|max:190',
+                'productPriceBefore' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+                'productPriceAfter' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+                'productPriceToken' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+                'productDescription' => 'required|max:190',
+                'productAvailability' => 'required|max:190',
+                'productImage1' => 'required|image|mimes:jpeg,jpg,png|max:190',
+                'productImage2' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
+                'productImage3' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
             ]);
                 
             //Handle File Cover Image 1
@@ -186,18 +186,18 @@ class ProductsController extends Controller
             $product = Product::find($id);
 
             $this->validate($request, [ 
-                'productCategory' => 'required',
-                'productSubCategory' => 'required',
-                'productName' => 'required|unique:products,product_name,'.$product->id,
-                'productCompany' => 'required',
-                'productPriceBefore' => 'required|regex:/^\d*(\.\d{1,2})?$/',
-                'productPriceAfter' => 'required|regex:/^\d*(\.\d{1,2})?$/',
-                'productPriceToken' => 'required|regex:/^\d*(\.\d{1,2})?$/',
-                'productDescription' => 'required',
-                'productAvailability' => 'required',
-                'productImage1' => 'nullable|image|mimes:jpeg,jpg,png',
-                'productImage2' => 'nullable|image|mimes:jpeg,jpg,png',
-                'productImage3' => 'nullable|image|mimes:jpeg,jpg,png',
+                'productCategory' => 'required|max:190',
+                'productSubCategory' => 'required|max:190',
+                'productName' => 'required|max:190|unique:products,product_name,'.$product->id,
+                'productCompany' => 'required|max:190',
+                'productPriceBefore' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+                'productPriceAfter' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+                'productPriceToken' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+                'productDescription' => 'required|max:190',
+                'productAvailability' => 'required|max:190',
+                'productImage1' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
+                'productImage2' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
+                'productImage3' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
             ]);
                 
             //Handle File Cover Image 1
@@ -346,8 +346,8 @@ class ProductsController extends Controller
             $request->user()->authorizeRoles(['admin']);
 
             $this->validate($request, [ 
-                'category' => 'required|unique:product_categories,product_category_name',
-                'description' => 'nullable',
+                'category' => 'required|unique:product_categories,product_category_name|max:190',
+                'description' => 'nullable|max:190',
             ]);
 
             $category = new ProductCategory;
@@ -368,8 +368,8 @@ class ProductsController extends Controller
             $category = ProductCategory::find($id);
 
             $this->validate($request, [ 
-                'category' => 'required|unique:product_categories,product_category_name,'.$category->id,
-                'description' => 'nullable',
+                'category' => 'required|max:190|unique:product_categories,product_category_name,'.$category->id,
+                'description' => 'nullable|max:190',
             ]);
 
             
@@ -409,8 +409,8 @@ class ProductsController extends Controller
             $request->user()->authorizeRoles(['admin']);
 
             $this->validate($request, [ 
-                'category' => 'required',
-                'subCategoryName' => 'required|unique:product_sub_categories,product_sub_category_name',
+                'category' => 'required|max:190',
+                'subCategoryName' => 'required|unique:product_sub_categories,product_sub_category_name|max:190',
             ]);
 
             $subCategory = new ProductSubCategory;
@@ -433,8 +433,8 @@ class ProductsController extends Controller
             $subCategory = ProductSubCategory::find($id);
 
             $this->validate($request, [ 
-                'category' => 'required',
-                'subCategoryName' => 'required|unique:product_sub_categories,product_sub_category_name,'.$subCategory->id,
+                'category' => 'required|max:190',
+                'subCategoryName' => 'required|max:190|unique:product_sub_categories,product_sub_category_name,'.$subCategory->id,
             ]);
 
             
