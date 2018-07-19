@@ -385,6 +385,8 @@ class MusicsController extends Controller
             'artists' => 'sometimes|required|unique:artists,artist_name',
             'albums.*' =>  'sometimes|required',
             'categories.*' =>  'sometimes|required',
+            'album_dscription.*' =>  'sometimes|required',
+            'release_date.*' =>  'sometimes|required',
             'new_artist' => 'sometimes|required',
             'cover_image.*' => 'sometimes|required|image|mimes:jpeg,jpg,png',
         ]);
@@ -392,6 +394,8 @@ class MusicsController extends Controller
         $new_artist = $request->input('new_artist_name');
         $album_names = $request->input('albums');
         $categories = $request->input('categories');
+        $album_description = $request->input('album_description');
+        $release_date = $request->input('release_date');
         $cover_images = $request->file('cover_image');
         
         if (isset($album_names)){
@@ -427,6 +431,8 @@ class MusicsController extends Controller
                 $albums->album_name = $album;
                 $albums->artist_id = $artist;
                 $albums->category = $categories[$x];
+                $albums->release_date = $release_date[$x];
+                $albums->description = $album_description[$x];
                 $albums->cover_image_id = $lastInsertedId;
                 $albums->save();
                 $x++;
@@ -582,8 +588,15 @@ class MusicsController extends Controller
         $artist = $album->artist_id;
         $this->validate($request, [ 
             'album' => 'required',
+            'categories' =>  'required',
+            'album_dscription' =>  'required',
+            'release_date' =>  'required',
             'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg',
         ]);
+
+        $categories = $request->input('categories');
+        $album_description = $request->input('album_description');
+        $release_date = $request->input('release_date');
 
         //Handle File Cover Image
         if($request->hasFile('cover_image')){
@@ -614,6 +627,9 @@ class MusicsController extends Controller
             $coverImage->save();
 
             $lastInsertedId = $coverImage->id;
+            $album->category = $categories;
+            $album->release_date = $release_date;
+            $album->description = $album_description;
             $album->cover_image_id = $lastInsertedId;
             
             $musics = Music::where('album_id', '=', $id)->get();

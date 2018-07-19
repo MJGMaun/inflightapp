@@ -34,6 +34,15 @@
                     </div>
                 </div>
             </div>
+        </div><br>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                 {{Form::label('album_description[]', 'Album Description')}} {{Form::textarea('album_description[]', '', ['class' => 'form-control',
+    'placeholder' => 'Enter album description here', 'rows' => '2'])}}
+            </div>
+            <div class="col-md-6 col-sm-6">
+                {{Form::label('release_date[]', 'Release Date')}} {{Form::date('release_date[]', null, ['class' => 'form-control'])}}
+            </div>
         </div>
         <hr><br>
     </div>

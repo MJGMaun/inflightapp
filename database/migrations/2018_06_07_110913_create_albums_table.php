@@ -17,6 +17,8 @@ class CreateAlbumsTable extends Migration
             $table->increments('id');
             $table->integer('artist_id')->unsigned();
             $table->string('album_name');
+            $table->date('release_date');
+            $table->string('description');
             $table->integer('category');
             $table->integer('cover_image_id');
             $table->timestamps();

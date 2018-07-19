@@ -24,6 +24,22 @@
     </div>
 </div><br> 
 <div class="row">
+    <div class="col-md-4 col-sm-4 add-artists">
+        {{Form::label('categories[]', 'Category')}}
+        {{Form::select('categories[]', ['1' => 'Top Albums of The Month','2' => 'New Album Released', '3' => 'Popular Album', '0' => 'None'], $album->category,
+        ['class' => 'form-control', 'placeholder' => 'Select a category...'])}}
+    </div>
+    <div class="col-md-4 col-sm-4">
+        {{Form::label('release_date[]', 'Release Date')}}
+        <br> {{Form::date('release_date[]', $album->release_date, ['class' => 'form-control'])}}
+    </div>
+    <div class="col-md-4 col-sm-4">
+        {{Form::label('album_description[]', 'Album Description')}}
+        <br> {{Form::textarea('album_description[]', $album->description, ['class' => 'form-control',
+    'placeholder' => 'Enter album description here', 'rows' => '1'])}}
+    </div>
+</div><br> 
+<div class="row">
     <div class="col-md-6 col-sm-6 add-artists">
             {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-success'])}} {!! Form::close() !!}
     </div>

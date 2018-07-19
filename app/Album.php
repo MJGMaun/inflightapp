@@ -14,7 +14,7 @@ class Album extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'album_name', 'cover_image_id',
+        'artist_id', 'album_name', 'cover_image_id', 'release_date', 'description', 'category',
     ];
 
     public function artists(){
