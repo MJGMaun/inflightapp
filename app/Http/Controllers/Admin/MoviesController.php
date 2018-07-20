@@ -110,11 +110,11 @@ class MoviesController extends Controller
         //Handle File Trailer
         if($request->hasFile('trailer_video')){
             //Get filename with extension
-            $filenameWithExt = $request->file('movie_video')->getClientOriginalName();
+            $filenameWithExt = $request->file('trailer_video')->getClientOriginalName();
             //Get just filename
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just ext
-            $extension = $request->file('movie_video')->getClientOriginalExtension();
+            $extension = $request->file('trailer_video')->getClientOriginalExtension();
             //Clean filename (Replace white spaces with hyphens)
             $cleanFilename = str_replace(' ', '-', $filename);
             //Cleaner filename
@@ -122,7 +122,7 @@ class MoviesController extends Controller
             //Filename to store
             $fileNameToStoreVidTrailer = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
-            $path = $request->file('movie_video')->storeAs('public/trailer_videos', $fileNameToStoreVidTrailer);
+            $path = $request->file('trailer_video')->storeAs('public/trailer_videos', $fileNameToStoreVidTrailer);
         } else {
             $fileNameToStoreVid = 'novideo.png';
         }
@@ -247,11 +247,11 @@ class MoviesController extends Controller
         //Handle File Trailer
         if($request->hasFile('trailer_video')){
             //Get filename with extension
-            $filenameWithExt = $request->file('movie_video')->getClientOriginalName();
+            $filenameWithExt = $request->file('trailer_video')->getClientOriginalName();
             //Get just filename
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just ext
-            $extension = $request->file('movie_video')->getClientOriginalExtension();
+            $extension = $request->file('trailer_video')->getClientOriginalExtension();
             //Clean filename (Replace white spaces with hyphens)
             $cleanFilename = str_replace(' ', '-', $filename);
             //Cleaner filename
@@ -259,7 +259,7 @@ class MoviesController extends Controller
             //Filename to store
             $fileNameToStoreVidTrailer = $cleanerFilename.'_'.time().'.'.$extension;
             //Upload image
-            $path = $request->file('movie_video')->storeAs('public/trailer_videos', $fileNameToStoreVidTrailer);
+            $path = $request->file('trailer_video')->storeAs('public/trailer_videos', $fileNameToStoreVidTrailer);
         }
 
 
