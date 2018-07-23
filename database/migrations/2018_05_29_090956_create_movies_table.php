@@ -24,6 +24,8 @@ class CreateMoviesTable extends Migration
             $table->string('cover_image');
             $table->string('movie_video');
             $table->string('trailer_video');
+            $table->string('ewallet_price');
+            $table->string('token_price');
             $table->mediumText('movie_description');
             $table->timestamps();
         });

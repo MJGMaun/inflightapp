@@ -35,6 +35,8 @@ Route::get('admin/movies/{id}/editCategory', 'Admin\MoviesController@editCategor
 Route::put('admin/movies/{id}/updateCategory', 'Admin\MoviesController@updateCategory');
 Route::delete('admin/movies/{id}/destroyCategory', 'Admin\MoviesController@destroyCategory');
 
+    //Others
+Route::get('/json_category_price','Admin\MoviesController@json_category_price');
 Route::resource('movies', 'MoviesController');
 Route::resource('admin/movies', 'Admin\MoviesController');
 

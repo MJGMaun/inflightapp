@@ -13,29 +13,35 @@
 
 {!! Form::open(['action' => 'Admin\MoviesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="row">
-    <div class="col-md-6 col-sm-6">
+    <div class="col-md-5 col-sm-5">
         {{Form::label('title', 'Title')}} {{Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title'])}}
-    </div>
-    <div class="col-md-3 col-sm-3">
-        {{Form::label('language', 'Language')}} {{Form::select('language', ['English' => 'English', 'Chinese' => 'Chinese'], null,
-        ['class' => 'form-control', 'placeholder' => 'Select a language...'])}}
     </div>
     <div class="col-md-3 col-sm-3">    
         {{Form::label('category', 'Category')}} 
-        {{Form::select('category', $categories, null, ['class' => 'form-control', 'placeholder' => 'Select a category...'])}}
+        {{Form::select('category', $categories, null, ['class' => 'form-control category', 'placeholder' => 'Select a category...'])}}
+    </div>
+    <div class="col-md-2 col-sm-2">
+        {{Form::label('ewallet_price', 'E-Wallet Price')}} {{Form::number('ewallet_price', '', ['class' => 'form-control ewallet-price', 'placeholder' => 'Enter E-Wallet Price'])}}
+    </div>
+    <div class="col-md-2 col-sm-2">
+        {{Form::label('token_price', 'Token Price')}} {{Form::number('token_price', '', ['class' => 'form-control token-price', 'placeholder' => 'Enter Token Price'])}}
     </div>
 </div>
 <br>
 <div class="row">
-    <div class="col-md-6 col-sm-6">
+    <div class="col-md-5 col-sm-5">
         {{Form::label('cast', 'Casts')}} {{Form::text('cast', '', ['class' => 'form-control', 'placeholder' => 'Mikhaela Maun, Regina Lopez, Joyce Feliciano, Jessica Gomez'])}}
     </div>
     <div class="col-md-3 col-sm-3">
         {{Form::label('running_time', 'Running Time')}}
         {{Form::number('running_time', '', ['class' => 'form-control', 'placeholder' => 'Enter movie time (minutes)'])}}
     </div>
-    <div class="col-md-3 col-sm-3">    
+    <div class="col-md-2 col-sm-2">    
         {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', null, ['class' => 'form-control'])}}
+    </div>
+    <div class="col-md-2 col-sm-2">
+        {{Form::label('language', 'Language')}} {{Form::select('language', ['English' => 'English', 'Chinese' => 'Chinese'], null,
+        ['class' => 'form-control', 'placeholder' => 'Select a language...'])}}
     </div>
 </div>
 <br>
@@ -77,28 +83,36 @@
     </a>
 </div>
 
-@endsection @section('script') {{--
-<script src="{{ asset('js/tagmanager.js') }}"></script>
-<script src="{{ asset('js/typeahead.js') }}"></script> --}} {{--
+@endsection @section('script')
 <script type="text/javascript">
-    $(document).ready(function () {
-        var tagApi = $(".tm-input").tagsManager();
+    //DROPDOWN DEPENDENT
+    $(document).on('change','.category',function(){
+            console.log("hmm its change");
 
+            var category_id=$(this).val();
+            console.log(category_id);
 
-        $(".typeahead").typeahead({
-            name: 'tags',
-            displayKey: 'name',
-            source: function (query, process) {
-                return $.get('ajaxpro.php', {
-                    query: query
-                }, function (data) {
-                    data = $.parseJSON(data);
-                    return process(data);
-                });
-            },
-            afterSelect: function (item) {
-                tagApi.tagsManager("pushTag", item);
-            }
+            $.ajax({
+                type:'get',
+                url:'{!!URL::to('json_category_price')!!}',
+                data:{'id':category_id},
+                dataType: 'json',
+                success:function(data){
+                    console.log('success');
+                    console.log(data);
+                     
+                    var ewallet = data.ewallet;
+                    var token = data.token;
+                    
+                    
+                    // FOR NEW ALBUM OPTION APPEND ALBUM NAME
+                   $(document).find('.ewallet-price').val(ewallet);
+                   $(document).find('.token-price').val(token);
+                },
+                error:function(){
+                    console.log('error');
+                }
+            });
         });
-    });
-</script> --}} @endsection
+</script>
+@endsection

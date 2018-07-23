@@ -60,6 +60,8 @@ class MoviesController extends Controller
             'title' => 'required',
             'language' => 'required',
             'category' => 'required',
+            'ewallet_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+            'token_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
             'running_time' => 'required',
             'release_date' => 'required',
             'cast' => 'required|max:190',
@@ -135,7 +137,9 @@ class MoviesController extends Controller
         $movie->title = $request->input('title');
         $movie->movie_description = $request->input('movie_description');
         $movie->cast = $request->input('cast');
-        $movie->category = $request->input('category');
+        $movie->category_id = $request->input('category');
+        $movie->ewallet_price = number_format($request->input('ewallet_price'));
+        $movie->token_price = number_format($request->input('token_price'));
         $movie->language = $request->input('language');
         $movie->running_time = $request->input('running_time');
         $movie->release_date = $request->input('release_date');
@@ -180,9 +184,11 @@ class MoviesController extends Controller
         $genres = Genre::orderBy('name', 'asc')->get();
         $movie_genres  = $movie->genres->pluck('name')->toArray();
         $categories = MovieCategory::all()->pluck('movie_category_name','id');
+        $moviePriceEWallet = preg_replace('/[^A-Za-z0-9\-]/', '', $movie->ewallet_price);
+        $moviePriceToken = preg_replace('/[^A-Za-z0-9\-]/', '', $movie->token_price);
 
         $request->user()->authorizeRoles(['admin']);
-        return view('admin.movies.edit', compact('movie', 'genres', 'movie_genres', 'categories'));
+        return view('admin.movies.edit', compact('movie', 'genres', 'movie_genres', 'categories', 'moviePriceEWallet', 'moviePriceToken'));
     }
 
     /**
@@ -198,6 +204,9 @@ class MoviesController extends Controller
         $this->validate($request, [ 
             'title' => 'required',
             'language' => 'required',
+            'category' => 'required',
+            'ewallet_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+            'token_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
             'running_time' => 'required',
             'release_date' => 'required',
             'cast' => 'required|max:190',
@@ -268,6 +277,9 @@ class MoviesController extends Controller
         $movie->title = $request->input('title');
         $movie->movie_description = $request->input('movie_description');
         $movie->cast = $request->input('cast');
+        $movie->category_id = $request->input('category');
+        $movie->ewallet_price = number_format($request->input('ewallet_price'));
+        $movie->token_price = number_format($request->input('token_price'));
         $movie->language = $request->input('language');
         $movie->running_time = $request->input('running_time');
         $movie->release_date = $request->input('release_date');
@@ -355,10 +367,26 @@ class MoviesController extends Controller
         $movie->delete();
         return redirect('/admin/movies')->with('success', 'Movie Removed');
     }
+        /*****************************
+                Custom Functions
+        *****************************/
+        public function json_category_price(Request $request){
+                $category_id = $request->id;
+                
+                $category = MovieCategory::find($category_id);
+                // $data  = $category->pluck('movie_category_price_ewallet', 'movie_category_price_token')->toArray();
+
+                $data = array();
+
+                $data['ewallet'] = preg_replace('/[^A-Za-z0-9\-]/', '', $category->movie_category_price_ewallet);
+                $data['token'] = preg_replace('/[^A-Za-z0-9\-]/', '', $category->movie_category_price_token);
+
+                return $data;
+            }
 
         /*****************************
                 Category
-    *****************************/
+        *****************************/
         public function createCategory(Request $request)
         {
             $request->user()->authorizeRoles(['admin']);
@@ -390,7 +418,7 @@ class MoviesController extends Controller
         public function editCategory($id, Request $request)
         {
             $category = MovieCategory::find($id);
-             $movieCategoryPriceEWallet = preg_replace('/[^A-Za-z0-9\-]/', '', $category->movie_category_price_ewallet);
+            $movieCategoryPriceEWallet = preg_replace('/[^A-Za-z0-9\-]/', '', $category->movie_category_price_ewallet);
             $movieCategoryPriceToken = preg_replace('/[^A-Za-z0-9\-]/', '', $category->movie_category_price_token);
             $categories = MovieCategory::orderBy('created_at', 'desc')->get();
             return view('/admin/movies/editCategory', compact('category', 'categories', 'movieCategoryPriceEWallet', 'movieCategoryPriceToken'));
