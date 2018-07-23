@@ -338,7 +338,9 @@ class MusicsController extends Controller
         return redirect('/admin/musics/'.$albumId)->with('success', 'Music Removed');
     }
 
-    // CUSTOM FUNCTIONS
+        /*****************************
+                Custom Functions
+        *****************************/
 
     public function json_albums(Request $request){
       $artist_id = $request->id;
