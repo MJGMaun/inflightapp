@@ -10,6 +10,11 @@
 
 {!! Form::open(['action' => ['Admin\MusicsController@updateArtist', $artist->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])
 !!}
+<div class="card">
+  <div class="card-header">
+    Edit Artist
+  </div>
+  <div class="card-body">
 <div class="row">
     <div class="col-md-6 col-sm-6 add-artists">
         {{Form::label('artist', 'Artist Name')}} {{Form::text('artist', $artist->artist_name, ['class'
@@ -21,13 +26,17 @@
         </div>
     </div>
 </div>
+</div>
+</div>
 <br>
-<a class="btn btn-sm btn-primary" href="/admin/musics/{{$artist->id}}/createAlbumWId">
+<div class="card">
+  <div class="card-header text-center">
+    <h5>{{$artist->artist_name}}</h5> <a class="btn btn-sm btn-primary  pull-left" href="/admin/musics/{{$artist->id}}/createAlbumWId">
     <span data-feather="plus"></span>
     Add Album
 </a>
-<br><br>
-<h3>{{$artist->artist_name}} Albums</h3><br>
+  </div>
+  <div class="card-body">
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
         <table id="albums-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">
@@ -71,7 +80,9 @@
         </table>
     </div>
 </div>
-
+</div>
+</div>
+<br>
 
 
 

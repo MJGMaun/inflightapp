@@ -3,13 +3,15 @@
 <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.css') }}">
 @endsection
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+<div class="card">
+  <div class="card-header text-center">
     <h4>Artists</h4>
-</div>
-<a class="btn btn-sm btn-primary pull-right" href="/admin/musics/createArtist">
-    <span data-feather="plus"></span>
-    Add Artist
-</a>
+    <a class="btn btn-sm btn-primary pull-left" href="/admin/musics/createArtist">
+        <span data-feather="plus"></span>
+        Add Artist
+    </a>
+  </div>
+  <div class="card-body">
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
             <table id="artists-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">
@@ -47,16 +49,19 @@
         </table>
     </div>
 </div>
-
+    </div>
+</div>
 <br><br><br>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+<div class="card">
+  <div class="card-header text-center">
     <h4>Albums</h4>
-</div>
-<a class="btn btn-sm btn-primary pull-right" href="/admin/musics/createArtist">
-    <span data-feather="plus"></span>
-    Add Album
-</a>
+    <a class="btn btn-sm btn-primary pull-left" href="/admin/musics/createArtist">
+        <span data-feather="plus"></span>
+        Add Album
+    </a>
+  </div>
+  <div class="card-body">
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
             <table id="albums-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">
@@ -97,8 +102,8 @@
                         <td>{{$artist->created_at}}</td>
                         <td>{{$artist->updated_at}}</td>
                         <td><div class="row">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title="Add New Songs" href="/admin/musics/{{$album->id}}/createWId" class="btn btn-sm btn-success"><span data-feather="plus"></span></a>&nbsp;
-                            <a title="Edit Album" href="/admin/musics/{{$artist->id}}/editArtist" class="btn btn-sm btn-primary"><span data-feather="edit"></span></a>&nbsp;
+                            &nbsp;&nbsp;<a title="Add New Songs" href="/admin/musics/{{$album->id}}/createWId" class="btn btn-sm btn-success"><span data-feather="plus"></span></a>&nbsp;
+                            <a title="Edit Album" href="/admin/musics/{{$artist->id}}/editAlbum" class="btn btn-sm btn-primary"><span data-feather="edit"></span></a>&nbsp;
                             {!!Form::open(['action' => ['Admin\MusicsController@destroyAlbum', $album->id], 'method' => 'POST', 'class' => 'float-right'])!!}
                             {{Form::hidden('_method', 'DELETE')}}
                             {{Form::button('<span data-feather="trash"></span>',['title' => 'Delete Artist','type' => 'submit','class' => 'btn btn-sm btn-danger delete-music'])}}
@@ -110,16 +115,19 @@
         </table>
     </div>
 </div>
-
+    </div>
+</div>
 <br><br><br>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+<div class="card">
+  <div class="card-header text-center">
     <h4>Songs</h4>
-</div>
-<a class="btn btn-sm btn-primary pull-right" href="/admin/musics/create">
-    <span data-feather="plus"></span>
-    Add Song
-</a>
+    <a class="btn btn-sm btn-primary pull-left" href="/admin/musics/create">
+        <span data-feather="plus"></span>
+        Add Song
+    </a>
+  </div>
+  <div class="card-body">
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
             <table id="songs-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">
@@ -151,7 +159,7 @@
                         <td>{{$song->updated_at}}</td>
                         <td><div class="row">
                             &nbsp;&nbsp;
-                            <a title="Edit Album" href="/admin/musics/{{$song->id}}/editArtist" class="btn btn-sm btn-primary"><span data-feather="edit"></span></a>&nbsp;
+                            <a title="Edit Album" href="/admin/musics/{{$song->id}}/edit" class="btn btn-sm btn-primary"><span data-feather="edit"></span></a>&nbsp;
                             {!!Form::open(['action' => ['Admin\MusicsController@destroy', $song->id], 'method' => 'POST', 'class' => 'float-right'])!!}
                             {{Form::hidden('_method', 'DELETE')}}
                             {{Form::button('<span data-feather="trash"></span>',['title' => 'Delete Artist','type' => 'submit','class' => 'btn btn-sm btn-danger delete-music'])}}
@@ -161,6 +169,8 @@
                     @endif
             </tbody>
         </table>
+    </div>
+</div>
     </div>
 </div>
 @endsection @section('script')

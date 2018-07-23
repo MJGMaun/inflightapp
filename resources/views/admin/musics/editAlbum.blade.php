@@ -12,6 +12,11 @@
 
 {!! Form::open(['action' => ['Admin\MusicsController@updateAlbum', $album->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])
 !!}
+<div class="card">
+  <div class="card-header">
+    Edit Album
+  </div>
+  <div class="card-body">
 <div class="row">
     <div class="col-md-6 col-sm-6 add-artists">
         {{Form::label('album', 'Album Name')}}
@@ -43,14 +48,19 @@
     <div class="col-md-6 col-sm-6 add-artists">
             {{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-success'])}} {!! Form::close() !!}
     </div>
-</div><br><br> 
-<a class="btn btn-sm btn-primary" href="/admin/musics/{{$album->id}}/createWId">
+</div>
+</div><br>
+</div>
+<br>
+<div class="card">
+  <div class="card-header text-center">
+    <h5>{{$album->album_name}} Songs</h5>
+    <a class="btn btn-sm btn-primary pull-left" href="/admin/musics/{{$album->id}}/createWId">
     <span data-feather="plus"></span>
     Add Song
 </a>
-<br><br>
-<h3>{{$album->album_name}} Songs</h3><br>
-
+  </div>
+  <div class="card-body">
 <div style="width: 100%; padding-left: -10px; border: 1px;" class="">
     <div class="table-responsive">
         <table id="musics-table" class="table table-striped table-hover dt-responsive display cell-border" cellspacing="0">
@@ -93,9 +103,9 @@
         </table>
     </div>
 </div>
-
-
-
+    </div>
+</div>
+<br>
 
 @endsection @section('script') {!!Html::script('js/datatable/dataTables.buttons.min.js')!!} {!!Html::script('js/datatable/buttons.flash.min.js')!!}
 {!!Html::script('js/datatable/jszip.min.js')!!} {!!Html::script('js/datatable/pdfmake.min.js')!!} {!!Html::script('js/datatable/vfs_fonts.js')!!}
