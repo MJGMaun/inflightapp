@@ -82,14 +82,6 @@
     </li>
     <li class="list-group-item center text-center">
         <div class="form-group row">
-            {{Form::label('productAvailability', 'Product Availability', ['class' => 'col-sm-3 col-form-label'])}}
-            <div class="col-sm-7">
-                {{Form::select('productAvailability', ['In Stock' => 'In Stock','Out of Stock' => 'Out of Stock'], null, ['class' => 'form-control', 'placeholder' => 'Select Product Availability...'])}}
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item center text-center">
-        <div class="form-group row">
             {{Form::label('productImage1', 'Product Image 1', ['class' => 'col-sm-3 col-form-label'])}}
             <div class="col-sm-7">
                 {{Form::file('productImage1')}}

@@ -56,10 +56,9 @@ class ProductsController extends Controller
                 'productPriceAfter' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
                 'productPriceToken' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
                 'productDescription' => 'required|max:190',
-                'productAvailability' => 'required|max:190',
-                'productImage1' => 'required|image|mimes:jpeg,jpg,png|max:190',
-                'productImage2' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
-                'productImage3' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
+                'productImage1' => 'required|image|mimes:jpeg,jpg,png',
+                'productImage2' => 'nullable|image|mimes:jpeg,jpg,png',
+                'productImage3' => 'nullable|image|mimes:jpeg,jpg,png',
             ]);
                 
             //Handle File Cover Image 1
@@ -135,7 +134,6 @@ class ProductsController extends Controller
             $product->product_image_1 = $fileNameToStore1;
             $product->product_image_2 = $fileNameToStore2;
             $product->product_image_3 = $fileNameToStore3;
-            $product->product_availability = $request->input('productAvailability');
 
             $product->save();
 
@@ -194,10 +192,9 @@ class ProductsController extends Controller
                 'productPriceAfter' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
                 'productPriceToken' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
                 'productDescription' => 'required|max:190',
-                'productAvailability' => 'required|max:190',
-                'productImage1' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
-                'productImage2' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
-                'productImage3' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
+                'productImage1' => 'nullable|image|mimes:jpeg,jpg,png',
+                'productImage2' => 'nullable|image|mimes:jpeg,jpg,png',
+                'productImage3' => 'nullable|image|mimes:jpeg,jpg,png',
             ]);
                 
             //Handle File Cover Image 1
@@ -283,7 +280,6 @@ class ProductsController extends Controller
                 }
                 $product->product_image_3 = $fileNameToStore3;
             }
-            $product->product_availability = $request->input('productAvailability');
 
             $product->save();
 

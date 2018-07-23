@@ -23,10 +23,10 @@ class CreateProductsTable extends Migration
             $table->string('product_price_before_discount');
             $table->string('product_price_token');
             $table->longText('product_description');
+            $table->integer('product_in_stock')->default('0');
             $table->string('product_image_1');
             $table->string('product_image_2');
             $table->string('product_image_3');
-            $table->string('product_availability');
             $table->timestamps();
         });
     }
