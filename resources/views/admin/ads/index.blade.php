@@ -19,7 +19,7 @@
                 <tr>
                     <th>Ad Name</th>
                     <th>Roll</th>
-                    <th>Time</th>
+                    <th>Play Time</th>
                     <th>Plays Needed</th>
                     <th>Plays Remaining</th>
                     <th>Status</th>
