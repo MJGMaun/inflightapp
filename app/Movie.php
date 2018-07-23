@@ -13,9 +13,9 @@ class Movie extends Model
     // Timestamps
     public $timestamps = true;
     public function genres(){
-       return $this->belongsToMany(Genre::class);
+       return $this->belongsToMany('App\Genre');
     }
-    // public function getMovieGenres(){
-    //    return null !== $this->genres()->where('id', $this->movie_id)->first()->name;
-    // }
+    public function category(){
+        return $this->belongsTo('App\MovieCategory', 'category_id');
+    }
 }

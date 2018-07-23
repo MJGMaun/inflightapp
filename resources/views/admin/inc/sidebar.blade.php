@@ -11,14 +11,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link <?= isset($_GET['action']) && $_GET['action'] == 'movies' ? ' active' : '' ?>" href="/admin/movies?action=movies">
-                  <span data-feather="film"></span>
-                  Movies
-                </a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"><span data-feather="film"></span>Movies</a>
+                  <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'movies' ? ' active' : '' ?>" href="/admin/movies?action=movies"><span data-feather="film"></span> Browse Movies</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'movieCategory' ? ' active' : '' ?>" href="/admin/movies/createCategory?action=movieCategory"><span data-feather="layers"></span> Create Category</a>
+                    </li>
+                   </ul>
               </li>
               <li class="nav-item">
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"><span data-feather="tv"></span>Series</a>
-                  <ul class="collapse list-unstyled" id="pageSubmenu">
+                <a href="#pageSubmenu0" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle"><span data-feather="tv"></span>Series</a>
+                  <ul class="collapse list-unstyled" id="pageSubmenu0">
                     <li>
                       <a class="dropdown-item <?= isset($_GET['action']) && $_GET['action'] == 'browseseries' ? ' active' : '' ?>" href="/admin/series?action=browseseries"><span data-feather="monitor"></span> Browse Series</a>
                     </li>

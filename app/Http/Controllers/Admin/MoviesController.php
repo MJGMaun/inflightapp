@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Movie;
 use App\Genre;
+use App\Movie;
+use App\MovieCategory;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class MoviesController extends Controller
 {
@@ -43,7 +44,8 @@ class MoviesController extends Controller
         $request->user()->authorizeRoles(['admin']);
 
         $genres = Genre::orderBy('name', 'asc')->get();
-        return view('admin.movies.create', compact('genres'));
+        $categories = MovieCategory::all()->pluck('movie_category_name','id');
+        return view('admin.movies.create', compact('genres', 'categories'));
     }
 
     /**
@@ -63,9 +65,9 @@ class MoviesController extends Controller
             'cast' => 'required|max:190',
             'genres' => 'required',
             'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
-            'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required|max:190',
-            'trailer_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required|max:190',
-            'movie_description' => 'required|max:190',
+            'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required',
+            'trailer_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|required',
+            'movie_description' => 'required',
         ]);
 
         //Handle File Cover Image
@@ -177,12 +179,10 @@ class MoviesController extends Controller
         $movie = Movie::find($id);
         $genres = Genre::orderBy('name', 'asc')->get();
         $movie_genres  = $movie->genres->pluck('name')->toArray();
-        // dd($movie_genres);
+        $categories = MovieCategory::all()->pluck('movie_category_name','id');
 
-
-        // Check if it is the current user if not, redirect to posts
         $request->user()->authorizeRoles(['admin']);
-        return view('admin.movies.edit', compact('movie', 'genres', 'movie_genres'));
+        return view('admin.movies.edit', compact('movie', 'genres', 'movie_genres', 'categories'));
     }
 
     /**
@@ -202,7 +202,7 @@ class MoviesController extends Controller
             'release_date' => 'required',
             'cast' => 'required|max:190',
             'genres' => 'required',
-            'cover_image' => 'image|nullable|max:190|mimes:jpg,png,jpeg',
+            'cover_image' => 'image|nullable|mimes:jpg,png,jpeg',
             'movie_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
             'trailer_video' => 'mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|nullable',
             'movie_description' => 'required',
@@ -355,4 +355,73 @@ class MoviesController extends Controller
         $movie->delete();
         return redirect('/admin/movies')->with('success', 'Movie Removed');
     }
+
+        /*****************************
+                Category
+    *****************************/
+        public function createCategory(Request $request)
+        {
+            $request->user()->authorizeRoles(['admin']);
+
+            $categories = MovieCategory::orderBy('created_at', 'desc')->get();
+
+            return view('admin.movies.createCategory', compact('categories'));
+        }
+        public function storeCategory(Request $request)
+        {
+            $request->user()->authorizeRoles(['admin']);
+
+            $this->validate($request, [ 
+                'category' => 'required|unique:movie_categories,movie_category_name|max:190',
+                'moviePriceEWallet' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+                'moviePriceToken' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+                'description' => 'nullable|max:190',
+            ]);
+
+            $category = new MovieCategory;
+            $category->movie_category_name = $request->input('category');
+            $category->movie_category_price_ewallet = number_format($request->input('moviePriceEWallet'));
+            $category->movie_category_price_token = number_format($request->input('moviePriceToken'));
+            $category->movie_category_description = $request->input('description');
+            $category->save();
+
+            return redirect('/admin/movies/createCategory')->with('success', 'Movie Category Added');
+        }
+        public function editCategory($id, Request $request)
+        {
+            $category = MovieCategory::find($id);
+             $movieCategoryPriceEWallet = preg_replace('/[^A-Za-z0-9\-]/', '', $category->movie_category_price_ewallet);
+            $movieCategoryPriceToken = preg_replace('/[^A-Za-z0-9\-]/', '', $category->movie_category_price_token);
+            $categories = MovieCategory::orderBy('created_at', 'desc')->get();
+            return view('/admin/movies/editCategory', compact('category', 'categories', 'movieCategoryPriceEWallet', 'movieCategoryPriceToken'));
+        }
+        public function updateCategory($id, Request $request)
+        {
+            $category = MovieCategory::find($id);
+
+            $this->validate($request, [ 
+                'category' => 'required|max:190|unique:movie_categories,movie_category_name,'.$category->id,
+                'moviePriceEWallet' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+                'moviePriceToken' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+                'description' => 'nullable|max:190',
+            ]);
+
+            
+            $category->movie_category_name = $request->input('category');
+            $category->movie_category_price_ewallet = number_format($request->input('moviePriceEWallet'));
+            $category->movie_category_price_token = number_format($request->input('moviePriceToken'));
+            $category->movie_category_description = $request->input('description');
+            $category->save();
+            return redirect('/admin/movies/createCategory')->with('success', 'Movie Category Updated');
+        }
+        public function destroyCategory($id, Request $request)
+        {
+            
+            $category = MovieCategory::find($id);
+            if(count($category->subcategories)){
+                $category->subcategories()->delete();
+            }
+            $category->delete();
+            return redirect('/admin/movies/createCategory')->with('success', 'Movie Category Deleted');
+        }
 }

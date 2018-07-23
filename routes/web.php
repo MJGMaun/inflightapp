@@ -20,13 +20,21 @@ Route::get('/', function () {
 Route::resource('admin/scratchcards', 'Admin\ScratchCardsController');
 
     /*****************************
-            MOVIES
+            GAMES
     *****************************/
+    
 Route::resource('admin/games', 'Admin\GamesController');
 
     /*****************************
             MOVIES
     *****************************/
+    //Category
+Route::get('admin/movies/createCategory', 'Admin\MoviesController@createCategory');
+Route::post('admin/movies/storeCategory', 'Admin\MoviesController@storeCategory');
+Route::get('admin/movies/{id}/editCategory', 'Admin\MoviesController@editCategory');
+Route::put('admin/movies/{id}/updateCategory', 'Admin\MoviesController@updateCategory');
+Route::delete('admin/movies/{id}/destroyCategory', 'Admin\MoviesController@destroyCategory');
+
 Route::resource('movies', 'MoviesController');
 Route::resource('admin/movies', 'Admin\MoviesController');
 

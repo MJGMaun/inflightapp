@@ -7,17 +7,22 @@
 {!! Form::open(['action' => ['Admin\MoviesController@update', $movie->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])
 !!}
 <div class="row">
-    <div class="col">
+    <div class="col-md-6 col-sm-6">
         {{Form::label('title', 'Title')}} {{Form::text('title', $movie->title, ['class' => 'form-control', 'placeholder' => 'Title'])}}
     </div>
-    <div class="col">
-        {{Form::label('language', 'Language')}} {{Form::select('language', ['English' => 'English', 'Chinese' => 'Chinese'], $movie->language, ['class' => 'form-control'])}}
+    <div class="col-md-3 col-sm-3">
+        {{Form::label('language', 'Language')}} {{Form::select('language', ['English' => 'English', 'Chinese' => 'Chinese'], $movie->language,
+        ['class' => 'form-control', 'placeholder' => 'Select a language...'])}}
+    </div>
+    <div class="col-md-3 col-sm-3">    
+        {{Form::label('category', 'Category')}} 
+        {{Form::select('category', $categories, $movie->category, ['class' => 'form-control', 'placeholder' => 'Select a category...'])}}
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col">
-        {{Form::label('running_time', 'Running Time')}} {{ Form::time('running_time', $movie->running_time, ['class' => 'form-control without_ampm', 'step' => '1']) }}
+        {{Form::label('running_time', 'Running Time')}} {{Form::number('running_time', $movie->running_time, ['class' => 'form-control', 'placeholder' => 'Enter movie time (minutes)'])}}
     </div>
     <div class="col">
         {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', \Carbon\Carbon::now(), ['class' => 'form-control'])}}
@@ -45,16 +50,17 @@
 </div>
 <br>
 <div class="row">
-        <div class="col-md-3 col-sm-3">
+        <div class="col-md-4 col-sm-4">
             {{Form::label('movie_video', 'Full Movie')}}
             <br> {{Form::file('movie_video')}}
-            <br><br>
-            {{Form::label('cover_image', 'Cover Image')}}
-            <br> {{Form::file('cover_image')}}
         </div>
-        <div class="col-md-3 col-sm-3">
+        <div class="col-md-4 col-sm-4">
             {{Form::label('trailer_video', 'Trailer')}}
             <br> {{Form::file('trailer_video')}}
+        </div>
+        <div class="col-md-4 col-sm-4">
+            {{Form::label('cover_image', 'Cover Image')}}
+            <br> {{Form::file('cover_image')}}
         </div>
 </div>
 <br>

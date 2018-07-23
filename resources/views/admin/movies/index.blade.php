@@ -26,6 +26,7 @@
                     <th>Language</th>
                     <th>Running Time</th>
                     <th>Release Date</th>
+                    <th>Category</th>
                     <th>Movie Location</th>
                     <th>Created At</th>
                     <th>Updated At</th>
@@ -48,6 +49,7 @@
                     <td>{{$movie->language}}</td>
                     <td>{{$movie->running_time}}</td>
                     <td>{{$movie->release_date}}</td>
+                    <td>{{$movie->category->movie_category_name}}</td>
                     <td>{{$movie->movie_video}}</td>
                     <td>{{$movie->created_at}}</td>
                     <td>{{$movie->updated_at}}</td>
@@ -86,7 +88,7 @@
                     }
                 },
                 {
-                    "targets": 7,
+                    "targets": 8,
                     render: function (data, type, row) {
                         return data.length > 10 ?
                             data.substr(0, 10) + '…' :

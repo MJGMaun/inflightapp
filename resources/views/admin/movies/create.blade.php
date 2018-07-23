@@ -1,17 +1,4 @@
 @extends('admin.layouts.app') @section('css')
-<style>
-    .without_ampm::-webkit-datetime-edit-ampm-field {
-   display: none;
- }
- input[type=time]::-webkit-clear-button {
-   -webkit-appearance: none;
-   -moz-appearance: none;
-   -o-appearance: none;
-   -ms-appearance:none;
-   appearance: none;
-   margin: -10px; 
- }
-</style>
 @endsection @section('content')
 
 <a href="javascript:history.go(-1)" class="btn btn-sm btn-primary">
@@ -34,8 +21,8 @@
         ['class' => 'form-control', 'placeholder' => 'Select a language...'])}}
     </div>
     <div class="col-md-3 col-sm-3">    
-        {{Form::label('category', 'Category')}} {{Form::select('category', ['1' => 'Popular Movie','2' => 'Trending Movie', '3' => 'New Release', '0' => 'None'], null,
-        ['class' => 'form-control', 'placeholder' => 'Select a category...'])}}
+        {{Form::label('category', 'Category')}} 
+        {{Form::select('category', $categories, null, ['class' => 'form-control', 'placeholder' => 'Select a category...'])}}
     </div>
 </div>
 <br>
@@ -44,7 +31,8 @@
         {{Form::label('cast', 'Casts')}} {{Form::text('cast', '', ['class' => 'form-control', 'placeholder' => 'Mikhaela Maun, Regina Lopez, Joyce Feliciano, Jessica Gomez'])}}
     </div>
     <div class="col-md-3 col-sm-3">
-        {{Form::label('running_time', 'Running Time')}} {{ Form::time('running_time', '00:00:00', ['class' => 'form-control without_ampm', 'step' => '1']) }}
+        {{Form::label('running_time', 'Running Time')}}
+        {{Form::number('running_time', '', ['class' => 'form-control', 'placeholder' => 'Enter movie time (minutes)'])}}
     </div>
     <div class="col-md-3 col-sm-3">    
         {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', null, ['class' => 'form-control'])}}
