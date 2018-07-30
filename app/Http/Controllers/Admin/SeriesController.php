@@ -59,7 +59,7 @@ class SeriesController extends Controller
                 'main_genre' => 'required|max:190',
                 'release_date' => 'required|date',
                 'description' => 'required|max:190',
-                'cover_image' => 'required|image|mimes:jpeg,jpg,png|max:190',
+                'cover_image' => 'required|image|mimes:jpeg,jpg,png',
             ]);
 
 
@@ -157,7 +157,7 @@ class SeriesController extends Controller
                 'genres' => 'required|max:190',
                 'release_date' => 'required|date',
                 'description' => 'required|max:190',
-                'cover_image' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
+                'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
             ]);
 
 
@@ -298,7 +298,8 @@ class SeriesController extends Controller
                 'cover_image' => 'file|nullable|image|mimes:jpeg,jpg,png|max:190',
                 'episodes.*' => 'required|distinct|unique:episodes,title|max:190',
                 'episodeNumbers.*' => 'required|distinct|max:190',
-                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|max:190',
+                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi',
+                'ewallet_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
             ]);
         $cover_images = $request->file('cover_images');
         $episode_videos = $request->file('episode_videos');
@@ -343,6 +344,7 @@ class SeriesController extends Controller
 
                     $episode_numbers = $request->input('episodeNumbers');
                     $episodes_title = $request->input('episodes');
+                    $e_walletprice = number_format($request->input('ewallet_price'));
 
                     //Get filename with extension
                     $filenameWithExt = $episode_video->getClientOriginalName();
@@ -362,6 +364,7 @@ class SeriesController extends Controller
 
                     $number  = $episode_numbers[$x];
                     $title = $episodes_title[$x];
+                    $ewalletprice = $episodes_title[$x];
 
                     $episode = new Episode;
                     $episode->title = $title;
@@ -372,6 +375,7 @@ class SeriesController extends Controller
                     $episode->episode_cover_image_id = $lastInsertedIdCover;
                     $episode->series_id = $request->input('series');
                     $episode->season_id = $seasonId;
+                    $episode->ewallet_price = $ewalletprice;
                     $episode->save();
 
 
@@ -399,7 +403,7 @@ class SeriesController extends Controller
                 'episodes_title_new.*' => 'required|distinct|max:190',
                 'episodeNumbers.*' => 'required|distinct|max:190',
                 'episodeNumbers_new.*' => 'required|distinct|max:190',
-                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|max:190',
+                'episode_videos.*' => 'required|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi',
             ]);
         $cover_images = $request->file('cover_images');
         $episode_videos = $request->file('episode_videos');
@@ -443,6 +447,8 @@ class SeriesController extends Controller
                 $episode_numbers = $request->input('episodeNumbers');
                 $episodes_title = $request->input('episodes_title');
                 $episode_ids = $request->input('episode_ids');
+                $ewallet_price = $request->input('ewallet_price');
+                
                 if($request->hasFile('episode_videos')){
                     $countvideos = count($request->file('episode_videos'));
                 for($x = 0; $x <= $countvideos; $x++){
@@ -466,12 +472,14 @@ class SeriesController extends Controller
                     $number  = $episode_numbers[$x];
                     $title = $episodes_title[$x];
                     $epId = $episode_ids[$x];
+                    $ewalletprice = $ewallet_price[$x];
                     // $epvideo = $episode_video[$x];
                     $episode = Episode::findOrFail($epId);
                     $episode->title = $title;
                     // $episode->description = 'Hello';
                     // $episode->running_time = '1:00:00';
                     $episode->episode_number = $number;
+                    $episode->ewallet_price = $ewalletprice;
                     if(isset($episode_videos[$x])){
                     Storage::delete('public/series_videos/'.$episode->episode_video);
                     $episode->episode_video = $fileNameToStoreVid;
@@ -568,7 +576,7 @@ class SeriesController extends Controller
                 'season' => 'required|max:190',
                 'episode' => 'required|distinct|max:190',
                 'episodeNumber' => 'required|distinct|max:190',
-                'episode_video' => 'nullable|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|max:190',
+                'episode_video' => 'nullable|distinct|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi',
             ]);
         $cover_images = $request->file('cover_images');
         $episode_videos = $request->file('episode_videos');

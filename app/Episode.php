@@ -14,7 +14,7 @@ class Episode extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'title', 'description', 'running_time', 'episode_number', 'episode_video', 'episode_cover_image_id', 'series_id', 'season_id',
+        'title', 'description', 'running_time', 'episode_number', 'episode_video', 'episode_cover_image_id', 'series_id', 'season_id', 'ewallet_price',
     ];
 
     public function season(){

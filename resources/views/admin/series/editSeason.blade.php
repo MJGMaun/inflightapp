@@ -65,8 +65,23 @@
                 </div>
             </div>
         </div>
-        <hr>
         <br>
+        <div class="row">
+            <div class="price-container col-md-6 col-sm-6">
+                <div class="price">
+                    {{Form::label('priceLevel', 'Price Level')}}
+                    {{Form::select('priceLevel', ['10' => '1', '20' => '2', '30' => '3', '40' => '4', '50' => '5'], null,['class' => 'form-control pricelevel', 'placeholder' => 'Select level..'])}}
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                @php
+                    $ewallet_price = preg_replace('/[^A-Za-z0-9\-]/', '', $episode->ewallet_price);
+                @endphp
+                {{Form::label('ewallet_price', 'E-Wallet Price')}} 
+                {{Form::number('ewallet_price', $ewallet_price, ['class' => 'form-control ewallet-price', 'placeholder' => 'Enter Episode Price'])}}
+            </div>
+        </div>
+        <hr><br>
         @endforeach
     </div>
 <div class="form-group"><br>
@@ -138,5 +153,10 @@
             return false;
         }
         });
+    //PRICE LEVEL        
+    $(document).on('change','.pricelevel',function(){
+        var tokenPrice = $(this).val();
+        $(this).closest('.row').find('.ewallet-price').val(tokenPrice);
+    });
 </script>
 @endsection

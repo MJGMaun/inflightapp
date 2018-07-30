@@ -23,6 +23,7 @@ class CreateEpisodesTable extends Migration
             $table->string('episode_cover_image_id');
             $table->integer('series_id')->unsigned();
             $table->integer('season_id')->unsigned();
+            $table->string('ewallet_price');
             $table->timestamps();
         });
     }

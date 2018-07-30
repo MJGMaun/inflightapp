@@ -13,12 +13,17 @@
 
 {!! Form::open(['action' => 'Admin\MoviesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="row">
-    <div class="col-md-5 col-sm-5">
+    <div class="col-md-4 col-sm-4">
         {{Form::label('title', 'Title')}} {{Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title'])}}
     </div>
-    <div class="col-md-3 col-sm-3">    
+    <div class="col-md-2 col-sm-2">    
         {{Form::label('category', 'Category')}} 
         {{Form::select('category', $categories, null, ['class' => 'form-control category', 'placeholder' => 'Select a category...'])}}
+    </div>
+    <div class="col-md-2 col-sm-2">    
+        {{Form::label('priceLevel', 'Price Level')}} 
+        {{Form::select('priceLevel', ['10' => '1', '20' => '2', '30' => '3', '40' => '4', '50' => '5'], null,
+        ['class' => 'form-control pricelevel', 'placeholder' => 'Select level..'])}}
     </div>
     <div class="col-md-2 col-sm-2">
         {{Form::label('ewallet_price', 'E-Wallet Price')}} {{Form::number('ewallet_price', '', ['class' => 'form-control ewallet-price', 'placeholder' => 'Enter E-Wallet Price'])}}
@@ -113,6 +118,12 @@
                     console.log('error');
                 }
             });
+        });
+
+
+        $(document).on('change','.pricelevel',function(){
+            var tokenPrice = $(this).val();
+            $('.ewallet-price').val(tokenPrice);
         });
 </script>
 @endsection
