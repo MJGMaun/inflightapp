@@ -1,4 +1,4 @@
-<?php
+h<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,6 +17,7 @@ class CreateSeriesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('cast');
+            $table->string('content_rating');
             $table->integer('main_genre');
             $table->mediumText('description');
             $table->date('release_date');

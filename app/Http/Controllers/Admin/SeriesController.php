@@ -56,6 +56,7 @@ class SeriesController extends Controller
                 'title' => 'required|unique:series,title|max:190',
                 'cast' => 'required|max:190',
                 'genres' => 'required|max:190',
+                'content_rating' => 'required|max:190',
                 'main_genre' => 'required|max:190',
                 'release_date' => 'required|date',
                 'description' => 'required|max:190',
@@ -86,6 +87,7 @@ class SeriesController extends Controller
             $series = new Series;
             $series->title = $request->input('title');
             $series->cast = $request->input('cast');
+            $series->content_rating = $request->input('content_rating');
             $series->main_genre = $request->input('main_genre');
             $series->release_date = $request->input('release_date');
             $series->description= $request->input('description');
@@ -155,6 +157,7 @@ class SeriesController extends Controller
                 'cast' => 'required|max:190',
                 'main_genre' => 'required|max:190',
                 'genres' => 'required|max:190',
+                'content_rating' => 'required|max:190',
                 'release_date' => 'required|date',
                 'description' => 'required|max:190',
                 'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
@@ -181,6 +184,7 @@ class SeriesController extends Controller
 
             $serie->title = $request->input('title');
             $serie->cast = $request->input('cast');
+            $serie->content_rating = $request->input('content_rating');
             $serie->main_genre = $request->input('main_genre');
             $serie->release_date = $request->input('release_date');
             $serie->description= $request->input('description');

@@ -50,6 +50,15 @@
                 </div>
             </div>
         </li>
+        <li  class="list-group-item center text-center">
+            <div class="form-group row">
+                {{Form::label('content_rating', 'Content Rating', ['class' => 'col-sm-3 col-form-label'])}}
+                <div class="col-sm-7">
+                    {{Form::select('content_rating', ['G' => 'G', 'PG' => 'PG', 'PG-13' => 'PG-13', 'R' => 'R', 'NC-17' => 'NC-17'], $serie->content_rating,
+        ['class' => 'form-control', 'placeholder' => 'Select Content Rating...'])}}
+                </div>
+            </div>
+        </li>
         <li class="list-group-item center text-center">
             <div class="form-group row">
                 {{Form::label('release_date', 'Release Date', ['class' => 'col-sm-3 col-form-label'])}}
