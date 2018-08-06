@@ -57,8 +57,8 @@ class MoviesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [ 
-            'title' => 'required',
-            'director' => 'required',
+            'title' => 'required|max:190',
+            'director' => 'required|max:190',
             'content_rating' => 'content_rating',
             'category' => 'required',
             'ewallet_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
