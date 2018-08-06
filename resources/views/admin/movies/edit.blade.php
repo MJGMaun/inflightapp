@@ -33,7 +33,7 @@
         {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', $movie->release_date, ['class' => 'form-control'])}}
     </div>
     <div class="col-md-2 col-sm-2">
-        {{Form::label('contentRating', 'Content Rating')}} {{Form::select('contentRating', ['G' => 'G', 'PG' => 'PG', 'PG-13' => 'PG-13', 'R' => 'R', 'NC-17' => 'NC-17'], $movie->content_rating,
+        {{Form::label('content_rating', 'Content Rating')}} {{Form::select('content_rating', ['G' => 'G', 'PG' => 'PG', 'PG-13' => 'PG-13', 'R' => 'R', 'NC-17' => 'NC-17'], $movie->content_rating,
         ['class' => 'form-control', 'placeholder' => 'Select Content Rating...'])}}
     </div>
 </div>
