@@ -27,15 +27,14 @@
         {{Form::label('cast', 'Casts')}} {{Form::text('cast', $movie->cast, ['class' => 'form-control', 'placeholder' => 'Mikhaela Maun, Regina Lopez, Joyce Feliciano, Jessica Gomez'])}}
     </div>
     <div class="col-md-3 col-sm-3">
-        {{Form::label('running_time', 'Running Time')}}
-        {{Form::number('running_time', $movie->running_time, ['class' => 'form-control', 'placeholder' => 'Enter movie time (minutes)'])}}
+         {{Form::label('director', 'Director')}} {{Form::text('director', $movie->director, ['class' => 'form-control', 'placeholder' => 'Enter Director Name Here..'])}}
     </div>
     <div class="col-md-2 col-sm-2">    
         {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', $movie->release_date, ['class' => 'form-control'])}}
     </div>
     <div class="col-md-2 col-sm-2">
-        {{Form::label('language', 'Language')}} {{Form::select('language', ['English' => 'English', 'Chinese' => 'Chinese'], $movie->language,
-        ['class' => 'form-control', 'placeholder' => 'Select a language...'])}}
+        {{Form::label('contentRating', 'Content Rating')}} {{Form::select('contentRating', ['G' => 'G', 'PG' => 'PG', 'PG-13' => 'PG-13', 'R' => 'R', 'NC-17' => 'NC-17'], $movie->content_rating,
+        ['class' => 'form-control', 'placeholder' => 'Select Content Rating...'])}}
     </div>
 </div>
 <br>
@@ -61,6 +60,9 @@
         <br> {{Form::file('cover_image')}}
     </div>
     <div class="col-md-3 col-sm-3">
+        {{Form::label('running_time', 'Running Time')}} <br>
+        {{Form::number('running_time', $movie->running_time, ['class' => 'form-control', 'placeholder' => 'Enter movie time (minutes)'])}}
+        <br>
         {{Form::label('trailer_video', 'Trailer')}}
         <br> {{Form::file('trailer_video')}}
     </div>

@@ -23,10 +23,11 @@
                     <th>Movie Description</th> --}}
                     <th>Genres</th>
                     <th>Casts</th>
-                    <th>Language</th>
+                    <th>Director</th>
                     <th>Running Time</th>
                     <th>Release Date</th>
                     <th>Category</th>
+                    <th>Content Rating</th>
                     <th>E-Wallet Price</th>
                     <th>Token Price</th>
                     <th>Movie Location</th>

@@ -58,10 +58,11 @@ class MoviesController extends Controller
     {
         $this->validate($request, [ 
             'title' => 'required',
-            'language' => 'required',
+            'director' => 'required',
+            'contentRating' => 'contentRating',
             'category' => 'required',
             'ewallet_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
-            'token_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+            // 'token_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
             'running_time' => 'required',
             'release_date' => 'required',
             'cast' => 'required|max:190',
@@ -137,9 +138,11 @@ class MoviesController extends Controller
         $movie->title = $request->input('title');
         $movie->movie_description = $request->input('movie_description');
         $movie->cast = $request->input('cast');
+        $movie->content_rating = $request->input('contentRating');
+        $movie->director = $request->input('director');
         $movie->category_id = $request->input('category');
         $movie->ewallet_price = number_format($request->input('ewallet_price'));
-        $movie->token_price = number_format($request->input('token_price'));
+        $movie->token_price = 10;
         $movie->language = $request->input('language');
         $movie->running_time = $request->input('running_time');
         $movie->release_date = $request->input('release_date');
@@ -204,9 +207,11 @@ class MoviesController extends Controller
         $this->validate($request, [ 
             'title' => 'required',
             'language' => 'required',
+            'director' => 'required',
+            'contentRating' => 'contentRating',
             'category' => 'required',
             'ewallet_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
-            'token_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
+            // 'token_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
             'running_time' => 'required',
             'release_date' => 'required',
             'cast' => 'required|max:190',
@@ -277,9 +282,11 @@ class MoviesController extends Controller
         $movie->title = $request->input('title');
         $movie->movie_description = $request->input('movie_description');
         $movie->cast = $request->input('cast');
+        $movie->content_rating = $request->input('contentRating');
+        $movie->director = $request->input('director');
         $movie->category_id = $request->input('category');
         $movie->ewallet_price = number_format($request->input('ewallet_price'));
-        $movie->token_price = number_format($request->input('token_price'));
+        $movie->token_price = 10;
         $movie->language = $request->input('language');
         $movie->running_time = $request->input('running_time');
         $movie->release_date = $request->input('release_date');

@@ -20,38 +20,37 @@
         {{Form::label('category', 'Category')}} 
         {{Form::select('category', $categories, null, ['class' => 'form-control category', 'placeholder' => 'Select a category...'])}}
     </div>
-    <div class="col-md-2 col-sm-2">    
+    <div class="col-md-3 col-sm-3">    
         {{Form::label('priceLevel', 'Price Level')}} 
         {{Form::select('priceLevel', ['10' => '1', '20' => '2', '30' => '3', '40' => '4', '50' => '5'], null,
         ['class' => 'form-control pricelevel', 'placeholder' => 'Select level..'])}}
     </div>
-    <div class="col-md-2 col-sm-2">
+    <div class="col-md-3 col-sm-3">
         {{Form::label('ewallet_price', 'E-Wallet Price')}} {{Form::number('ewallet_price', '', ['class' => 'form-control ewallet-price', 'placeholder' => 'Enter E-Wallet Price'])}}
     </div>
-    <div class="col-md-2 col-sm-2">
+    {{-- <div class="col-md-2 col-sm-2">
         {{Form::label('token_price', 'Token Price')}} {{Form::number('token_price', '', ['class' => 'form-control token-price', 'placeholder' => 'Enter Token Price'])}}
-    </div>
+    </div> --}}
 </div>
 <br>
 <div class="row">
     <div class="col-md-5 col-sm-5">
-        {{Form::label('cast', 'Casts')}} {{Form::text('cast', '', ['class' => 'form-control', 'placeholder' => 'Mikhaela Maun, Regina Lopez, Joyce Feliciano, Jessica Gomez'])}}
+        {{Form::label('cast', 'Casts')}} {{Form::text('cast', '', ['class' => 'form-control', 'placeholder' => 'Actor Name 1, Actor Name 2, Actor Name 3..'])}}
     </div>
     <div class="col-md-3 col-sm-3">
-        {{Form::label('running_time', 'Running Time')}}
-        {{Form::number('running_time', '', ['class' => 'form-control', 'placeholder' => 'Enter movie time (minutes)'])}}
+        {{Form::label('director', 'Director')}} {{Form::text('director', '', ['class' => 'form-control', 'placeholder' => 'Enter Director Name Here..'])}}
     </div>
     <div class="col-md-2 col-sm-2">    
         {{Form::label('release_date', 'Release Date')}} {{Form::date('release_date', null, ['class' => 'form-control'])}}
     </div>
     <div class="col-md-2 col-sm-2">
-        {{Form::label('language', 'Language')}} {{Form::select('language', ['English' => 'English', 'Chinese' => 'Chinese'], null,
-        ['class' => 'form-control', 'placeholder' => 'Select a language...'])}}
+        {{Form::label('contentRating', 'Content Rating')}} {{Form::select('contentRating', ['G' => 'G', 'PG' => 'PG', 'PG-13' => 'PG-13', 'R' => 'R', 'NC-17' => 'NC-17'], null,
+        ['class' => 'form-control', 'placeholder' => 'Select Content Rating...'])}}
     </div>
 </div>
 <br>
 <div class="row">
-    <div class="col">
+    <div class="col-col-md-6 col-sm-6">
         <div class="card card-body bg-light">
             {{Form::label('genre', 'Genre')}}
             <div class="row">
@@ -71,6 +70,9 @@
         <br> {{Form::file('cover_image')}}
     </div>
     <div class="col-md-3 col-sm-3">
+        {{Form::label('running_time', 'Running Time')}} <br>
+        {{Form::number('running_time', '', ['class' => 'form-control', 'placeholder' => 'Enter movie time (minutes)'])}}
+        <br>
         {{Form::label('trailer_video', 'Trailer')}}
         <br> {{Form::file('trailer_video')}}
     </div>
