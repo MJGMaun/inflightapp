@@ -35,6 +35,7 @@
                         <th>Seasons</th>
                         <th>Main Genre</th>
                         <th>Casts</th>
+                        <th>Content Rating</th>
                         <th>Plot</th>
                         <th>Created At</th>
                         <th>Updated At</th>
@@ -70,6 +71,7 @@
                                         @endif
                                     </td>
                                     <td>{{$serie->cast}}</td>
+                                    <td>{{$serie->content_rating}}</td>
                                     <td>{{$serie->description}}</td>
                                     <td>{{$serie->created_at}}</td>
                                     <td>{{$serie->updated_at}}</td>
