@@ -59,7 +59,7 @@ class MoviesController extends Controller
         $this->validate($request, [ 
             'title' => 'required|max:190',
             'director' => 'required|max:190',
-            'content_rating' => 'content_rating',
+            'content_rating' => 'required',
             'category' => 'required',
             'ewallet_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
             // 'token_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
@@ -143,7 +143,6 @@ class MoviesController extends Controller
         $movie->category_id = $request->input('category');
         $movie->ewallet_price = number_format($request->input('ewallet_price'));
         $movie->token_price = 10;
-        $movie->language = $request->input('language');
         $movie->running_time = $request->input('running_time');
         $movie->release_date = $request->input('release_date');
         $movie->cover_image = $fileNameToStore;
@@ -207,7 +206,7 @@ class MoviesController extends Controller
         $this->validate($request, [ 
             'title' => 'required|max:190',
             'director' => 'required|max:190',
-            'content_rating' => 'content_rating',
+            'content_rating' => 'required',
             'category' => 'required',
             'ewallet_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
             // 'token_price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
@@ -286,7 +285,6 @@ class MoviesController extends Controller
         $movie->category_id = $request->input('category');
         $movie->ewallet_price = number_format($request->input('ewallet_price'));
         $movie->token_price = 10;
-        $movie->language = $request->input('language');
         $movie->running_time = $request->input('running_time');
         $movie->release_date = $request->input('release_date');
         if($request->hasFile('cover_image')){
