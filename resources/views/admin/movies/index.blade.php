@@ -49,10 +49,11 @@
                         {{ $genre->name }}
                     @endforeach</td>
                     <td>{{$movie->cast}}</td>
-                    <td>{{$movie->language}}</td>
+                    <td>{{$movie->director}}</td>
                     <td>{{$movie->running_time}}</td>
                     <td>{{$movie->release_date}}</td>
                     <td>{{$movie->category->movie_category_name}}</td>
+                    <td>{{$movie->content_rating}}</td>
                     <td>{{$movie->ewallet_price}}</td>
                     <td>{{$movie->token_price}}</td>
                     <td>{{$movie->movie_video}}</td>
