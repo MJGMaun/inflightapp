@@ -68,6 +68,7 @@
             <thead>
                 <tr>
                     <th>Cover Image</th>
+                    <th>Name</th>
                     <th>Songs</th>
                     <th>Artist Name</th>
                     <th>Category</th>
@@ -84,6 +85,7 @@
                     <tr>
                         {{-- <td><img height="50px" width="60px" src="/storage/cover_images/{{$music->cover_image}}" /><span class="d-none">{{$music->cover_image}}</span></td> --}}
                         <td><img height="50px" width="60px" src="/storage/cover_images/{{$album->coverimage->cover_image}}" /><span class="d-none">{{$album->coverimage->cover_image}}</span></td>
+                        <td>{{$album->album_name}}</td>
                         <td>@foreach($album->songs as $song)
                         <li>{{ $song->title }}</li>
                             @endforeach</td>
