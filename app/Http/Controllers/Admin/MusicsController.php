@@ -76,8 +76,8 @@ class MusicsController extends Controller
             'artists' => 'required|max:190',
             'albums' => 'required|unique:albums,album_name|max:190',
             'genres' => 'required',
-            'cover_image' => 'nullable|image|mimes:jpeg,jpg,png|max:190',
-            'music_song' => 'required|mimes:mpga,wav|max:190',
+            'cover_image' => 'nullable|image|mimes:jpeg,jpg,png',
+            'music_song' => 'required|mimes:mpga,wav',
         ]);
 
         //Handle File Cover Image
@@ -237,8 +237,8 @@ class MusicsController extends Controller
         $this->validate($request, [ 
             'title' => 'required|max:190',
             'genre' => 'required',
-            'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg|max:190',
-            'music_song' => 'mimetypes:audio/mp4, audio/mpeg, audio/x-wav|nullable|max:190',
+            'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg',
+            'music_song' => 'mimetypes:audio/mp4, audio/mpeg, audio/x-wav|nullable',
         ]);
 
         //Handle File Cover Image
@@ -390,7 +390,7 @@ class MusicsController extends Controller
             'album_dscription.*' =>  'sometimes|required|max:190',
             'release_date.*' =>  'sometimes|required|max:190',
             'new_artist' => 'sometimes|required|max:190',
-            'cover_image.*' => 'sometimes|required|image|mimes:jpeg,jpg,png|max:190',
+            'cover_image.*' => 'sometimes|required|image|mimes:jpeg,jpg,png',
         ]);
         $artist = $request->input('artists');
         $new_artist = $request->input('new_artist_name');
@@ -593,7 +593,7 @@ class MusicsController extends Controller
             'categories' =>  'required|max:190',
             'album_dscription' =>  'required|max:190',
             'release_date' =>  'required',
-            'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg|max:190',
+            'cover_image' => 'image|nullable|max:1999|mimes:jpg,png,jpeg',
         ]);
 
         $categories = $request->input('categories');
