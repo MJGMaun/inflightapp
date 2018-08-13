@@ -104,6 +104,14 @@
             </div>
         </div>
     </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productImage4', 'Product Image 4', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-7">
+                {{Form::file('productImage4')}}
+            </div>
+        </div>
+    </li>
     <li class="list-group-item text-center">{{Form::submit('Save', ['class' => 'btn btn-primary '])}} {!! Form::close() !!}</li>
   </ul>
 </div>

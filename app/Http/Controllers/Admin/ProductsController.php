@@ -59,6 +59,7 @@ class ProductsController extends Controller
                 'productImage1' => 'required|image|mimes:jpeg,jpg,png',
                 'productImage2' => 'nullable|image|mimes:jpeg,jpg,png',
                 'productImage3' => 'nullable|image|mimes:jpeg,jpg,png',
+                'productImage4' => 'nullable|image|mimes:jpeg,jpg,png',
             ]);
                 
             //Handle File Cover Image 1
@@ -121,6 +122,26 @@ class ProductsController extends Controller
                 $fileNameToStore3 = 'noimage.jpg';
             }
 
+            //Handle File Cover Image 4
+            if($request->hasFile('productImage4')){
+                //Get filename with extension
+                $filenameWithExt = $request->file('productImage4')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just ext
+                $extension = $request->file('productImage4')->getClientOriginalExtension();
+                //Clean filename (Replace white spaces with hyphens)
+                $cleanFilename = str_replace(' ', '-', $filename);
+                //Cleaner filename
+                $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
+                //Filename to store
+                $fileNameToStore4 = $cleanerFilename.'_'.time().'.'.$extension;
+                //Upload image
+                $path = $request->file('productImage4')->storeAs('public/product_images', $fileNameToStore3);
+            } else {
+                $fileNameToStore4 = 'noimage.jpg';
+            }
+
 
             $product = new Product;
             $product->product_category_id = $request->input('productCategory');
@@ -134,6 +155,7 @@ class ProductsController extends Controller
             $product->product_image_1 = $fileNameToStore1;
             $product->product_image_2 = $fileNameToStore2;
             $product->product_image_3 = $fileNameToStore3;
+            $product->product_image_4 = $fileNameToStore4;
 
             $product->save();
 
@@ -195,6 +217,7 @@ class ProductsController extends Controller
                 'productImage1' => 'nullable|image|mimes:jpeg,jpg,png',
                 'productImage2' => 'nullable|image|mimes:jpeg,jpg,png',
                 'productImage3' => 'nullable|image|mimes:jpeg,jpg,png',
+                'productImage4' => 'nullable|image|mimes:jpeg,jpg,png',
             ]);
                 
             //Handle File Cover Image 1
@@ -251,6 +274,24 @@ class ProductsController extends Controller
                 $path = $request->file('productImage3')->storeAs('public/product_images', $fileNameToStore3);
             }
 
+            //Handle File Cover Image 3
+            if($request->hasFile('productImage4')){
+                //Get filename with extension
+                $filenameWithExt = $request->file('productImage4')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just ext
+                $extension = $request->file('productImage4')->getClientOriginalExtension();
+                //Clean filename (Replace white spaces with hyphens)
+                $cleanFilename = str_replace(' ', '-', $filename);
+                //Cleaner filename
+                $cleanerFilename =  preg_replace('/-+/', '-', $cleanFilename);
+                //Filename to store
+                $fileNameToStore4 = $cleanerFilename.'_'.time().'.'.$extension;
+                //Upload image
+                $path = $request->file('productImage4')->storeAs('public/product_images', $fileNameToStore3);
+            }
+
             $product->product_category_id = $request->input('productCategory');
             $product->product_sub_category_id = $request->input('productSubCategory');
             $product->product_name = $request->input('productName');
@@ -279,6 +320,13 @@ class ProductsController extends Controller
                     Storage::delete('public/product_images/'.$product->product_image_3);
                 }
                 $product->product_image_3 = $fileNameToStore3;
+            }
+            if($request->hasFile('productImage4')){
+                if($product->product_image_4 != 'noimage.jpg'){
+                    // Delete Image
+                    Storage::delete('public/product_images/'.$product->product_image_4);
+                }
+                $product->product_image_4 = $fileNameToStore4;
             }
 
             $product->save();

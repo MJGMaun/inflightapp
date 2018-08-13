@@ -132,6 +132,20 @@
             </div>
         </div>
     </li>
+    <li class="list-group-item center text-center">
+        <div class="form-group row">
+            {{Form::label('productImage4', 'Product Image 4', ['class' => 'col-sm-3 col-form-label'])}}
+            <div class="col-sm-4">
+                {{Form::file('productImage4')}}
+            </div>
+            <div class="col-sm-3">
+                <img height="100px" width="140px" src="/storage/product_images/{{$product->product_image_4}}" />
+            </div>
+            <div class="col-sm-2">
+                <br><span>{{$product->product_image_4}}</span>
+            </div>
+        </div>
+    </li>
     <li class="list-group-item text-center">{{Form::hidden('_method', 'PUT')}} {{Form::submit('Save', ['class' => 'btn btn-success'])}} {!! Form::close() !!}</li>
   </ul>
 </div>
