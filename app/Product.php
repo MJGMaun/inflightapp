@@ -13,6 +13,11 @@ class Product extends Model
     // Timestamps
     public $timestamps = true;
 
+    public function category()
+    {
+        return $this->belongsTo('App\ProductCategory', 'product_category_id');
+    }
+
     public function subcategory(){
         return $this->belongsTo('App\ProductSubCategory', 'product_sub_category_id');
     }
