@@ -135,16 +135,14 @@
                 data:{'id':category_id},
                 dataType: 'json',
                 success:function(data){
-                    console.log('success');
-                    console.log(data);
-
                     dataLength = Object.keys(data).length;
 
-                    console.log("Length"+dataLength);
                     op+='<option selected disabled>Choose Sub Category</option>';
-                    op+='<option value="0">None</option>';// FOR NEW ALBUM OPTION APPEND ALBUM NAME
                     for(var i=0;i<dataLength;i++){
                     op+='<option value="'+data[i].id+'">'+data[i].product_sub_category_name+'</option>';
+                   }
+                   if(dataLength == 0){
+                        op+='<option disabled="disabled" class="font-italic text-muted">No Sub Category found</option>';// FOR NEW ALBUM OPTION APPEND ALBUM NAME
                    }
                     // FOR NEW ALBUM OPTION APPEND ALBUM NAME
                    $(document).find('#subCategory').html(" ");
