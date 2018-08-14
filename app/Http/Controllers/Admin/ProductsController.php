@@ -136,7 +136,7 @@ class ProductsController extends Controller
                 //Filename to store
                 $fileNameToStore4 = $cleanerFilename.'_'.time().'.'.$extension;
                 //Upload image
-                $path = $request->file('productImage4')->storeAs('public/product_images', $fileNameToStore3);
+                $path = $request->file('productImage4')->storeAs('public/product_images', $fileNameToStore4);
             } else {
                 $fileNameToStore4 = 'noimage.jpg';
             }
