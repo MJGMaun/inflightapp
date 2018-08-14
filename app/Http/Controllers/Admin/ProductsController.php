@@ -54,7 +54,6 @@ class ProductsController extends Controller
                 'productCompany' => 'required|max:190',
                 'productPriceBefore' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
                 'productPriceAfter' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
-                'productPriceToken' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
                 'productDescription' => 'required|max:190',
                 'productImage1' => 'required|image|mimes:jpeg,jpg,png',
                 'productImage2' => 'nullable|image|mimes:jpeg,jpg,png',
@@ -150,7 +149,6 @@ class ProductsController extends Controller
             $product->product_company= $request->input('productCompany');
             $product->product_price_before_discount = number_format($request->input('productPriceBefore'));
             $product->product_price = number_format($request->input('productPriceAfter'));
-            $product->product_price_token = number_format($request->input('productPriceToken'));
             $product->product_description = $request->input('productDescription');
             $product->product_image_1 = $fileNameToStore1;
             $product->product_image_2 = $fileNameToStore2;
@@ -212,7 +210,6 @@ class ProductsController extends Controller
                 'productCompany' => 'required|max:190',
                 'productPriceBefore' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
                 'productPriceAfter' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
-                'productPriceToken' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:190',
                 'productDescription' => 'required|max:190',
                 'productImage1' => 'nullable|image|mimes:jpeg,jpg,png',
                 'productImage2' => 'nullable|image|mimes:jpeg,jpg,png',
@@ -298,7 +295,6 @@ class ProductsController extends Controller
             $product->product_company= $request->input('productCompany');
             $product->product_price_before_discount = number_format($request->input('productPriceBefore'));
             $product->product_price = number_format($request->input('productPriceAfter'));
-            $product->product_price_token = number_format($request->input('productPriceToken'));
             $product->product_description = $request->input('productDescription');
             if($request->hasFile('productImage1')){
                 if($product->product_image_1 != 'noimage.jpg'){
