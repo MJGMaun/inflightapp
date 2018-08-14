@@ -452,7 +452,8 @@ class SeriesController extends Controller
                 $episodes_title = $request->input('episodes_title');
                 $episode_ids = $request->input('episode_ids');
                 $ewallet_price = $request->input('ewallet_price');
-                
+
+
                 if($request->hasFile('episode_videos')){
                     $countvideos = count($request->file('episode_videos'));
                 for($x = 0; $x <= $countvideos; $x++){
@@ -502,7 +503,7 @@ class SeriesController extends Controller
                     $number  = $episode_numbers[$x];
                     $title = $episodes_title[$x];
                     $epId = $episode_ids[$x];
-
+                        
                     $episode = Episode::findOrFail($epId);
                     $episode->title = $title;
                     // $episode->description = 'Hello';
@@ -539,6 +540,7 @@ class SeriesController extends Controller
                     }
                     $numberNew  = $episode_numbers_new[$y];
                     $titleNew = $episodes_title_new[$y];
+                    $ewalletprice = $ewallet_price[$y];
 
 
                     $episode = new Episode;
@@ -547,6 +549,7 @@ class SeriesController extends Controller
                     // $episode->running_time = '1:00:00';
                     $episode->episode_number = $numberNew;
                     $episode->episode_video = $fileNameToStoreVidNew;
+                    $episode->ewallet_price = $ewalletprice;
                     $episode->episode_cover_image_id = $season->season_cover_image_id;
                     $episode->series_id = $request->input('series');
                     $episode->season_id = $seasonId;
