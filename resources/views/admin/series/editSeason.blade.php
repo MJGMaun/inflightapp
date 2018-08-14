@@ -49,7 +49,7 @@
                 {{Form::label('episodes_title[]', 'Episode Title')}}
                 <small> (Click + to add episode)</small>
                 {{Form::text('episode_ids[]', $episode->id, ['class' => 'form-control d-none', 'placeholder' => 'Episode Title', 'readonly' => 'true'])}}
-                {{Form::text('episodes_title', $episode->title, ['class' => 'form-control episodes', 'placeholder' => 'Episode Title'])}}
+                {{Form::text('episodes_title[]', $episode->title, ['class' => 'form-control episodes', 'placeholder' => 'Episode Title'])}}
             </div>
             <div class="col-md-4 col-sm-4">
                 {{Form::label('episodeNumbers[]', 'Episode Number')}}

@@ -499,7 +499,7 @@ class SeriesController extends Controller
             }
         }else{
                 if(isset($episode_ids)){
-                    for($x=0; $x < count($episode_ids)-1; $x++){
+                    for($x=0; $x < count($episode_ids); $x++){
                     $number  = $episode_numbers[$x];
                     $title = $episodes_title[$x];
                     $epId = $episode_ids[$x];
