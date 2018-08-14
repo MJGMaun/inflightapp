@@ -17,6 +17,14 @@
         </li>
         <li class="list-group-item center text-center">
             <div class="form-group row">
+                {{Form::label('symbol', 'Charge Symbol', ['class' => 'col-sm-3 col-form-label'])}}
+                <div class="col-sm-7">
+                    {{Form::text('symbol', '', ['class' => 'form-control', 'placeholder' => 'Enter Charge Symbol', 'maxlength' => '1'])}}
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item center text-center">
+            <div class="form-group row">
                     {{Form::label('value', 'Charge Value', ['class' => 'col-sm-3 col-form-label'])}}
                 <div class="col-sm-7">
                     {{Form::number('value', '', ['class' => 'form-control', 'placeholder' => 'Charge Value', 'max' => '100', 'min' => '1'])}}

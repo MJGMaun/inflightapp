@@ -44,11 +44,13 @@ class ChargesController extends Controller
 
             $this->validate($request, [ 
                 'name' => 'required|unique:charges,name|max:190',
+                'symbol' => 'required|max:1',
                 'value' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:100|min:1',
             ]);
 
             $charge = new Charge;
             $charge->name = $request->input('name');
+            $charge->symbol = $request->input('symbol');
             $charge->value = number_format($request->input('value'));
             $charge->save();
 
@@ -93,10 +95,12 @@ class ChargesController extends Controller
 
         $this->validate($request, [ 
                 'name' => 'required|max:190|unique:charges,name,'.$charge->id,
+                'name' => 'required|max:1',
                 'value' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:100|min:1',
             ]);
 
         $charge->name = $request->input('name');
+        $charge->symbol = $request->input('symbol');
         $charge->value = $request->input('value');
         $charge->save();
         return redirect('/admin/charges/create')->with('success', 'Charge Updated');
