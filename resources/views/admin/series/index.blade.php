@@ -173,7 +173,7 @@
                         details+='<p>Season: '+data[i].season_number+'<a href="/admin/series/'+data[i].season_id+'/editSeason" class="btn btn-sm btn-primary pull-right">Edit Season</a></p>';
 
                         for(var x=0;x<data[i].episodes.length;x++){
-                        details+='<hr><div class="row"><div class="col-6">Episode '+data[i].episodes_number[x]+': <a href="admin/series/'+data[i].episodes_id[x]+'/editEpisode">'+' '+data[i].episodes[x]+'</a></div><div class="col-6"><button class="btn btn-sm btn-danger delete-episode" data-id="'+data[i].episodes_id[x]+'" data-token="{{ csrf_token() }}">Delete</button><a href="/admin/series/'+data[i].episodes_id[x]+'/editEpisode" class="btn btn-sm btn-primary pull-right" ><span data-feather="edit">Edit</span></a></div></div>';
+                        details+='<hr><div class="row"><div class="col-6">Episode '+data[i].episodes_number[x]+': <a href="admin/series/'+data[i].episodes_id[x]+'/editEpisode">'+' '+data[i].episodes[x]+'</a></div><div class="col-6"><button class="btn btn-sm btn-danger delete-episode" data-id="'+data[i].episodes_id[x]+'" data-token="{{ csrf_token() }}">Delete</button><a href="/admin/series/'+data[i].episodes_id[x]+'/editEpisode" class="btn btn-sm btn-primary pull-right" ><span data-feather="edit">Edit</span></a></div><hr></div>';
                         }
                         details+='<hr>';
                    }
@@ -194,6 +194,8 @@
         //DELETE EPISODE
         $(document).on('click','.delete-episode',function(){
             var episode_id = $(this).data("id");
+            var tr = $(this).closest('.row');
+            console.log(tr);
             
             $.confirm({
                 title: 'DELETE EPISODE',
@@ -217,7 +219,9 @@
                                     contentType: false,
                                     processData: false,
                                     success: function(data) {
-                                    // $('.post' + $('.id').text()).remove();
+                                
+                                        tr.remove();                    
+                                
                                     $.alert('Successfully deleted '+data.title+'!');
                                     }
                                 });

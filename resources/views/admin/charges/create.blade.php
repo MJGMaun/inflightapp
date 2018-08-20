@@ -48,6 +48,7 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
+                        <th>Symbol</th>
                         <th>Value</th>
                         <th>Created At</th>
                         <th>Updated At</th>
@@ -63,6 +64,7 @@
                                 <tr>
                                     <td>{{$x}}</td>
                                     <td>{{$charge->name}}</td>
+                                    <td>{{$charge->symbol}}</td>
                                     <td>{{$charge->value}}</td>
                                     <td>{{$charge->created_at}}</td>
                                     <td>{{$charge->updated_at}}</td>
