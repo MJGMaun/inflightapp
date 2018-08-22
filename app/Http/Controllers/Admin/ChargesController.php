@@ -45,7 +45,7 @@ class ChargesController extends Controller
             $this->validate($request, [ 
                 'name' => 'required|unique:charges,name|max:190',
                 'symbol' => 'required|max:1',
-                'value' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:100|min:1',
+                'value' => 'regex:/^\d*(\.\d{1,2})?$/|max:100|min:1',
             ]);
 
             $charge = new Charge;
@@ -96,7 +96,7 @@ class ChargesController extends Controller
         $this->validate($request, [ 
                 'name' => 'required|max:190|unique:charges,name,'.$charge->id,
                 'name' => 'required|max:1',
-                'value' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:100|min:1',
+                'value' => 'regex:/^\d*(\.\d{1,2})?$/|max:100|min:1',
             ]);
 
         $charge->name = $request->input('name');

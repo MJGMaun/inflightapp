@@ -17,7 +17,7 @@ class CreateChargesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('symbol');
-            $table->string('value');
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }
